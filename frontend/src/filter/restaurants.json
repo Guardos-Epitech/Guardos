@@ -1,0 +1,82 @@
+{
+    "restaurants" : [
+        {
+            "id" : 1,
+            "name" : "mcdonalds",
+            "phone-number" : "0123091",
+            "dishes" : [
+                {
+                    "name" : "McSunday",
+                    "allergens" : "milk,sugar",
+                    "description" : "bla bla",
+                    "price" : {
+                        "minimum" : 1.3,
+                        "maximum" : 2.5
+                    },
+                    "category" : {
+                        "menu-group" : "appetizer,desert",
+                        "food-group" : "ice,burger"
+                    }
+                },
+                {
+                    "name" : "Big Mac",
+                    "allergens" : "cheese,salat",
+                    "description" : "the real mc",
+                    "price" : {
+                        "minimum" : 4.5,
+                        "maximum" : 10.0
+                    },
+                    "category" : {
+                        "menu-group" : "maindish,desert",
+                        "food-group" : "burger,salad"
+                    }
+                }
+            ],
+            "location" : {
+                "streetname" : "beckerstreet",
+                "streetnumber" : "6A",
+                "postalcode" : "12570",
+                "country" : "germany"
+            }
+        },
+        {
+            "id" : 2,
+            "name" : "burger king",
+            "phone-number" : "01232191",
+            "dishes" : [
+                {
+                    "name" : "Big Sunday",
+                    "allergens" : "milk,sugar",
+                    "description" : "bla bla",
+                    "price" : {
+                        "minimum" : 1.0,
+                        "maximum" : 3.0
+                    },
+                    "category" : {
+                        "menu-group" : "appetizer,desert",
+                        "food-group" : "ice,burger"
+                    }
+                },
+                {
+                    "name" : "Big Big Mac",
+                    "allergens" : "cheese,salat",
+                    "description" : "the real big mc",
+                    "price" : {
+                        "minimum" : 3.5,
+                        "maximum" : 15.0
+                    },
+                    "category" : {
+                        "menu-group" : "maindish,desert",
+                        "food-group" : "burger,salad"
+                    }
+                }
+            ],
+            "location" : {
+                "streetname" : "Notbeckerstreet",
+                "streetnumber" : "10",
+                "postalcode" : "12123",
+                "country" : "germany"
+            }
+        }
+    ]
+}
