@@ -4,6 +4,11 @@
   background: $white;
 }
 
+.dishBox:hover {
+  background-color: $white;
+  cursor: pointer;
+}
+
 .justificationPrint {
   text-align: justify;
   text-justify: inter-word;
