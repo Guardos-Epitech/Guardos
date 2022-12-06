@@ -24,6 +24,6 @@
 #       - name: Check Commit Type
 #         uses: gsactions/commit-message-checker@v2
 #         with:
-#           pattern: '^\[(FE|BE|APP|DEVOPS)\]\[(ADD|MODIFY|DELETE|REMOVE|WIP|MERGE)\]\ .*$'
+#           pattern: '^\[(FE|BE|APP|DEVOPS)\]\ \[(ADD|MODIFY|DELETE|REMOVE|WIP|MERGE)\]\ .*$'
 #           flags: 'gm'
 #           error: 'Your first line has to contain a commit type like "[FE][ADD] message".'
