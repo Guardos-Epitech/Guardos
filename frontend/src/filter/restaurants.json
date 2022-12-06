@@ -77,6 +77,32 @@
                 "postalcode" : "12123",
                 "country" : "germany"
             }
+        },
+        {
+            "id" : 3,
+            "name" : "burgerme",
+            "phone-number" : "0123091123",
+            "dishes" : [
+                {
+                    "name" : "BurgerMega Sunday",
+                    "allergens" : "sugar",
+                    "description" : "bla bla",
+                    "price" : {
+                        "minimum" : 1.3,
+                        "maximum" : 2.5
+                    },
+                    "category" : {
+                        "menu-group" : "appetizer,desert",
+                        "food-group" : "ice,burger"
+                    }
+                }
+            ],
+            "location" : {
+                "streetname" : "beckeraaastreet",
+                "streetnumber" : "96A",
+                "postalcode" : "12590",
+                "country" : "germany"
+            }
         }
     ]
 }
