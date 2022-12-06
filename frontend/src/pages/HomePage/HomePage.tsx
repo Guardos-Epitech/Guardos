@@ -3,26 +3,20 @@ import Button from "@mui/material/Button";
 import { NavigateTo } from "../../utils/NavigateTo";
 import { useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.scss";
+import Header from "@src/components/Header/Header";
+import foodbg from "@src/asset/foodbg.png";
+import InputSearch from "@src/components/InputSearch/InputSearch";
 
 const HomePage = () => {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   return (
-    <div className={styles.test}>
-      <span>Home Page</span>
-      <Button variant="contained" onClick={() => NavigateTo("/", navigate)}>
-        Home Page
-      </Button>
-      <Button
-        variant="contained"
-        onClick={() => NavigateTo("/filter", navigate)}
-      >
-        Filter Page
-      </Button>
-      <Button variant="contained" onClick={() => NavigateTo("/menu", navigate)}>
-        Menu Page
-      </Button>
-      {/* search bar
-            filter button */}
+    <div>
+      <Header />
+      <div className={styles.RectOnImg}>
+        <span className={styles.TitleSearch}>What are you looking for ?</span>
+        <InputSearch />
+      </div>
+      <span>Berlin - +12548 Restaurants</span>
     </div>
   );
 };

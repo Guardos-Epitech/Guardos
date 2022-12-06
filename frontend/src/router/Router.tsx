@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FilterPage from "@src/pages/FilterPage";
-import MenuPage from "@src/pages/MenuPage/MenuPage";
-import HomePage from "@src/pages/HomePage/HomePage";
+import MenuPage from "@src/pages/MenuPage";
+import HomePage from "@src/pages/HomePage";
 
 const MVPRouter = () => {
   return (
