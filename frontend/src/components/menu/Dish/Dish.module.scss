@@ -1,0 +1,18 @@
+@import "../../../general";
+
+.dishBox {
+  background: $white;
+}
+
+.justificationPrint {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.gridItemUpper {
+  padding: 2em 2em 0 2em;
+}
+
+.gridItemLower {
+  padding: 0 2em 2em 2em;
+}
