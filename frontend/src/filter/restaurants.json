@@ -4,13 +4,31 @@
             "id" : 1,
             "name" : "mcdonalds",
             "phone-number" : "0123091",
+            "meal-type": [
+                {
+                "id": 0,
+                "name": "maindish",
+                "sortId": 1
+            },
+            {
+                "id": 1,
+                "name": "dessert",
+                "sortId": 2
+            },
+            {
+                "id": 2,
+                "name": "drink",
+                "sortId": 2
+            }
+            ],
             "dishes" : [
                 {
                     "name" : "McSunday",
                     "allergens" : "milk,sugar",
                     "description" : "bla bla",
-                    "price" : "13",
+                    "price" : 13,
                     "category" : {
+                        "extra-group" : "cheese, olives",
                         "menu-group" : "appetizer,desert",
                         "food-group" : "ice,burger"
                     }
@@ -19,8 +37,9 @@
                     "name" : "Big Mac",
                     "allergens" : "cheese,salat",
                     "description" : "the real mc",
-                    "price" : "21",
+                    "price" : 21,
                     "category" : {
+                        "extra-group" : "cheese, olives",
                         "menu-group" : "maindish,desert",
                         "food-group" : "burger,salad"
                     }
@@ -31,18 +50,47 @@
                 "streetnumber" : "6A",
                 "postalcode" : "12570",
                 "country" : "germany"
-            }
+            },
+            "extras": [{
+                "id": 0,
+                "name" : "cheese",
+                "allergens" : "milk",
+                "description" : "bla bla",
+                "price" : 1,
+                "category" : {
+                    "extra-group" : "",
+                    "menu-group" : "",
+                    "food-group" : ""
+                }
+            }]
         },
         {
             "id" : 2,
             "name" : "burger king",
             "phone-number" : "01232191",
+            "meal-type": [
+                {
+                    "id": 0,
+                    "name": "maindish",
+                    "sortId": 1
+                },
+                {
+                    "id": 1,
+                    "name": "dessert",
+                    "sortId": 2
+                },
+                {
+                    "id": 2,
+                    "name": "drink",
+                    "sortId": 2
+                }
+            ],
             "dishes" : [
                 {
                     "name" : "Big Sunday ice",
                     "allergens" : "milk,sugar",
                     "description" : "bla bla",
-                    "price" : "12",
+                    "price" : 12,
                     "category" : {
                         "menu-group" : "appetizer,desert",
                         "food-group" : "burger, ice"
@@ -52,8 +100,9 @@
                     "name" : "Big Big Mac",
                     "allergens" : "cheese,salat",
                     "description" : "the real big mc",
-                    "price" : "5",
+                    "price" : 5,
                     "category" : {
+                        "extra-group" : "cheese, olives",
                         "menu-group" : "maindish,desert",
                         "food-group" : "burger,salad"
                     }
@@ -64,19 +113,50 @@
                 "streetnumber" : "10",
                 "postalcode" : "12123",
                 "country" : "germany"
-            }
+            },
+            "extras": [{
+                "id": 0,
+                "name" : "cheese",
+                "allergens" : "milk",
+                "description" : "bla bla",
+                "price" : 1,
+                "category" : {
+                    "extra-group" : "",
+                    "menu-group" : "",
+                    "food-group" : ""
+                }
+            }]
         },
         {
             "id" : 3,
             "name" : "burgerme",
             "phone-number" : "0123091123",
+            "meal-type": [
+                {
+                    "id": 0,
+                    "name": "maindish",
+                    "sortId": 1
+                },
+                {
+                    "id": 1,
+                    "name": "dessert",
+                    "sortId": 2
+                },
+                {
+                    "id": 2,
+                    "name": "drink",
+                    "sortId": 2
+                }
+            ],
             "dishes" : [
                 {
+                    "id": 0,
                     "name" : "BurgerMega Sunday Ice",
                     "allergens" : "sugar",
                     "description" : "bla bla",
-                    "price" : "12",
+                    "price" : 12,
                     "category" : {
+                        "extra-group" : "cheese, olives",
                         "menu-group" : "appetizer,desert",
                         "food-group" : "burger"
                     }
@@ -87,7 +167,19 @@
                 "streetnumber" : "96A",
                 "postalcode" : "12590",
                 "country" : "germany"
-            }
+            },
+            "extras": [{
+                "id": 0,
+                "name" : "cheese",
+                "allergens" : "milk",
+                "description" : "bla bla",
+                "price" : 1,
+                "category" : {
+                    "extra-group" : "",
+                    "menu-group" : "",
+                    "food-group" : ""
+                }
+            }]
         }
     ]
 }
