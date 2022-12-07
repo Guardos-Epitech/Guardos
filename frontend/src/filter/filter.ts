@@ -24,7 +24,7 @@ interface ILocation {
 interface IDish {
     name: string;
     description: string;
-    price: {minimum: number, maximum: number}
+    price: string;
     allergens: string; //maybe change this to array (also in json file)
     category: {"menu-group" : string, "food-group": string};
 }
@@ -54,10 +54,32 @@ export default class Filter {
         return this.restaurants;
     }
 
+    private createRestaurantObj(i: IRestaurant, hitrate: number, phonenumber: string) {
+        if (isNaN(hitrate))
+            hitrate = 0;
+        let obj: IRestaurant = {
+            name: i.name,
+            id: i.id,
+            phonenumber: phonenumber,
+            dishes: [{
+                name: '', description: '', price: '',
+                allergens: '', category: {'menu-group': '', 'food-group': ''}
+            }],
+            location: i.location,
+            hitrate: hitrate
+        };
+        obj.dishes.pop();
+        let x = 0;
+        for (let j of i.dishes) {
+            obj.dishes[x] = j;
+            x++;
+        }
+        return obj;
+    }
 
 
-    filterForRestaurants(allergens: string[]) {
 
+    filterForRestaurantsWithAllergens(allergens: string[]) {
         let results = {"restaurants": [{} as IRestaurant]};
         results.restaurants.pop();
         for (let i of this.restaurants.restaurants) {
@@ -71,58 +93,51 @@ export default class Filter {
                    }
                 }
             }
-            let obj : IRestaurant = {
-                name: '',
-                id: 0,
-                phonenumber: '',
-                dishes: [{name: '', description: '', price: {minimum: 0, maximum: 0},
-                    allergens: '', category: {'menu-group': '', 'food-group': ''}}],
-                location: {streetname: '', streetnumber: '', postalcode: '', country: ''},
-                hitrate: 0};
-            obj.name = i.name;
-            obj.id = i.id;
-            obj.phonenumber = i["phone-number"];
-            obj.dishes.pop();
-            let x = 0;
-            for (let j of i.dishes) {
-                obj.dishes[x] = j;
-                x++;
-            }
-            obj.location = i.location;
-            obj.hitrate = (1 - (count / i.dishes.length))  * 100;
-            results.restaurants.push(obj);
+            results.restaurants.push(this.createRestaurantObj(i as unknown as IRestaurant,
+                (1 - (count / i.dishes.length)) * 100, i['phone-number']));
+
         }
         console.log(results);
     }
 
-    // 1 == Filter
-    // 2 == Restaurants
-    tryFilter(word: string, what: Number) {
-        let results: IFilter = {
-            filter: [{name: '', values: [{name: ''}]},
-                {
-                name: '',
-                values: [{name: '', identifier: ''}]
-            }]
-        };
-        let count = 0;
-        if (what === 1) {
-            //check if name
-            for (let i of this.filter.Filter) {
-                if (i.name.toLowerCase().includes(word.toLowerCase())) {
-                    results.filter[count].name = i.name;
-
-                    // @ts-ignore
-                    results.filter[count].values = i.values;
+    filterForRestaurantwithNameorGroup(lookingfor: string[]) {
+        let results = {"restaurants": [{} as IRestaurant]};
+        results.restaurants.pop();
+        for (let i of this.restaurants.restaurants) {
+            let inserted = false;
+            let countname = 0;
+            let countgroup = 0;
+            let hitratename = 0;
+            let hitrategroup = 0;
+            let max = 0;
+            for (let x of lookingfor) {
+                if (i.name.toLowerCase().includes(x.toLowerCase())) {
+                    results.restaurants.push(this.createRestaurantObj(i as unknown as IRestaurant, 100,
+                        i['phone-number']));
+                    inserted = true;
+                    break;
                 }
-                count++;
-            }
+                for (let j of i.dishes) {
+                    if (j.name.toLowerCase().includes(x.toLowerCase())) {
+                        countname++;
+                        hitratename = (countname / i.dishes.length) * 100;
 
-            console.log(results);
+                    }
+                    for (let y of j.category['food-group'].split(',')) {
+                        if (y.toLowerCase().includes(x.toLowerCase())) {
+                            max = j.category['food-group'].split(',').length;
+                            countgroup++;
+                            hitrategroup = (countgroup / max) * 100;
+
+                        }
+                    }
+                }
+
+            }
+            if (!inserted) {
+                results.restaurants.push(this.createRestaurantObj(i as unknown as IRestaurant, Math.max(hitratename, hitrategroup), i['phone-number']));
+            }
         }
-    }
-    printall() {
-        console.log(this.filter);
-        console.log(this.restaurants);
+        console.log(results);
     }
 }

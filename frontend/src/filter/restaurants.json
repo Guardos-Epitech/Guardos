@@ -9,10 +9,7 @@
                     "name" : "McSunday",
                     "allergens" : "milk,sugar",
                     "description" : "bla bla",
-                    "price" : {
-                        "minimum" : 1.3,
-                        "maximum" : 2.5
-                    },
+                    "price" : "13",
                     "category" : {
                         "menu-group" : "appetizer,desert",
                         "food-group" : "ice,burger"
@@ -22,10 +19,7 @@
                     "name" : "Big Mac",
                     "allergens" : "cheese,salat",
                     "description" : "the real mc",
-                    "price" : {
-                        "minimum" : 4.5,
-                        "maximum" : 10.0
-                    },
+                    "price" : "21",
                     "category" : {
                         "menu-group" : "maindish,desert",
                         "food-group" : "burger,salad"
@@ -45,26 +39,20 @@
             "phone-number" : "01232191",
             "dishes" : [
                 {
-                    "name" : "Big Sunday",
+                    "name" : "Big Sunday ice",
                     "allergens" : "milk,sugar",
                     "description" : "bla bla",
-                    "price" : {
-                        "minimum" : 1.0,
-                        "maximum" : 3.0
-                    },
+                    "price" : "12",
                     "category" : {
                         "menu-group" : "appetizer,desert",
-                        "food-group" : "ice,burger"
+                        "food-group" : "burger, ice"
                     }
                 },
                 {
                     "name" : "Big Big Mac",
                     "allergens" : "cheese,salat",
                     "description" : "the real big mc",
-                    "price" : {
-                        "minimum" : 3.5,
-                        "maximum" : 15.0
-                    },
+                    "price" : "5",
                     "category" : {
                         "menu-group" : "maindish,desert",
                         "food-group" : "burger,salad"
@@ -84,16 +72,13 @@
             "phone-number" : "0123091123",
             "dishes" : [
                 {
-                    "name" : "BurgerMega Sunday",
+                    "name" : "BurgerMega Sunday Ice",
                     "allergens" : "sugar",
                     "description" : "bla bla",
-                    "price" : {
-                        "minimum" : 1.3,
-                        "maximum" : 2.5
-                    },
+                    "price" : "12",
                     "category" : {
                         "menu-group" : "appetizer,desert",
-                        "food-group" : "ice,burger"
+                        "food-group" : "burger"
                     }
                 }
             ],
