@@ -6,6 +6,8 @@ import { loremIpsum } from "lorem-ipsum";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ratingimg from "@src/asset/ratingimg.png";
+import { useNavigate } from "react-router-dom";
+import { NavigateTo } from "@src/utils/NavigateTo";
 
 const PageBtn = () => {
   return createTheme({
@@ -34,6 +36,7 @@ const PageBtn = () => {
 };
 
 const RestoCard = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.RectCard}>
       <img className={styles.RestoImg} src={restoimg} alt="Resto Img" />
@@ -57,7 +60,7 @@ const RestoCard = () => {
           <p className={styles.TxtDescription}>{loremIpsum({ count: 6 })}</p>
           <div className={styles.BtnPage}>
             <ThemeProvider theme={PageBtn()}>
-              <Button variant="contained" sx={{ width: "12.13rem" }}>
+              <Button variant="contained" sx={{ width: "12.13rem" }} onClick={() => NavigateTo("/menu", navigate)}>
                 Restaurant page
               </Button>
             </ThemeProvider>

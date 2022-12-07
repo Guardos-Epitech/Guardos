@@ -26,8 +26,12 @@
 }
 
 .DivContent {
-  display: grid;
-  align-items: center;
+  display: flex;
+  align-items: normal;
   justify-content: center;
   margin-top: 3rem;
+}
+
+.DivMapBtn {
+  margin-right: 4rem;
 }
