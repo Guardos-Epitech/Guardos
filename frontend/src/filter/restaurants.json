@@ -95,6 +95,7 @@
                     "description" : "bla bla",
                     "price" : 12,
                     "category" : {
+                        "extra-group" : "cheese, olives",
                         "menu-group" : "dessert",
                         "food-group" : "burger, ice"
                     }
