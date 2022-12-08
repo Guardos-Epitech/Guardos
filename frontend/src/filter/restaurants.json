@@ -3,8 +3,8 @@
         {
             "id" : 1,
             "name" : "mcdonalds",
-            "phone-number" : "0123091",
-            "meal-type": [
+            "phoneNumber" : "0123091",
+            "mealType": [
                 {
                 "id": 0,
                 "name": "maindish",
@@ -29,9 +29,9 @@
                     "description" : "bla bla",
                     "price" : 13,
                     "category" : {
-                        "extra-group" : "cheese, olives",
-                        "menu-group" : "dessert",
-                        "food-group" : "ice,burger"
+                        "extraGroup" : "cheese, olives",
+                        "menuGroup": "dessert",
+                        "foodGroup": "ice,burger"
                     }
                 },
                 {
@@ -41,9 +41,9 @@
                     "description" : "the real mc",
                     "price" : 21,
                     "category" : {
-                        "extra-group" : "cheese, olives",
-                        "menu-group" : "maindish",
-                        "food-group" : "burger,salad"
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "maindish",
+                        "foodGroup": "burger,salad"
                     }
                 }
             ],
@@ -60,17 +60,17 @@
                 "description" : "bla bla",
                 "price" : 1,
                 "category" : {
-                    "extra-group" : "",
-                    "menu-group" : "",
-                    "food-group" : ""
+                    "extraGroup": "",
+                    "menuGroup": "",
+                    "foodGroup": ""
                 }
             }]
         },
         {
             "id" : 2,
             "name" : "burger king",
-            "phone-number" : "01232191",
-            "meal-type": [
+            "phoneNumber": "01232191",
+            "mealType": [
                 {
                     "id": 0,
                     "name": "maindish",
@@ -95,9 +95,9 @@
                     "description" : "bla bla",
                     "price" : 12,
                     "category" : {
-                        "extra-group" : "cheese, olives",
-                        "menu-group" : "dessert",
-                        "food-group" : "burger, ice"
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "dessert",
+                        "foodGroup": "burger, ice"
                     }
                 },
                 {
@@ -107,9 +107,9 @@
                     "description" : "the real big mc",
                     "price" : 5,
                     "category" : {
-                        "extra-group" : "cheese, olives",
-                        "menu-group" : "dessert",
-                        "food-group" : "burger,salad"
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "dessert",
+                        "foodGroup": "burger,salad"
                     }
                 }
             ],
@@ -126,17 +126,17 @@
                 "description" : "bla bla",
                 "price" : 1,
                 "category" : {
-                    "extra-group" : "",
-                    "menu-group" : "",
-                    "food-group" : ""
+                    "extraGroup": "",
+                    "menuGroup": "",
+                    "foodGroup": ""
                 }
             }]
         },
         {
             "id" : 3,
             "name" : "burgerme",
-            "phone-number" : "0123091123",
-            "meal-type": [
+            "phoneNumber": "0123091123",
+            "mealType": [
                 {
                     "id": 0,
                     "name": "maindish",
@@ -161,9 +161,9 @@
                     "description" : "bla bla",
                     "price" : 12,
                     "category" : {
-                        "extra-group" : "cheese, olives",
-                        "menu-group" : "dessert",
-                        "food-group" : "burger"
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "dessert",
+                        "foodGroup": "burger"
                     }
                 },
                 {
@@ -173,9 +173,9 @@
                     "description" : "bla bla",
                     "price" : 10,
                     "category" : {
-                        "extra-group" : "cheese, olives",
-                        "menu-group" : "appetizer",
-                        "food-group" : "burger"
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "burger"
                     }
                 }
             ],
@@ -192,9 +192,9 @@
                 "description" : "bla bla",
                 "price" : 1,
                 "category" : {
-                    "extra-group" : "",
-                    "menu-group" : "",
-                    "food-group" : ""}
+                    "extraGroup": "",
+                    "menuGroup": "",
+                    "foodGroup": ""}
             },
                 {
                 "id": 1,
@@ -203,9 +203,9 @@
                     "description" : "bla bla",
                     "price" : 2,
                     "category" : {
-                        "extra-group" : "",
-                        "menu-group" : "",
-                        "food-group" : ""
+                        "extraGroup": "",
+                        "menuGroup": "",
+                        "foodGroup": ""
                     }
                 }
             ]

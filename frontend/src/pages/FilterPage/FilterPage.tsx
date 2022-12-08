@@ -1,7 +1,7 @@
 import React from 'react';
 import Filter from "../../filter/filter";
 
-const MYFILTER = new Filter();
+const myFilter = new Filter();
 
 const FilterPage = () => {
     return (
@@ -10,11 +10,11 @@ const FilterPage = () => {
                 FilterPage
             </span>
             <br></br>
-        <button onClick={() =>{MYFILTER.filterForRestaurantsWithAllergens(["Cheese", "milk"])}}>
+        <button onClick={() =>{myFilter.filterForRestaurantsWithAllergens(["Cheese", "milk"])}}>
             Filter for allergens test
         </button>
             <br></br>
-            <button onClick={() =>{MYFILTER.filterForRestaurantWithNameOrGroup(["ice"])}}>
+            <button onClick={() =>{myFilter.filterForRestaurantWithNameOrGroup(["ice"])}}>
                 Filter for names test
             </button>
         </div>
