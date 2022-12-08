@@ -60,7 +60,11 @@ const RestoCard = () => {
           <p className={styles.TxtDescription}>{loremIpsum({ count: 6 })}</p>
           <div className={styles.BtnPage}>
             <ThemeProvider theme={PageBtn()}>
-              <Button variant="contained" sx={{ width: "12.13rem" }} onClick={() => NavigateTo("/menu", navigate)}>
+              <Button
+                variant="contained"
+                sx={{ width: "12.13rem" }}
+                onClick={() => NavigateTo("/menu", navigate)}
+              >
                 Restaurant page
               </Button>
             </ThemeProvider>

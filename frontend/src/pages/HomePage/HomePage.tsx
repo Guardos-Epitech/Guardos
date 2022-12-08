@@ -20,14 +20,14 @@ const HomePage = () => {
           <Filter />
         </div>
         <div>
-        <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
-        <RestoCard />
-        <RestoCard />
-        <RestoCard />
-        <RestoCard />
-        <RestoCard />
-        <RestoCard />
-      </div>
+          <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
+          <RestoCard />
+          <RestoCard />
+          <RestoCard />
+          <RestoCard />
+          <RestoCard />
+          <RestoCard />
+        </div>
       </div>
     </div>
   );
