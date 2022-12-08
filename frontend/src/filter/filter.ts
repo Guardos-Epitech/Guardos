@@ -80,6 +80,10 @@ export default class Filter {
             }
             result.push(obj);
         }
+        //sort result meal-type by SortId
+        for (let i of result) {
+            i.mealtype.sort((a, b) => (a.sortId > b.sortId) ? 1 : -1);
+        }
         console.log('BE:' ,result);
         return result;
     }

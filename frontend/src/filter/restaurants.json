@@ -18,7 +18,7 @@
             {
                 "id": 2,
                 "name": "drink",
-                "sortId": 2
+                "sortId": 3
             }
             ],
             "dishes" : [
@@ -74,17 +74,17 @@
                 {
                     "id": 0,
                     "name": "maindish",
-                    "sortId": 1
+                    "sortId": 2
                 },
                 {
                     "id": 1,
                     "name": "dessert",
-                    "sortId": 2
+                    "sortId": 1
                 },
                 {
                     "id": 2,
                     "name": "drink",
-                    "sortId": 2
+                    "sortId": 3
                 }
             ],
             "dishes" : [
@@ -139,12 +139,12 @@
                 {
                     "id": 0,
                     "name": "maindish",
-                    "sortId": 1
+                    "sortId": 3
                 },
                 {
                     "id": 1,
                     "name": "dessert",
-                    "sortId": 2
+                    "sortId": 1
                 },
                 {
                     "id": 2,
