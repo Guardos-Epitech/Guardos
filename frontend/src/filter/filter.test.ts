@@ -1,41 +1,39 @@
-import React from "react";
 import Filter from "./filter";
-import { render, fireEvent } from "@testing-library/react";
 
 
 // to use test add return results; to the end of the functions
-test("filterForRestaurantsWithAllergens", () => {
+test("filterForRestaurantsWithAllergensCase2AllergensIn1Dish", () => {
     const filter = new Filter();
     const results = filter.filterForRestaurantsWithAllergens(["salat", "cheese"]);
     for (const res in results) {
         if (res === "0") {
-            expect(results[res].hitrate).toEqual(100);
+            expect(results[res].hitRate).toEqual(100);
         } else {
-            expect(results[res].hitrate).toEqual(50);
+            expect(results[res].hitRate).toEqual(50);
         }
     }
 });
 
-test("filterForRestaurantsWithAllergens", () => {
+test("filterForRestaurantsWithAllergensCase3AllergensIn2Dishes", () => {
     const filter = new Filter();
-    const results = filter.filterForRestaurantsWithAllergens(["milk", "cheese", "salat"]);
+    const results = filter.filterForRestaurantsWithAllergens(["milk", "cheese", "salad"]);
     for (const res in results) {
         if (res === "0") {
-            expect(results[res].hitrate).toEqual(100);
+            expect(results[res].hitRate).toEqual(100);
         } else {
-            expect(results[res].hitrate).toEqual(0);
+            expect(results[res].hitRate).toEqual(0);
         }
     }
 });
 
-test("filterForRestaurantwithNameorGroup", () => {
+test("filterForRestaurantwithNameorGroupCase1Name", () => {
     const filter = new Filter();
-    const results = filter.filterForRestaurantwithNameorGroup(["burgerme"]);
+    const results = filter.filterForRestaurantWithNameOrGroup(["burgerme"]);
     for (const res in results) {
         if (res === "0") {
-            expect(results[res].hitrate).toEqual(100);
+            expect(results[res].hitRate).toEqual(100);
         } else {
-            expect(results[res].hitrate).toEqual(0);
+            expect(results[res].hitRate).toEqual(0);
         }
     }
 });
@@ -50,8 +48,8 @@ test("checkIfDishesAreFilteredRightForAllergenSearch", () => {
     for (let org in original) {
         for (let filtered in result) {
             if (result[filtered].id == original[org].id) {
-                for (let num in original[org].mealtype) {
-                    if (original[org].mealtype[num].name == result[filtered].categories[num].name) {
+                for (let num in original[org].mealType) {
+                    if (original[org].mealType[num].name == result[filtered].categories[num].name) {
                         check++;
                     }
                 }
@@ -59,7 +57,7 @@ test("checkIfDishesAreFilteredRightForAllergenSearch", () => {
         }
     }
     for (let org in original) {
-        for (let num in original[org].mealtype) {
+        for (let num in original[org].mealType) {
             expectedRes++;
         }
     }
@@ -69,14 +67,14 @@ test("checkIfDishesAreFilteredRightForAllergenSearch", () => {
 test("checkIfDishesAreSortedRightForRestaurantOrGroupSearch", () => {
     const filter = new Filter();
     let original = filter.restaurants;
-    const result = filter.filterForRestaurantwithNameorGroup(["ice"]);
+    const result = filter.filterForRestaurantWithNameOrGroup(["ice"]);
     let check = 0;
     let expectedRes = 0;
     for (let org in original) {
         for (let filtered in result) {
             if (result[filtered].id == original[org].id) {
-                for (let num in original[org].mealtype) {
-                    if (original[org].mealtype[num].name == result[filtered].categories[num].name) {
+                for (let num in original[org].mealType) {
+                    if (original[org].mealType[num].name == result[filtered].categories[num].name) {
                         check++;
                     }
                 }
@@ -84,7 +82,7 @@ test("checkIfDishesAreSortedRightForRestaurantOrGroupSearch", () => {
         }
     }
     for (let org in original) {
-        for (let num in original[org].mealtype) {
+        for (let num in original[org].mealType) {
             expectedRes++;
         }
     }
