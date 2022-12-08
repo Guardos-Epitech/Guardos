@@ -1,13 +1,12 @@
 import React, {useState} from "react";
-import {Grid, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
 
 import styles from "@src/components/menu/Dish/Dish.module.scss";
 
-import AllergenTags from "@src/components/menu/AllergenTags/AllergenTags";
-import DishHeader from "@src/components/menu/Dish/DishHeader/DishHeader";
-import DishWithPicture from "@src/components/menu/Dish/DishWithPicture";
+import DishWithPicture from "@src/components/menu/Dish/WithPicture/DishWithPicture";
+import DishWithoutPicture from "@src/components/menu/Dish/WithoutPicture/DishWithoutPicture";
 
-type DishProps = {
+interface IDishProps {
     dishName: string,
     dishAllergens: string[],
     dishDescription: string,
@@ -15,7 +14,7 @@ type DishProps = {
     price: number
 }
 
-const Dish = (props: DishProps) => {
+const Dish = (props: IDishProps) => {
     const [extended, setExtended] = useState(false);
     const {dishName, dishAllergens, dishDescription, imageSrc, price } = props;
     const shortenedDescription = dishDescription.substring(0, 250);
@@ -32,30 +31,14 @@ const Dish = (props: DishProps) => {
                     price={price}
                     extended={extended}
                 /> :
-                <Grid container>
-
-                    {/*Dish name and price*/}
-                    <Grid item xs={9} className={styles.gridItemUpper}>
-                        <DishHeader dishName={dishName} price={price}/>
-                    </Grid>
-
-                    {/*Dish picture*/}
-                    <Grid item xs={3} className={styles.gridItemUpper}>
-                    </Grid>
-
-                    {/*Dish description*/}
-                    <Grid item xs={9} className={styles.gridItemLower}>
-                        <p className={styles.justificationPrint}>
-                            {extended ? dishDescription : shortenedDescription}
-                        </p>
-                    </Grid>
-
-                    {/*Dish allergens*/}
-                    <Grid item xs={3} className={styles.gridItemLower}>
-                        {extended && <AllergenTags dishAllergens={dishAllergens}/>}
-                    </Grid>
-
-                </Grid>
+                <DishWithoutPicture
+                    dishName={dishName}
+                    dishAllergens={dishAllergens}
+                    dishDescription={dishDescription}
+                    shortenedDescription={shortenedDescription}
+                    price={price}
+                    extended={extended}
+                />
             }
 
         </Paper>

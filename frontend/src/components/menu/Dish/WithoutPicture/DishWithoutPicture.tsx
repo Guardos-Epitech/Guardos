@@ -1,65 +1,67 @@
 import React from "react";
 import {Grid} from "@mui/material";
 
-import styles from "@src/components/menu/Dish/DishWithPicture.module.scss";
+import styles from "@src/components/menu/Dish/WithoutPicture/DishWithoutPicture.module.scss";
 
 import AllergenTags from "@src/components/menu/AllergenTags/AllergenTags";
 import DishHeader from "@src/components/menu/Dish/DishHeader/DishHeader";
 
-type DishWithPictureProps = {
+interface IDishWithoutPictureProps {
     dishName: string,
     dishAllergens: string[],
     dishDescription: string,
     shortenedDescription: string,
-    imageSrc: string,
     price: number,
     extended: boolean
 }
 
-const DishWithPicture = (props: DishWithPictureProps) => {
-    const {dishName, dishAllergens, dishDescription, shortenedDescription, imageSrc, price, extended} = props;
+const DishWithPicture = (props: IDishWithoutPictureProps) => {
+    const {dishName, dishAllergens, dishDescription, shortenedDescription, price, extended} = props;
 
     return (
         <>
             {/*mobile version of dish element*/}
             <div className={styles.mobileVersion}>
-                <Grid container justifyContent={"space-between"}>
+                <Grid container>
 
-                    <Grid item className={styles.gridItem}>
-                        <h3>
-                            {dishName}
-                        </h3>
-                        <h3>
-                            {`${price.toFixed(2)} €`}
-                        </h3>
+                    {/*Dish name and price*/}
+                    <Grid item xs={12} className={styles.gridItemUpper}>
+                        <DishHeader dishName={dishName} price={price}/>
                     </Grid>
-                    <Grid item className={styles.imageParent}>
-                        <img src={imageSrc} className={styles.imageDimensions} alt={dishName} />
-                    </Grid>
-                    <Grid xs={12} className={styles.gridItemDescription}>
+
+                    {/*Dish description*/}
+                    <Grid item xs={12} className={styles.gridItemDescription}>
                         <p className={styles.justificationPrint}>
                             {extended ? dishDescription : shortenedDescription}
+                            {extended && <AllergenTags dishAllergens={dishAllergens}/>}
                         </p>
-                        {extended && <AllergenTags dishAllergens={dishAllergens}/>}
                     </Grid>
 
                 </Grid>
             </div>
 
-
             {/*web version of dish element*/}
             <div className={styles.webVersion}>
                 <Grid container>
 
-                    <Grid item xs={9}  className={styles.gridItem}>
+                    {/*Dish name and price*/}
+                    <Grid item xs={9} className={styles.gridItemUpper}>
                         <DishHeader dishName={dishName} price={price}/>
+                    </Grid>
+
+                    {/*Dish picture*/}
+                    <Grid item xs={3} className={styles.gridItemUpper}>
+                    </Grid>
+
+                    {/*Dish description*/}
+                    <Grid item xs={9} className={styles.gridItemLower}>
                         <p className={styles.justificationPrint}>
                             {extended ? dishDescription : shortenedDescription}
                         </p>
                     </Grid>
 
-                    <Grid item xs={3} className={styles.gridItemImage}>
-                        {imageSrc && <img src={imageSrc} alt={dishName} className={styles.imageDimensions}/>}
+                    {/*Dish allergens*/}
+                    <Grid item xs={3} className={styles.gridItemLower}>
                         {extended && <AllergenTags dishAllergens={dishAllergens}/>}
                     </Grid>
 

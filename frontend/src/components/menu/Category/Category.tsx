@@ -3,12 +3,12 @@ import {Divider} from "@mui/material";
 
 import styles from "@src/components/menu/Category/Category.module.scss";
 
-type Props = {
+interface ICategoryProps {
     title: string;
     children: React.ReactNode;
 }
 
-const Category = (props: Props) => {
+const Category = (props: ICategoryProps) => {
     return (
         <div className={styles.categoryBox}>
             <Divider textAlign={"left"}>

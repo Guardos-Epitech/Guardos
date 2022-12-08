@@ -3,11 +3,11 @@ import {Chip} from "@mui/material";
 
 import styles from "@src/components/menu/AllergenTags/AllergenTags.module.scss";
 
-type AllergenTagsProps = {
+interface IAllergenTagsProps {
     dishAllergens: string[]
 }
 
-const AllergenTags = (props: AllergenTagsProps) => {
+const AllergenTags = (props: IAllergenTagsProps) => {
     const dishAllergens = props.dishAllergens;
 
     return (

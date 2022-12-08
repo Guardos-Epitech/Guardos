@@ -1,0 +1,36 @@
+@import "../../../../general";
+
+.justificationPrint {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.gridItemUpper {
+  padding: 2rem 1.5rem 0 1.5rem;
+}
+
+.gridItemLower {
+  padding: 0 2rem 2rem 2rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .gridItemDescription {
+    padding: 0 1rem 1rem 1rem;
+  }
+
+  .mobileVersion {
+  }
+
+  .webVersion {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .mobileVersion {
+    display: none;
+  }
+
+  .webVersion {
+  }
+}

@@ -1,13 +1,4 @@
-@import "../../../general";
-
-.dishBox {
-  background: $white;
-}
-
-.dishBox:hover {
-  background-color: $white;
-  cursor: pointer;
-}
+@import "../../../../general";
 
 .justificationPrint {
   text-align: justify;
@@ -18,16 +9,10 @@
   display: flex;
 }
 
-// mobile version
 @media only screen and (max-width: 768px) {
   .gridItem {
     padding: 2rem 0 0 1.5rem;
   }
-
-  //.imageDimensions {
-  //  height: 5rem;
-  //  width: auto;
-  //}
 
   .gridItemDescription {
     padding: 0 1rem 1rem 1rem;
@@ -59,11 +44,9 @@
     padding: 1rem 1rem 1rem 0;
   }
 
-  //https://itnext.io/3-ways-to-implement-responsive-design-in-your-react-app-bcb6ee7eb424
   .imageDimensions {
     width: 100%;
     height: auto;
-    //max-width: 100%;
     max-height: 11rem;
     object-fit: cover;
   }

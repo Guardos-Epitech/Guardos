@@ -3,11 +3,11 @@ import {Container} from "@mui/material";
 
 import styles from "@src/components/layout/Layout.module.scss";
 
-type Props = {
+interface ILayoutProps {
     children: React.ReactNode;
 }
 
-const Layout = (props: Props) => {
+const Layout = (props: ILayoutProps) => {
     return (
         <div className={styles.outerColor}>
             <Container maxWidth={"lg"}>

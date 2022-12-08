@@ -3,12 +3,12 @@ import {Grid} from "@mui/material";
 
 import styles from "@src/components/menu/Dish/DishHeader/DishHeader.module.scss";
 
-type DishProps = {
+interface IDishHeaderProps {
     dishName: string,
     price: number
 }
 
-const DishHeader = (props: DishProps) => {
+const DishHeader = (props: IDishHeaderProps) => {
     const {dishName, price} = props;
     const priceStr = `${price.toFixed(2)} €`;
 
