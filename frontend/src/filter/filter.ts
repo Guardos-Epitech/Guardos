@@ -47,7 +47,7 @@ interface IDishFE {
     category: ICategoryFE;
 }
 
-interface IRestaurantFrontEnd {
+export interface IRestaurantFrontEnd {
     name: string;
     id: number;
     phoneNumber: string;
@@ -56,7 +56,7 @@ interface IRestaurantFrontEnd {
     hitRate: number;
 }
 
-interface IRestaurantBackEnd {
+export interface IRestaurantBackEnd {
     name: string;
     id: number;
     phoneNumber: string;
@@ -155,7 +155,7 @@ export default class Filter {
             }
             categories.dishes.pop();
             for (let dish of restaurant.dishes) {
-                if (dish.category.menuGroup == x.name) {
+                if (dish.category.menuGroup === x.name) {
                     let dishObj: IDishFE = {
                         name: dish.name,
                         description: dish.description,
@@ -260,7 +260,7 @@ export default class Filter {
                 }
 
             }
-            // If not inserted directly ofer name, create RestaurantObj with hitRate
+            // If not inserted directly by name, create RestaurantObj with hitRate
             if (!inserted) {
                 results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, Math.max(hitRateName,
                     hitRateGroup)));
