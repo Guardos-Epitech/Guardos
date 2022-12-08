@@ -1,13 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const FilterPage = () => {
-    return (
-        <div>
-            <span>
-                FilterPage
-            </span>
-        </div>
-    )
-}
+  return (
+    <div>
+      <span>FilterPage</span>
+    </div>
+  );
+};
 
 export default FilterPage;

@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Orbitron&display=swap");
+
+.RectCard {
+  width: 73.81rem;
+  height: 14.81rem;
+  background-color: #ffffff;
+  filter: drop-shadow(0rem 0.25rem 0.313rem rgba(0, 0, 0, 0.25));
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.TitleResto {
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.56rem;
+}
+
+.DivAddress {
+  display: flex;
+  align-items: center;
+}
+
+.RestoImg {
+  width: 16rem;
+  margin-left: 1.7rem;
+  margin-right: 1.7rem;
+}
+
+.TxtDescription {
+  text-align: left;
+  font-size: 1rem;
+  width: 39.31rem;
+  height: 7.06rem;
+}
+
+.DivDesc {
+  display: flex;
+  align-items: flex-end;
+}
+
+.TitleRating {
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.06rem;
+  margin-left: 18rem;
+}
+
+.RatingImg {
+  width: 10rem;
+}
+
+.DivRating {
+  display: flex;
+  align-items: center;
+}
+
+.DivTopTitle {
+  display: flex;
+  align-items: center;
+}
+
+.BtnPage {
+  margin-left: 1rem;
+}
