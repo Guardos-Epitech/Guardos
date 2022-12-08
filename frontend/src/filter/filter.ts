@@ -3,7 +3,8 @@ import dummyDataRestaurants from './restaurants.json';
 
 interface ICategories {
     name: string;
-    dishes: [IDish];
+    hitrate: number;
+    dishes: [IDishFE];
 }
 
 interface IMealType {
@@ -12,18 +13,37 @@ interface IMealType {
     sortId: number;
 }
 
+interface ICategoryBE {
+    "menu-group" : string,
+    "food-group": string,
+    "extra-group": string
+}
+
+interface ICategoryFE {
+    "food-group": string,
+    "extra-group": string
+}
+
 interface ILocation {
     "streetname": string,
     "streetnumber": string,
     "postalcode": string,
     "country": string;
 }
-interface IDish {
+interface IDishBE {
     name: string;
     description: string;
     price: number;
-    allergens: string; //maybe change this to array (also in json file)
-    category: {"menu-group" : string, "food-group": string};
+    allergens: string;
+    category: ICategoryBE;
+}
+
+interface IDishFE {
+    name: string;
+    description: string;
+    price: number;
+    allergens: string;
+    category: ICategoryFE;
 }
 interface IRestaurantFrontEnd {
     name: string;
@@ -37,11 +57,11 @@ interface IRestaurantFrontEnd {
 interface IRestaurantBackEnd {
     name: string;
     id: number;
-    phonenumber: string;
-    dishes: [IDish];
+    'phone-number': string;
+    dishes: [IDishBE];
     location: ILocation;
     mealtype: [IMealType];
-    extra: [IDish];
+    extra: [IDishBE];
 }
 
 export default class Filter {
@@ -60,11 +80,11 @@ export default class Filter {
             let obj: IRestaurantBackEnd = {
                 name: elem.name,
                 id: elem.id,
-                phonenumber: elem['phone-number'],
-                dishes: [{} as IDish],
+                "phone-number": elem['phone-number'],
+                dishes: [{} as IDishBE],
                 location: elem.location,
                 mealtype: [{} as IMealType],
-                extra: [{} as IDish]
+                extra: [{} as IDishBE]
             }
             obj.dishes.pop();
             obj.mealtype.pop();
@@ -99,7 +119,7 @@ export default class Filter {
         let obj: IRestaurantFrontEnd = {
             name: i.name,
             id: i.id,
-            phonenumber: i.phonenumber,
+            phonenumber: i['phone-number'],
             categories: [{} as ICategories],
             location: i.location,
             hitrate: hitrate
@@ -109,12 +129,22 @@ export default class Filter {
         for (let x of i.mealtype) {
             let cate: ICategories = {
                 name: x.name,
-                dishes: [{} as IDish]
+                hitrate: 0,
+                dishes: [{} as IDishFE]
             }
             cate.dishes.pop();
             for (let dish of i.dishes) {
                 if (dish.category["menu-group"] == x.name) {
-                    cate.dishes.push(dish);
+                    let dishObj: IDishFE = {
+                        name: dish.name,
+                        description: dish.description,
+                        price: dish.price,
+                        allergens: dish.allergens,
+                        category: {} as ICategoryFE,
+                    }
+                    dishObj.category["food-group"] = dish.category["food-group"];
+                    dishObj.category["extra-group"] = dish.category["extra-group"];
+                    cate.dishes.push(dishObj);
                 }
             }
             obj.categories.push(cate);
@@ -129,26 +159,38 @@ export default class Filter {
         results.pop();
         for (let i of this.restaurants) {
             let count = 0;
-            //its now category and then dishes
             for (let dish of i.dishes) {
-                let hitcontrol = 0;
-                for (let allergen of dish.allergens.split(',')) {
-                    for (let x of allergens) {
-                        if (allergen.toLowerCase().includes(x.toLowerCase())) {
-                            count++;
-                            hitcontrol++;
-                        }
-                    }
-                }
-                if (hitcontrol > 0) {
-                    count = count - (hitcontrol - 1);
-                }
+                count = this.countHitRateAllergens(dish, allergens, count);
             }
-            results.push(this.createRestaurantObj(i as unknown as IRestaurantBackEnd,
-                (1 - (count / i.dishes.length)) * 100));
+            let obj = this.createRestaurantObj(i as unknown as IRestaurantBackEnd,
+                (1 - (count / i.dishes.length)) * 100);
+            for (let elem of obj.categories){
+                for (let dish of elem.dishes) {
+                    count = this.countHitRateAllergens(dish, allergens, count);
+                }
+                elem.hitrate = (1 - (count / elem.dishes.length)) * 100;
+            }
+            results.push(obj);
         }
         results.sort((a, b) => (a.hitrate < b.hitrate) ? 1 : -1);
+        console.log(results);
         return results;
+    }
+
+    private countHitRateAllergens(dish: IDishFE, allergens: string[], count: number) {
+        let hitcontrol = 0;
+        for (let allergen of dish.allergens.split(',')) {
+            for (let x of allergens) {
+                if (allergen.toLowerCase().includes(x.toLowerCase())) {
+                    count++;
+                    hitcontrol++;
+                }
+            }
+        }
+        if (hitcontrol > 0) {
+            count = count - (hitcontrol - 1);
+        }
+        return count;
     }
 
     filterForRestaurantwithNameorGroup(lookingfor: string[]) {
