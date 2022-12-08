@@ -1,12 +1,6 @@
 import dummyDataFilter from './filterData.json';
 import dummyDataRestaurants from './restaurants.json';
 
-
-interface IAllergen {
-    name: string;
-    values: [{name: string}];
-}
-
 interface ICategories {
     name: string;
     dishes: [IDish];
@@ -125,7 +119,6 @@ export default class Filter {
         }
         return obj;
     }
-
 
 
     filterForRestaurantsWithAllergens(allergens: string[]) {

@@ -107,7 +107,7 @@
                     "price" : 5,
                     "category" : {
                         "extra-group" : "cheese, olives",
-                        "menu-group" : "maindish",
+                        "menu-group" : "dessert",
                         "food-group" : "burger,salad"
                     }
                 }
