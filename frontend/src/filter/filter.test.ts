@@ -6,7 +6,19 @@ import { render, fireEvent } from "@testing-library/react";
 // to use test add return results; to the end of the functions
 test("filterForRestaurantsWithAllergens", () => {
     const filter = new Filter();
-    const results = filter.filterForRestaurantsWithAllergens(["milk", "cheese"]);
+    const results = filter.filterForRestaurantsWithAllergens(["salat", "cheese"]);
+    for (const res in results) {
+        if (res === "0") {
+            expect(results[res].hitrate).toEqual(100);
+        } else {
+            expect(results[res].hitrate).toEqual(50);
+        }
+    }
+});
+
+test("filterForRestaurantsWithAllergens", () => {
+    const filter = new Filter();
+    const results = filter.filterForRestaurantsWithAllergens(["milk", "cheese", "salat"]);
     for (const res in results) {
         if (res === "0") {
             expect(results[res].hitrate).toEqual(100);

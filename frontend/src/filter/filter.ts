@@ -122,26 +122,30 @@ export default class Filter {
         return obj;
     }
 
-
+    
     filterForRestaurantsWithAllergens(allergens: string[]) {
         let results = [{} as IRestaurantFrontEnd];
-
+        
         results.pop();
         for (let i of this.restaurants) {
             let count = 0;
             //its now category and then dishes
             for (let dish of i.dishes) {
+                let hitcontrol = 0;
                 for (let allergen of dish.allergens.split(',')) {
-                   for (let x of allergens) {
-                       if (allergen.toLowerCase().includes(x.toLowerCase())) {
-                           count++;
-                       }
-                   }
+                    for (let x of allergens) {
+                        if (allergen.toLowerCase().includes(x.toLowerCase())) {
+                            count++;
+                            hitcontrol++;
+                        }
+                    }
+                }
+                if (hitcontrol > 0) {
+                    count = count - (hitcontrol - 1);
                 }
             }
             results.push(this.createRestaurantObj(i as unknown as IRestaurantBackEnd,
                 (1 - (count / i.dishes.length)) * 100));
-
         }
         results.sort((a, b) => (a.hitrate < b.hitrate) ? 1 : -1);
         return results;
