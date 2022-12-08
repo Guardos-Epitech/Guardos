@@ -5,7 +5,7 @@
 </div>
 
 # Guardos
-## **To find restaurants according to your food profile.**
+### **To find restaurants according to your food profile.**
 
 </br>
 
@@ -23,6 +23,7 @@ What do you need ? :
 <a href="https://docs.docker.com/compose/install/">
 * Docker Compose
 </a>
+
 ### Installation
 
 1. Clone the repo
@@ -51,15 +52,8 @@ _If you have any problems try this:_
    sudo docker-compose up --build
    ```
 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 You are ready, good job! Go to <a href="http://localhost:8080/">http://localhost:8080/</a>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
