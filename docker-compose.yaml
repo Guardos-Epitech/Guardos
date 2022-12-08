@@ -1,0 +1,7 @@
+services:
+  client_web:
+    build: frontend/
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./frontend/src:/app/src
