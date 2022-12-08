@@ -75,7 +75,7 @@ export default class Filter {
         this.restaurants = this.getAllRestaurantsOfJSON();
     }
 
-    //create BE object from JSON
+    // Create BE object from JSON
     getAllRestaurantsOfJSON() {
         let result : IRestaurantBackEnd[] = [];
         result.pop();
@@ -92,34 +92,35 @@ export default class Filter {
             obj.dishes.pop();
             obj.mealType.pop();
             obj.extra.pop();
-            for (let x of elem.dishes) {
+            for (let dish of elem.dishes) {
                 let dishObj: IDishBE = {
-                    name: x.name,
-                    description: x.description,
-                    price: x.price,
-                    allergens: x.allergens,
-                    category: x.category
+                    name: dish.name,
+                    description: dish.description,
+                    price: dish.price,
+                    allergens: dish.allergens,
+                    category: dish.category
                 }
                 obj.dishes.push(dishObj);
             }
-            for (let x of elem.mealType) {
-                obj.mealType.push(x);
+            for (let mealTypeElement of elem.mealType) {
+                obj.mealType.push(mealTypeElement);
             }
-            for (let x of elem.extras) {
+            for (let extra of elem.extras) {
                 let extraObj: IDishBE = {
-                    name: x.name,
-                    description: x.description,
-                    price: x.price,
-                    allergens: x.allergens,
-                    category: x.category
+                    name: extra.name,
+                    description: extra.description,
+                    price: extra.price,
+                    allergens: extra.allergens,
+                    category: extra.category
                 }
 
                 obj.extra.push(extraObj);
             }
             result.push(obj);
         }
-        for (let i of result) {
-            i.mealType.sort((a, b) => (a.sortId > b.sortId) ? 1 : -1);
+        //Sort mealType for frontend by sortId
+        for (let elem of result) {
+            elem.mealType.sort((a, b) => (a.sortId > b.sortId) ? 1 : -1);
         }
         return result;
     }
@@ -132,6 +133,7 @@ export default class Filter {
         return this.restaurants;
     }
 
+    // Create RestaurantObj for Frontend
     private createRestaurantObj(restaurant: IRestaurantBackEnd, hitRate: number) {
         if (isNaN(hitRate))
             hitRate = 0;
@@ -159,7 +161,7 @@ export default class Filter {
                         description: dish.description,
                         price: dish.price,
                         allergens: dish.allergens,
-                        category: dish.category,
+                        category: {foodGroup: dish.category.foodGroup, extraGroup: dish.category.extraGroup},
                     }
                     categories.dishes.push(dishObj);
                 }
@@ -169,30 +171,38 @@ export default class Filter {
         return obj;
     }
 
-    
+    // Filter for Allergens
     filterForRestaurantsWithAllergens(allergens: string[]) {
         let results = [{} as IRestaurantFrontEnd];
-        
         results.pop();
+
         for (let restaurant of this.restaurants) {
             let count = 0;
+
+            // Check if restaurant has any dishes with allergens to get hitRate
             for (let dish of restaurant.dishes) {
                 count = this.countHitRateAllergens(dish, allergens, count);
             }
+
+            // Create RestaurantObj for Frontend with hitRate
             let obj = this.createRestaurantObj(restaurant as IRestaurantBackEnd,
                 (1 - (count / restaurant.dishes.length)) * 100);
-            for (let elem of obj.categories){
-                for (let dish of elem.dishes) {
+
+            // Check if dishes contains allergens (in categories) to get hitRate
+            for (let category of obj.categories){
+                for (let dish of category.dishes) {
                     count = this.countHitRateAllergens(dish, allergens, count);
                 }
-                elem.hitRate = (1 - (count / elem.dishes.length)) * 100;
+                category.hitRate = (1 - (count / category.dishes.length)) * 100;
             }
             results.push(obj);
         }
+        // Sort results by hitRate
         results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         return results;
     }
 
+    // Count how often an allergen is in a dish
     private countHitRateAllergens(dish: IDishFE, allergens: string[], count: number) {
         let hitControl = 0;
         for (let allergen of dish.allergens.split(',')) {
@@ -220,20 +230,23 @@ export default class Filter {
             let hitRateGroup = 0;
             let max = 0;
             for (let searchedWord of lookingFor) {
+                // Check if name of restaurant contains searched word --> return RestaurantObj with 100% hitRate
+                // stop if finding name directly
                 if (restaurant.name.toLowerCase().includes(searchedWord.toLowerCase())) {
                     results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 100));
                     inserted = true;
                     break;
                 }
+
+                // Check if name of the dish contains searched word --> calculate hitRate
                 for (let dish of restaurant.dishes) {
                     let found = false;
                     if (dish.name.toLowerCase().includes(searchedWord.toLowerCase())) {
                         countName++;
                         hitRateName = (countName / restaurant.dishes.length) * 100;
                         found = true;
-
                     }
-
+                    // Check if foodGroup of the dish contains searched word --> calculate hitRate
                     for (let group of dish.category.foodGroup.split(',')) {
                         if (found)
                             break;
@@ -247,11 +260,14 @@ export default class Filter {
                 }
 
             }
+            // If not inserted directly ofer name, create RestaurantObj with hitRate
             if (!inserted) {
                 results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, Math.max(hitRateName,
                     hitRateGroup)));
             }
         }
+
+        // Sort results by hitRate
         results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         return results;
     }

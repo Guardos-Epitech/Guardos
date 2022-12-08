@@ -48,9 +48,9 @@
                 }
             ],
             "location" : {
-                "streetname" : "beckerstreet",
-                "streetnumber" : "6A",
-                "postalcode" : "12570",
+                "streetName": "beckerstreet",
+                "streetNumber": "6A",
+                "postalCode": "12570",
                 "country" : "germany"
             },
             "extras": [{
@@ -114,9 +114,9 @@
                 }
             ],
             "location" : {
-                "streetname" : "Notbeckerstreet",
-                "streetnumber" : "10",
-                "postalcode" : "12123",
+                "streetName": "Notbeckerstreet",
+                "streetNumber": "10",
+                "postalCode": "12123",
                 "country" : "germany"
             },
             "extras": [{
@@ -180,9 +180,9 @@
                 }
             ],
             "location" : {
-                "streetname" : "beckeraaastreet",
-                "streetnumber" : "96A",
-                "postalcode" : "12590",
+                "streetName": "beckeraaastreet",
+                "streetNumber": "96A",
+                "postalCode": "12590",
                 "country" : "germany"
             },
             "extras": [{

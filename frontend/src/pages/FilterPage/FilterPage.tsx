@@ -14,7 +14,7 @@ const FilterPage = () => {
             Filter for allergens test
         </button>
             <br></br>
-            <button onClick={() =>{myFilter.filterForRestaurantWithNameOrGroup(["ice"])}}>
+            <button onClick={() =>{myFilter.filterForRestaurantWithNameOrGroup(["ice, burger"])}}>
                 Filter for names test
             </button>
         </div>
