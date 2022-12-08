@@ -80,11 +80,9 @@ export default class Filter {
             }
             result.push(obj);
         }
-        //sort result meal-type by SortId
         for (let i of result) {
             i.mealtype.sort((a, b) => (a.sortId > b.sortId) ? 1 : -1);
         }
-        console.log('BE:' ,result);
         return result;
     }
     getFilter() {
@@ -146,7 +144,6 @@ export default class Filter {
 
         }
         results.sort((a, b) => (a.hitrate < b.hitrate) ? 1 : -1);
-        console.log(results);
         return results;
     }
 
@@ -193,7 +190,6 @@ export default class Filter {
             }
         }
         results.sort((a, b) => (a.hitrate < b.hitrate) ? 1 : -1);
-        console.log(results);
         return results;
     }
 }
