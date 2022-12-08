@@ -23,24 +23,26 @@
             ],
             "dishes" : [
                 {
+                    "id": 0,
                     "name" : "McSunday",
                     "allergens" : "milk,sugar",
                     "description" : "bla bla",
                     "price" : 13,
                     "category" : {
                         "extra-group" : "cheese, olives",
-                        "menu-group" : "appetizer,desert",
+                        "menu-group" : "dessert",
                         "food-group" : "ice,burger"
                     }
                 },
                 {
+                    "id": 1,
                     "name" : "Big Mac",
                     "allergens" : "cheese,salat",
                     "description" : "the real mc",
                     "price" : 21,
                     "category" : {
                         "extra-group" : "cheese, olives",
-                        "menu-group" : "maindish,desert",
+                        "menu-group" : "maindish",
                         "food-group" : "burger,salad"
                     }
                 }
@@ -87,23 +89,25 @@
             ],
             "dishes" : [
                 {
+                    "id": 0,
                     "name" : "Big Sunday ice",
                     "allergens" : "milk,sugar",
                     "description" : "bla bla",
                     "price" : 12,
                     "category" : {
-                        "menu-group" : "appetizer,desert",
+                        "menu-group" : "dessert",
                         "food-group" : "burger, ice"
                     }
                 },
                 {
+                    "id": 1,
                     "name" : "Big Big Mac",
                     "allergens" : "cheese,salat",
                     "description" : "the real big mc",
                     "price" : 5,
                     "category" : {
                         "extra-group" : "cheese, olives",
-                        "menu-group" : "maindish,desert",
+                        "menu-group" : "maindish",
                         "food-group" : "burger,salad"
                     }
                 }
@@ -144,7 +148,7 @@
                 },
                 {
                     "id": 2,
-                    "name": "drink",
+                    "name": "appetizer",
                     "sortId": 2
                 }
             ],
@@ -157,7 +161,19 @@
                     "price" : 12,
                     "category" : {
                         "extra-group" : "cheese, olives",
-                        "menu-group" : "appetizer,desert",
+                        "menu-group" : "dessert",
+                        "food-group" : "burger"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name" : "Monster Salad",
+                    "allergens" : "sugar",
+                    "description" : "bla bla",
+                    "price" : 10,
+                    "category" : {
+                        "extra-group" : "cheese, olives",
+                        "menu-group" : "appetizer",
                         "food-group" : "burger"
                     }
                 }
@@ -177,9 +193,21 @@
                 "category" : {
                     "extra-group" : "",
                     "menu-group" : "",
-                    "food-group" : ""
+                    "food-group" : ""}
+            },
+                {
+                "id": 1,
+                "name" : "morzerella",
+                "allergens" : "milk",
+                    "description" : "bla bla",
+                    "price" : 2,
+                    "category" : {
+                        "extra-group" : "",
+                        "menu-group" : "",
+                        "food-group" : ""
+                    }
                 }
-            }]
+            ]
         }
     ]
 }

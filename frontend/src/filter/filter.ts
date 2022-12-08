@@ -56,8 +56,7 @@ export default class Filter {
 
     constructor() {
         this.filter = dummyDataFilter;
-        this.restaurants = dummyDataRestaurants;
-        this.getAllRestaurantsofJSON();
+        this.restaurants = this.getAllRestaurantsofJSON();
     }
 
     getAllRestaurantsofJSON() {
@@ -87,7 +86,7 @@ export default class Filter {
             }
             result.push(obj);
         }
-        console.log(result);
+        console.log('BE:' ,result);
         return result;
     }
     getFilter() {
@@ -98,18 +97,32 @@ export default class Filter {
         return this.restaurants;
     }
 
-    private createRestaurantObj(i: any, hitrate: number) {
+    private createRestaurantObj(i: IRestaurantBackEnd, hitrate: number) {
         if (isNaN(hitrate))
             hitrate = 0;
         let obj: IRestaurantFrontEnd = {
             name: i.name,
             id: i.id,
-            phonenumber: i['phone-number'],
+            phonenumber: i.phonenumber,
             categories: [{} as ICategories],
             location: i.location,
             hitrate: hitrate
         };
         obj.categories.pop();
+
+        for (let x of i.mealtype) {
+            let cate: ICategories = {
+                name: x.name,
+                dishes: [{} as IDish]
+            }
+            cate.dishes.pop();
+            for (let dish of i.dishes) {
+                if (dish.category["menu-group"] == x.name) {
+                    cate.dishes.push(dish);
+                }
+            }
+            obj.categories.push(cate);
+        }
         return obj;
     }
 
@@ -117,19 +130,11 @@ export default class Filter {
 
     filterForRestaurantsWithAllergens(allergens: string[]) {
         let results = [{} as IRestaurantFrontEnd];
-        let Restaurants: IRestaurantBackEnd = {
-            name: '',
-            id: 0,
-            phonenumber: '',
-            dishes: [{} as IDish],
-            location: {} as ILocation,
-            mealtype: [{} as IMealType],
-            extra: [{} as IDish]
-        }
 
         results.pop();
-        for (let i of this.restaurants.restaurants) {
+        for (let i of this.restaurants) {
             let count = 0;
+            //its now category and then dishes
             for (let dish of i.dishes) {
                 for (let allergen of dish.allergens.split(',')) {
                    for (let x of allergens) {
@@ -139,7 +144,7 @@ export default class Filter {
                    }
                 }
             }
-            results.push(this.createRestaurantObj(i as unknown as IRestaurantFrontEnd,
+            results.push(this.createRestaurantObj(i as unknown as IRestaurantBackEnd,
                 (1 - (count / i.dishes.length)) * 100));
 
         }
@@ -151,7 +156,7 @@ export default class Filter {
     filterForRestaurantwithNameorGroup(lookingfor: string[]) {
         let results =  [{} as IRestaurantFrontEnd];
         results.pop();
-        for (let i of this.restaurants.restaurants) {
+        for (let i of this.restaurants) {
             let inserted = false;
             let countname = 0;
             let countgroup = 0;
@@ -160,29 +165,34 @@ export default class Filter {
             let max = 0;
             for (let x of lookingfor) {
                 if (i.name.toLowerCase().includes(x.toLowerCase())) {
-                    results.push(this.createRestaurantObj(i as unknown as IRestaurantFrontEnd, 100));
+                    results.push(this.createRestaurantObj(i as unknown as IRestaurantBackEnd, 100));
                     inserted = true;
                     break;
                 }
                 for (let j of i.dishes) {
+                    let found = false;
                     if (j.name.toLowerCase().includes(x.toLowerCase())) {
                         countname++;
                         hitratename = (countname / i.dishes.length) * 100;
+                        found = true;
 
                     }
+
                     for (let y of j.category['food-group'].split(',')) {
+                        if (found)
+                            break;
                         if (y.toLowerCase().includes(x.toLowerCase())) {
                             max = j.category['food-group'].split(',').length;
                             countgroup++;
                             hitrategroup = (countgroup / max) * 100;
-
+                            found = true;
                         }
                     }
                 }
 
             }
             if (!inserted) {
-                results.push(this.createRestaurantObj(i as unknown as IRestaurantFrontEnd, Math.max(hitratename, hitrategroup)));
+                results.push(this.createRestaurantObj(i as unknown as IRestaurantBackEnd, Math.max(hitratename, hitrategroup)));
             }
         }
         results.sort((a, b) => (a.hitrate < b.hitrate) ? 1 : -1);
