@@ -17,11 +17,13 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 What do you need ? :
+
 <a href="https://docs.docker.com/get-docker/">
-* Docker
+Docker
 </a>
+
 <a href="https://docs.docker.com/compose/install/">
-* Docker Compose
+Docker Compose
 </a>
 
 ### Installation
