@@ -3,7 +3,7 @@ import dummyDataRestaurants from './restaurants.json';
 
 interface ICategories {
     name: string;
-    hitrate: number;
+    hitRate: number;
     dishes: [IDishFE];
 }
 
@@ -14,21 +14,21 @@ interface IMealType {
 }
 
 interface ICategoryBE {
-    "menu-group" : string,
-    "food-group": string,
-    "extra-group": string
+    menuGroup: string,
+    foodGroup: string,
+    extraGroup: string
 }
 
 interface ICategoryFE {
-    "food-group": string,
-    "extra-group": string
+    foodGroup: string,
+    extraGroup: string
 }
 
 interface ILocation {
-    "streetname": string,
-    "streetnumber": string,
-    "postalcode": string,
-    "country": string;
+    streetName: string,
+    streetNumber: string,
+    postalCode: string,
+    country: string;
 }
 interface IDishBE {
     name: string;
@@ -48,19 +48,19 @@ interface IDishFE {
 interface IRestaurantFrontEnd {
     name: string;
     id: number;
-    phonenumber: string;
+    phoneNumber: string;
     categories: [ICategories];
     location: ILocation;
-    hitrate: number;
+    hitRate: number;
 }
 
 interface IRestaurantBackEnd {
     name: string;
     id: number;
-    'phone-number': string;
+    phoneNumber: string;
     dishes: [IDishBE];
     location: ILocation;
-    mealtype: [IMealType];
+    mealType: [IMealType];
     extra: [IDishBE];
 }
 
@@ -70,38 +70,58 @@ export default class Filter {
 
     constructor() {
         this.filter = dummyDataFilter;
-        this.restaurants = this.getAllRestaurantsofJSON();
+        this.restaurants = this.getAllRestaurantsOfJSON();
     }
 
-    getAllRestaurantsofJSON() {
+    getAllRestaurantsOfJSON() {
         let result : IRestaurantBackEnd[] = [];
         result.pop();
         for (let elem of dummyDataRestaurants.restaurants) {
             let obj: IRestaurantBackEnd = {
                 name: elem.name,
                 id: elem.id,
-                "phone-number": elem['phone-number'],
+                phoneNumber: elem['phone-number'],
                 dishes: [{} as IDishBE],
-                location: elem.location,
-                mealtype: [{} as IMealType],
+                location: {} as ILocation,
+                mealType: [{} as IMealType],
                 extra: [{} as IDishBE]
             }
             obj.dishes.pop();
-            obj.mealtype.pop();
+            obj.mealType.pop();
             obj.extra.pop();
             for (let x of elem.dishes) {
-                obj.dishes.push(x);
+                let dishObj: IDishBE = {
+                    name: x.name,
+                    description: x.description,
+                    price: x.price,
+                    allergens: x.allergens,
+                    category: {} as ICategoryBE
+                }
+                dishObj.category.menuGroup = x.category['menu-group'];
+                dishObj.category.foodGroup = x.category['food-group'];
+                dishObj.category.extraGroup = x.category['extra-group'];
+                obj.dishes.push(dishObj);
             }
             for (let x of elem['meal-type']) {
-                obj.mealtype.push(x);
+                obj.mealType.push(x);
             }
             for (let x of elem['extras']) {
-                obj.extra.push(x);
+                let extraObj: IDishBE = {
+                    name: x.name,
+                    description: x.description,
+                    price: x.price,
+                    allergens: x.allergens,
+                    category: {} as ICategoryBE
+                }
+                extraObj.category.menuGroup = x.category["menu-group"];
+                extraObj.category.foodGroup = x.category["food-group"];
+                extraObj.category.extraGroup= x.category["extra-group"];
+                obj.extra.push(extraObj);
             }
             result.push(obj);
         }
         for (let i of result) {
-            i.mealtype.sort((a, b) => (a.sortId > b.sortId) ? 1 : -1);
+            i.mealType.sort((a, b) => (a.sortId > b.sortId) ? 1 : -1);
         }
         return result;
     }
@@ -113,37 +133,35 @@ export default class Filter {
         return this.restaurants;
     }
 
-    private createRestaurantObj(i: IRestaurantBackEnd, hitrate: number) {
-        if (isNaN(hitrate))
-            hitrate = 0;
+    private createRestaurantObj(i: IRestaurantBackEnd, hitRate: number) {
+        if (isNaN(hitRate))
+            hitRate = 0;
         let obj: IRestaurantFrontEnd = {
             name: i.name,
             id: i.id,
-            phonenumber: i['phone-number'],
+            phoneNumber: i.phoneNumber,
             categories: [{} as ICategories],
             location: i.location,
-            hitrate: hitrate
+            hitRate: hitRate
         };
         obj.categories.pop();
 
-        for (let x of i.mealtype) {
+        for (let x of i.mealType) {
             let cate: ICategories = {
                 name: x.name,
-                hitrate: 0,
+                hitRate: 0,
                 dishes: [{} as IDishFE]
             }
             cate.dishes.pop();
             for (let dish of i.dishes) {
-                if (dish.category["menu-group"] == x.name) {
+                if (dish.category.menuGroup == x.name) {
                     let dishObj: IDishFE = {
                         name: dish.name,
                         description: dish.description,
                         price: dish.price,
                         allergens: dish.allergens,
-                        category: {} as ICategoryFE,
+                        category: dish.category,
                     }
-                    dishObj.category["food-group"] = dish.category["food-group"];
-                    dishObj.category["extra-group"] = dish.category["extra-group"];
                     cate.dishes.push(dishObj);
                 }
             }
@@ -162,69 +180,69 @@ export default class Filter {
             for (let dish of i.dishes) {
                 count = this.countHitRateAllergens(dish, allergens, count);
             }
-            let obj = this.createRestaurantObj(i as unknown as IRestaurantBackEnd,
+            let obj = this.createRestaurantObj(i as IRestaurantBackEnd,
                 (1 - (count / i.dishes.length)) * 100);
             for (let elem of obj.categories){
                 for (let dish of elem.dishes) {
                     count = this.countHitRateAllergens(dish, allergens, count);
                 }
-                elem.hitrate = (1 - (count / elem.dishes.length)) * 100;
+                elem.hitRate = (1 - (count / elem.dishes.length)) * 100;
             }
             results.push(obj);
         }
-        results.sort((a, b) => (a.hitrate < b.hitrate) ? 1 : -1);
+        results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         console.log(results);
         return results;
     }
 
     private countHitRateAllergens(dish: IDishFE, allergens: string[], count: number) {
-        let hitcontrol = 0;
+        let hitControl = 0;
         for (let allergen of dish.allergens.split(',')) {
             for (let x of allergens) {
                 if (allergen.toLowerCase().includes(x.toLowerCase())) {
                     count++;
-                    hitcontrol++;
+                    hitControl++;
                 }
             }
         }
-        if (hitcontrol > 0) {
-            count = count - (hitcontrol - 1);
+        if (hitControl > 0) {
+            count = count - (hitControl - 1);
         }
         return count;
     }
 
-    filterForRestaurantwithNameorGroup(lookingfor: string[]) {
+    filterForRestaurantWithNameOrGroup(lookingFor: string[]) {
         let results =  [{} as IRestaurantFrontEnd];
         results.pop();
         for (let i of this.restaurants) {
             let inserted = false;
-            let countname = 0;
-            let countgroup = 0;
-            let hitratename = 0;
-            let hitrategroup = 0;
+            let countName = 0;
+            let countGroup = 0;
+            let hitRateName = 0;
+            let hitRateGroup = 0;
             let max = 0;
-            for (let x of lookingfor) {
+            for (let x of lookingFor) {
                 if (i.name.toLowerCase().includes(x.toLowerCase())) {
-                    results.push(this.createRestaurantObj(i as unknown as IRestaurantBackEnd, 100));
+                    results.push(this.createRestaurantObj(i as IRestaurantBackEnd, 100));
                     inserted = true;
                     break;
                 }
                 for (let j of i.dishes) {
                     let found = false;
                     if (j.name.toLowerCase().includes(x.toLowerCase())) {
-                        countname++;
-                        hitratename = (countname / i.dishes.length) * 100;
+                        countName++;
+                        hitRateName = (countName / i.dishes.length) * 100;
                         found = true;
 
                     }
 
-                    for (let y of j.category['food-group'].split(',')) {
+                    for (let y of j.category.foodGroup.split(',')) {
                         if (found)
                             break;
                         if (y.toLowerCase().includes(x.toLowerCase())) {
-                            max = j.category['food-group'].split(',').length;
-                            countgroup++;
-                            hitrategroup = (countgroup / max) * 100;
+                            max = j.category.foodGroup.split(',').length;
+                            countGroup++;
+                            hitRateGroup = (countGroup / max) * 100;
                             found = true;
                         }
                     }
@@ -232,10 +250,10 @@ export default class Filter {
 
             }
             if (!inserted) {
-                results.push(this.createRestaurantObj(i as unknown as IRestaurantBackEnd, Math.max(hitratename, hitrategroup)));
+                results.push(this.createRestaurantObj(i as IRestaurantBackEnd, Math.max(hitRateName, hitRateGroup)));
             }
         }
-        results.sort((a, b) => (a.hitrate < b.hitrate) ? 1 : -1);
+        results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         return results;
     }
 }

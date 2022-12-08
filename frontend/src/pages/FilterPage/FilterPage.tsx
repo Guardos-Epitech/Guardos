@@ -5,7 +5,7 @@ const MYFILTER = new Filter();
 
 const FilterPage = () => {
     return (
-        <div className='test'>
+        <div className="test">
             <span>
                 FilterPage
             </span>
@@ -14,7 +14,7 @@ const FilterPage = () => {
             Filter for allergens test
         </button>
             <br></br>
-            <button onClick={() =>{MYFILTER.filterForRestaurantwithNameorGroup(["ice"])}}>
+            <button onClick={() =>{MYFILTER.filterForRestaurantWithNameOrGroup(["ice"])}}>
                 Filter for names test
             </button>
         </div>
