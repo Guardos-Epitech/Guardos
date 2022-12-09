@@ -12,7 +12,7 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "npx eslint src/*.ts",
+    "prebuild": "npx eslint . --ext .ts",
     "build": "npx tsc",
     "prestart": "npm run build",
     "lint": "eslint . --ext .ts",

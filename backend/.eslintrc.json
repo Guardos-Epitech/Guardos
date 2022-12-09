@@ -31,6 +31,7 @@
         "eqeqeq": "error",
         "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 1}],
         "no-mixed-spaces-and-tabs": "error",
-        "no-mixed-requires": "error"
+        "no-mixed-requires": "error",
+        "eol-last": "error"
     }
 }
