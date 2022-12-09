@@ -12,9 +12,10 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "npx eslint src/**/*.ts --fix",
+    "prebuild": "npx eslint src/*.ts",
     "build": "npx tsc",
     "prestart": "npm run build",
+    "lint": "eslint . --ext .ts",
     "start:app": "ts-node ./src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/nodemon/bin/nodemon.js"
