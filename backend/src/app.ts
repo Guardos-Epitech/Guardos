@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import path = require('path');
 
-import indexRouter from './routes/index';
+import indexRouter from './index';
 
 function main (): void  {
   const app = express();
