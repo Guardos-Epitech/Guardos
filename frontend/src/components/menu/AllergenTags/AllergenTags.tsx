@@ -12,7 +12,7 @@ const AllergenTags = (props: IAllergenTagsProps) => {
 
     return (
         <>
-            <p className={styles.lowerBottomMargin}>
+            <p className={styles.LowerBottomMargin}>
                 {"Allergens:"}
             </p>
             {dishAllergens.length != 0 && dishAllergens.map((allergen) => (

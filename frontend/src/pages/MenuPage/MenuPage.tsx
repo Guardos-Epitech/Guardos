@@ -4,7 +4,7 @@ import styles from "@src/pages/MenuPage/MenuPage.module.scss";
 
 import Dish from "@src/components/menu/Dish/Dish";
 import Category from "@src/components/menu/Category/Category";
-import Layout from "@src/components/layout/Layout";
+import Layout from "@src/components/Layout/Layout";
 import Header from "@src/components/Header/Header";
 import PlaceIcon from "@mui/icons-material/Place";
 import {List, ListItem} from "@mui/material";
@@ -32,17 +32,17 @@ const MenuPage = () => {
     return (
         <>
             <Header/>
-            <div className={styles.rectOnImg}>
+            <div className={styles.RectOnImg}>
                 <List>
                     <ListItem>
-                        <h2 className={styles.restaurantTitle}>{restaurantName}</h2>
+                        <h2 className={styles.RestaurantTitle}>{restaurantName}</h2>
                     </ListItem>
                     <ListItem>
-                        <div className={styles.address}>
+                        <div className={styles.Address}>
                             <ThemeProvider theme={theme}>
                                 <PlaceIcon color={"primary"}/>
                             </ThemeProvider>
-                            <span className={styles.restaurantAddress}>{restaurantAddress}</span>
+                            <span className={styles.RestaurantAddress}>{restaurantAddress}</span>
                         </div>
                     </ListItem>
                 </List>
