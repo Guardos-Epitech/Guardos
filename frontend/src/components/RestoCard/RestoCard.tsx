@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./RestoCard.module.scss";
-import restoimg from "@src/asset/restoimg.jpeg";
+import restoimg from "@src/assets/restoimg.jpeg";
 import PlaceIcon from "@mui/icons-material/Place";
 import { loremIpsum } from "lorem-ipsum";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import ratingimg from "@src/asset/ratingimg.png";
+import ratingimg from "@src/assets/ratingimg.png";
 import { useNavigate } from "react-router-dom";
 import { NavigateTo } from "@src/utils/NavigateTo";
 
