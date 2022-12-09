@@ -1,0 +1,10 @@
+@import "../../../general";
+
+.dishBox {
+  background: $white;
+}
+
+.dishBox:hover {
+  background-color: $white;
+  cursor: pointer;
+}

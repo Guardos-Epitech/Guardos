@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Filter from "../../filter/filter";
 
 const myFilter = new Filter();
@@ -19,7 +19,7 @@ const FilterPage = () => {
             </button>
         </div>
 
-    )
-}
+    );
+};
 
 export default FilterPage;

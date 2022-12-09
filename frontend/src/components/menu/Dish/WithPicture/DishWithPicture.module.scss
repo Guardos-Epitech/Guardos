@@ -1,0 +1,60 @@
+@import "../../../../general";
+
+.justificationPrint {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.imageParent {
+  display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  .gridItem {
+    padding: 2rem 0 0 1.5rem;
+  }
+
+  .gridItemDescription {
+    padding: 0 1rem 1rem 1rem;
+  }
+
+  .imageDimensions {
+    width: 100%;
+    height: auto;
+    max-height: 7.5rem;
+    margin: 1.5rem 1.5rem 0 0;
+    max-width: 8rem;
+    object-fit: cover;
+  }
+
+  .mobileVersion {
+  }
+
+  .webVersion {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .gridItem {
+    padding: 2rem;
+  }
+
+  .gridItemImage {
+    padding: 1rem 1rem 1rem 0;
+  }
+
+  .imageDimensions {
+    width: 100%;
+    height: auto;
+    max-height: 11rem;
+    object-fit: cover;
+  }
+
+  .mobileVersion {
+    display: none;
+  }
+
+  .webVersion {
+  }
+}
