@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import path = require('path');
 import filter from './routes/filter';
-
+import db from './controllers/connectDataBase';
 function main (): void  {
   const app = express();
   const port = 8081;
@@ -16,6 +16,11 @@ function main (): void  {
   app.use(express.static(path.join(__dirname, 'public')));
 
   app.use('/api', filter);
+  test();
+  async function test() {
+    const Db = new db();
+    await Db.connectToDb();
+  }
   // catch 404 and forward to error handler
   app.use(function(req: any, res: any, next: any) { /* eslint-disable-line */
     next(createError(404));

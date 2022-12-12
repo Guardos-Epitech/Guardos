@@ -10,11 +10,15 @@ export function getEnv() {
   env.dbUrl = env.dbUrl.replace('dbUrl:','');
   env.dbUrl = env.dbUrl.replace(' "','');
   env.dbUrl = env.dbUrl.replace('"','');
-  env.dbUser = lines[1];
+  env.dbCluster = lines[1];
+  env.dbCluster = env.dbCluster.replace('dbCluster:','');
+  env.dbCluster = env.dbCluster.replace(' "','');
+  env.dbCluster = env.dbCluster.replace('"','');
+  env.dbUser = lines[2];
   env.dbUser = env.dbUser.replace('dbUser:','');
   env.dbUser = env.dbUser.replace(' "','');
   env.dbUser = env.dbUser.replace('"','');
-  env.dbPassword = lines[2];
+  env.dbPassword = lines[3];
   env.dbPassword = env.dbPassword.replace('dbPassword:','');
   env.dbPassword = env.dbPassword.replace(' "','');
   env.dbPassword = env.dbPassword.replace('"','');
