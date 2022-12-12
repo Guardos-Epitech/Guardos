@@ -1,69 +1,10 @@
 import dummyDataRestaurants from '../assets/restaurants.json';
-
-interface ICategories {
-  name: string;
-  hitRate: number;
-  dishes: [IDishFE];
-}
-
-interface IMealType {
-  name: string;
-  id: number;
-  sortId: number;
-}
-
-interface ICategoryBE {
-  menuGroup: string,
-  foodGroup: string,
-  extraGroup: string
-}
-
-interface ICategoryFE {
-  foodGroup: string,
-  extraGroup: string
-}
-
-interface ILocation {
-  streetName: string,
-  streetNumber: string,
-  postalCode: string,
-  country: string;
-}
-
-interface IDishBE {
-  name: string;
-  description: string;
-  price: number;
-  allergens: string;
-  category: ICategoryBE;
-}
-
-interface IDishFE {
-  name: string;
-  description: string;
-  price: number;
-  allergens: string;
-  category: ICategoryFE;
-}
-
-export interface IRestaurantFrontEnd {
-  name: string;
-  id: number;
-  phoneNumber: string;
-  categories: [ICategories];
-  location: ILocation;
-  hitRate: number;
-}
-
-export interface IRestaurantBackEnd {
-  name: string;
-  id: number;
-  phoneNumber: string;
-  dishes: [IDishBE];
-  location: ILocation;
-  mealType: [IMealType];
-  extras: [IDishBE];
-}
+import { IRestaurantBackEnd, IRestaurantFrontEnd }
+  from '../models/restaurantInterfaces';
+import { IDishBE, IDishFE } from '../models/dishInterfaces';
+import { ICategories } from '../models/categoryInterfaces';
+import { ILocation } from '../models/locationInterfaces';
+import { IMealType } from '../models/mealTypeInterfaces';
 
 export default class Filter {
   restaurants;
@@ -78,9 +19,9 @@ export default class Filter {
     result.pop();
     for (const elem of dummyDataRestaurants.restaurants) {
       const obj = this.createBackEndObj({id: elem.id, name: elem.name,
-        phoneNumber: elem.phoneNumber, mealType: elem.mealType,
-        dishes: elem['dishes'], location: elem.location,
-        extras: elem['extras']});
+        phoneNumber: elem.phoneNumber, mealType: elem.mealType as any,  /* eslint-disable-line */
+        dishes: elem.dishes as any, location: elem.location,  /* eslint-disable-line */
+        extras: elem.extras as any});  /* eslint-disable-line */
       result.push(obj);
     }
     //Sort mealType for frontend by sortId
