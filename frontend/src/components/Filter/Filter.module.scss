@@ -28,7 +28,17 @@
 }
 
 .DivRating {
+  padding-top: 1rem;
   display: grid;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(3, auto);
+}
+
+.DivCategories {
+  padding-top: 1rem;
+  display: grid;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(3, auto);
 }
 
 .TitleCheck {
@@ -54,6 +64,7 @@
 
 .DivRange {
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .TitleRangeValue {

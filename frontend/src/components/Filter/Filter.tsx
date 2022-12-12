@@ -44,6 +44,17 @@ const GlobalStyle = () => {
   });
 };
 
+const marks = [
+  {
+    value: 0,
+    label: '0 km',
+  },
+  {
+    value: 100,
+    label: '100 km',
+  },
+];
+
 type color = "primary" | "secondary" | "default" | "error" | "info" | "success" | "warning"
 
 const Filter = () => {
@@ -60,49 +71,95 @@ const Filter = () => {
         <div className={styles.DivTitleFilter}>
           <span className={styles.TitleFilter}>Filter by:</span>
         </div>
-        <div className={styles.DivRating}>
+        <div className={styles.DivRatingBox}>
           <span className={styles.TitleSubFilter}>Rating:</span>
-          <ThemeProvider theme={GlobalStyle()}>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label={<span className={styles.TitleCheck}>{"5 stars"}</span>}
-            />
-          </ThemeProvider>
-          <ThemeProvider theme={GlobalStyle()}>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label={<span className={styles.TitleCheck}>{"4 stars"}</span>}
-            />
-          </ThemeProvider>
-          <ThemeProvider theme={GlobalStyle()}>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label={<span className={styles.TitleCheck}>{"3 stars"}</span>}
-            />
-          </ThemeProvider>
-          <ThemeProvider theme={GlobalStyle()}>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label={<span className={styles.TitleCheck}>{"2 stars"}</span>}
-            />
-          </ThemeProvider>
-          <ThemeProvider theme={GlobalStyle()}>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label={<span className={styles.TitleCheck}>{"1 star"}</span>}
-            />
-          </ThemeProvider>
+          <div className={styles.DivRating}>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"5 stars"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"4 stars"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"3 stars"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"2 stars"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"1 star"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+          </div>
         </div>
         <div className={styles.DivRange}>
           <div>
             <span className={styles.TitleSubFilter}>Range:</span>
-            <span className={styles.TitleRangeValue}>30 km</span>
           </div>
           <div className={styles.DivSlider}>
             <ThemeProvider theme={GlobalStyle()}>
               <Box sx={{ width: "20rem" }}>
-                <Slider defaultValue={30} color="primary" />
+                <Slider defaultValue={30} color="primary" marks={marks} valueLabelDisplay="on"/>
               </Box>
+            </ThemeProvider>
+          </div>
+        </div>
+        <div className={styles.DivCategoriesBox}>
+          <span className={styles.TitleSubFilter}>Categories:</span>
+          <div className={styles.DivCategories}>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"Burger"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"Sushi"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"Pizza"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"Salade"}</span>}
+                className={styles.test}
+              />
+            </ThemeProvider>
+            <ThemeProvider theme={GlobalStyle()}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label={<span className={styles.TitleCheck}>{"Pasta"}</span>}
+                className={styles.test}
+              />
             </ThemeProvider>
           </div>
         </div>
