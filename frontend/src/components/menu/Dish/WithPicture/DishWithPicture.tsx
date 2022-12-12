@@ -22,10 +22,10 @@ const DishWithPicture = (props: IDishWithPictureProps) => {
     return (
         <>
             {/*mobile version of dish element*/}
-            <div className={styles.mobileVersion}>
+            <div className={styles.MobileVersion}>
                 <Grid container justifyContent={"space-between"}>
 
-                    <Grid item className={styles.gridItem}>
+                    <Grid item className={styles.GridItem}>
                         <h3>
                             {dishName}
                         </h3>
@@ -33,11 +33,11 @@ const DishWithPicture = (props: IDishWithPictureProps) => {
                             {`${price.toFixed(2)} €`}
                         </h3>
                     </Grid>
-                    <Grid item className={styles.imageParent}>
-                        <img src={imageSrc} className={styles.imageDimensions} alt={dishName} />
+                    <Grid item className={styles.ImageParent}>
+                        <img src={imageSrc} className={styles.ImageDimensions} alt={dishName} />
                     </Grid>
-                    <Grid xs={12} className={styles.gridItemDescription}>
-                        <p className={styles.justificationPrint}>
+                    <Grid xs={12} className={styles.GridItemDescription}>
+                        <p className={styles.JustificationPrint}>
                             {extended ? dishDescription : shortenedDescription}
                         </p>
                         {extended && <AllergenTags dishAllergens={dishAllergens}/>}
@@ -48,18 +48,18 @@ const DishWithPicture = (props: IDishWithPictureProps) => {
 
 
             {/*web version of dish element*/}
-            <div className={styles.webVersion}>
+            <div className={styles.WebVersion}>
                 <Grid container>
 
-                    <Grid item xs={9}  className={styles.gridItem}>
+                    <Grid item xs={9}  className={styles.GridItem}>
                         <DishHeader dishName={dishName} price={price}/>
-                        <p className={styles.justificationPrint}>
+                        <p className={styles.JustificationPrint}>
                             {extended ? dishDescription : shortenedDescription}
                         </p>
                     </Grid>
 
-                    <Grid item xs={3} className={styles.gridItemImage}>
-                        {imageSrc && <img src={imageSrc} alt={dishName} className={styles.imageDimensions}/>}
+                    <Grid item xs={3} className={styles.GridItemImage}>
+                        {imageSrc && <img src={imageSrc} alt={dishName} className={styles.ImageDimensions}/>}
                         {extended && <AllergenTags dishAllergens={dishAllergens}/>}
                     </Grid>
 

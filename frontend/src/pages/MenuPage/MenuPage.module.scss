@@ -1,10 +1,10 @@
 @import "../../general";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Orbitron&display=swap");
 
-.rectOnImg {
+.RectOnImg {
     width: 100vw;
     height: 12.125rem;
-    background-image: url("@src/asset/foodbg.png");
+    background-image: url("@src/assets/foodbg.png");
     box-shadow: inset 0 0 0 62.5rem rgba(64, 63, 76, 0.8);
     display: flex;
     align-items: center;
@@ -12,21 +12,21 @@
     gap: 2.5rem;
 }
 
-.restaurantTitle {
+.RestaurantTitle {
     font-family: "Montserrat", sans-serif;
     font-size: 2.188rem;
     color: #ffffff;
     margin: 0;
 }
 
-.restaurantAddress {
+.RestaurantAddress {
     font-family: "Montserrat", sans-serif;
     font-size: 1.8rem;
     color: #ffffff;
     margin-left: 1rem;
 }
 
-.divAddress {
+.DivAddress {
     display: flex;
     align-items: center;
 }

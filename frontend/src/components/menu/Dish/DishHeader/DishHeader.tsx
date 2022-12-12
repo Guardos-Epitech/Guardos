@@ -14,14 +14,14 @@ const DishHeader = (props: IDishHeaderProps) => {
 
     return (
         <Grid container>
-            <Grid item xs={6} className={styles.leftAligned}>
+            <Grid item xs={6} className={styles.LeftAligned}>
                 <h3>
                     {dishName}
                 </h3>
             </Grid>
 
-            <Grid item xs={6} className={styles.rightAligned}>
-                <h3 className={styles.rightAligned}>
+            <Grid item xs={6} className={styles.RightAligned}>
+                <h3 className={styles.RightAligned}>
                     {priceStr}
                 </h3>
             </Grid>

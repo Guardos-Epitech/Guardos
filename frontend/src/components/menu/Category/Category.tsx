@@ -10,7 +10,7 @@ interface ICategoryProps {
 
 const Category = (props: ICategoryProps) => {
     return (
-        <div className={styles.categoryBox}>
+        <div className={styles.CategoryBox}>
             <Divider textAlign={"left"}>
                 <h2>
                     {props.title}

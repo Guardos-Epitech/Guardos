@@ -1,36 +1,36 @@
 @import "../../../../general";
 
-.justificationPrint {
+.JustificationPrint {
   text-align: justify;
   text-justify: inter-word;
 }
 
-.gridItemUpper {
+.GridItemUpper {
   padding: 2rem 1.5rem 0 1.5rem;
 }
 
-.gridItemLower {
+.GridItemLower {
   padding: 0 2rem 2rem 2rem;
 }
 
 @media only screen and (max-width: 768px) {
-  .gridItemDescription {
+  .GridItemDescription {
     padding: 0 1rem 1rem 1rem;
   }
 
-  .mobileVersion {
+  .MobileVersion {
   }
 
-  .webVersion {
+  .WebVersion {
     display: none;
   }
 }
 
 @media only screen and (min-width: 768px) {
-  .mobileVersion {
+  .MobileVersion {
     display: none;
   }
 
-  .webVersion {
+  .WebVersion {
   }
 }

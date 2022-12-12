@@ -21,17 +21,17 @@ const DishWithPicture = (props: IDishWithoutPictureProps) => {
     return (
         <>
             {/*mobile version of dish element*/}
-            <div className={styles.mobileVersion}>
+            <div className={styles.MobileVersion}>
                 <Grid container>
 
                     {/*Dish name and price*/}
-                    <Grid item xs={12} className={styles.gridItemUpper}>
+                    <Grid item xs={12} className={styles.GridItemUpper}>
                         <DishHeader dishName={dishName} price={price}/>
                     </Grid>
 
                     {/*Dish description*/}
-                    <Grid item xs={12} className={styles.gridItemDescription}>
-                        <p className={styles.justificationPrint}>
+                    <Grid item xs={12} className={styles.GridItemDescription}>
+                        <p className={styles.JustificationPrint}>
                             {extended ? dishDescription : shortenedDescription}
                             {extended && <AllergenTags dishAllergens={dishAllergens}/>}
                         </p>
@@ -41,27 +41,27 @@ const DishWithPicture = (props: IDishWithoutPictureProps) => {
             </div>
 
             {/*web version of dish element*/}
-            <div className={styles.webVersion}>
+            <div className={styles.WebVersion}>
                 <Grid container>
 
                     {/*Dish name and price*/}
-                    <Grid item xs={9} className={styles.gridItemUpper}>
+                    <Grid item xs={9} className={styles.GridItemUpper}>
                         <DishHeader dishName={dishName} price={price}/>
                     </Grid>
 
                     {/*Dish picture*/}
-                    <Grid item xs={3} className={styles.gridItemUpper}>
+                    <Grid item xs={3} className={styles.GridItemUpper}>
                     </Grid>
 
                     {/*Dish description*/}
-                    <Grid item xs={9} className={styles.gridItemLower}>
-                        <p className={styles.justificationPrint}>
+                    <Grid item xs={9} className={styles.GridItemLower}>
+                        <p className={styles.JustificationPrint}>
                             {extended ? dishDescription : shortenedDescription}
                         </p>
                     </Grid>
 
                     {/*Dish allergens*/}
-                    <Grid item xs={3} className={styles.gridItemLower}>
+                    <Grid item xs={3} className={styles.GridItemLower}>
                         {extended && <AllergenTags dishAllergens={dishAllergens}/>}
                     </Grid>
 

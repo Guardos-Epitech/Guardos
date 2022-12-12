@@ -20,7 +20,7 @@ const Dish = (props: IDishProps) => {
     const shortenedDescription = dishDescription.substring(0, 250);
 
     return (
-        <Paper className={styles.dishBox} elevation={3} sx={{ m: 2 }} onClick={() => setExtended(!extended)}>
+        <Paper className={styles.DishBox} elevation={3} sx={{ m: 2 }} onClick={() => setExtended(!extended)}>
             {imageSrc ?
                 <DishWithPicture
                     dishName={dishName}
