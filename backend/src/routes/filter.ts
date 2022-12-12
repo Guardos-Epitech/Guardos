@@ -7,13 +7,13 @@ import { filterRestaurants } from '../middleware/filterMiddleWare';
 router.use(bodyParser.json());
 
 router.get('/', function (req: Request, res: Response) {
-  res.status(290)
+  res.status(200)
     .send('Hello World!');
 });
 
 /* GET home page. */
 router.get('/filter', function (req: Request, res: Response) {
-  res.status(290)
+  res.status(200)
     .send('Hello filter!');
 });
 
