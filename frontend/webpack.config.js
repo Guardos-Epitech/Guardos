@@ -14,12 +14,11 @@ const config = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
   },
   devServer: {
     open: true,
-    host: "localhost",
-    historyApiFallback: true,
+    host: "0.0.0.0",
+    port: 8080
   },
   plugins: [
     new HtmlWebpackPlugin({
