@@ -125,7 +125,7 @@ export default class Filter {
   }
 
   // Filter for Allergens
-  filterForRestaurantsWithAllergens(allergens: string[]) {
+  public filterForRestaurantsWithAllergens(allergens: string[]) {
     const results = [{} as IRestaurantFrontEnd];
     results.pop();
 
