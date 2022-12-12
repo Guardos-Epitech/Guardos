@@ -3,9 +3,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import path = require('path');
-
-import indexRouter from './routes/index';
-
+import filter from './routes/filter';
 function main (): void  {
   const app = express();
   const port = 8081;
@@ -16,7 +14,7 @@ function main (): void  {
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
 
-  app.use('/', indexRouter);
+  app.use('/api', filter);
 
   // catch 404 and forward to error handler
   app.use(function(req: any, res: any, next: any) { /* eslint-disable-line */
