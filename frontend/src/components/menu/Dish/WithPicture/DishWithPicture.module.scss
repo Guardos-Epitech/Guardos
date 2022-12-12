@@ -1,0 +1,60 @@
+@import "../../../../general";
+
+.JustificationPrint {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.ImageParent {
+  display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  .GridItem {
+    padding: 2rem 0 0 1.5rem;
+  }
+
+  .GridItemDescription {
+    padding: 0 1rem 1rem 1rem;
+  }
+
+  .ImageDimensions {
+    width: 100%;
+    height: auto;
+    max-height: 7.5rem;
+    margin: 1.5rem 1.5rem 0 0;
+    max-width: 8rem;
+    object-fit: cover;
+  }
+
+  .MobileVersion {
+  }
+
+  .WebVersion {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .GridItem {
+    padding: 2rem;
+  }
+
+  .GridItemImage {
+    padding: 1rem 1rem 1rem 0;
+  }
+
+  .ImageDimensions {
+    width: 100%;
+    height: auto;
+    max-height: 11rem;
+    object-fit: cover;
+  }
+
+  .MobileVersion {
+    display: none;
+  }
+
+  .WebVersion {
+  }
+}

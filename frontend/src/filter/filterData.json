@@ -1,0 +1,57 @@
+{
+    "filter" : [
+        {
+            "name" : "allegens",
+            "values" : [
+                {
+                    "name" : "milk"
+                },
+                {
+                    "name" : "bread"
+                },
+                {
+                    "name" : "cheese"
+                },
+                {
+                    "name" : "salad"
+                },
+                {
+                    "name" : "sugar"
+                }
+            ]
+        },
+        {
+            "name" : "category",
+            "values" : [
+                {
+                    "name" : "burger",
+                    "identifier" : "food-group"
+                },
+                {
+                    "name" : "sushi",
+                    "identifier" : "food-group"
+                },
+                {
+                    "name" : "ice",
+                    "identifier" : "food-group"
+                },
+                {
+                    "name" : "salad",
+                    "identifier" : "food-group"
+                },
+                {
+                    "name" : "appetizer",
+                    "identifier" : "menu-group"
+                },
+                {
+                    "name" : "desert",
+                    "identifier" : "menu-group"
+                },
+                {
+                    "name" : "maindish",
+                    "identifier" : "menu-group"
+                }
+            ]
+        }
+    ]
+}

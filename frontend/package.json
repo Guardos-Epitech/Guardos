@@ -16,7 +16,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-lorem-ipsum": "^1.4.10",
-    "react-router-dom": "^6.4.4"
+    "react-router-dom": "^6.4.4",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js",
@@ -24,7 +25,8 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --define-process-env-node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
