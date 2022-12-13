@@ -19,7 +19,8 @@ export default class DataBase {
   }
 
   async connectToDb() {
-    if (this.url === null)
+    if (this.userName.length == 0 || this.password.length === 0
+      || this.cluster.length === 0)
       return;
     this.uri = this.url.replace('aaa', this.userName);
     this.uri = this.uri.replace('bbb', this.password);
