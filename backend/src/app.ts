@@ -14,12 +14,14 @@ function main (): void  {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
-
+  const dataBase = createDatabaseConnection();
+  app.set('db', dataBase);
   app.use('/api', filter);
-  test();
-  async function test() {
+
+  async function createDatabaseConnection() {
     const Db = new db();
     await Db.connectToDb();
+    return Db;
   }
   // catch 404 and forward to error handler
   app.use(function(req: any, res: any, next: any) { /* eslint-disable-line */

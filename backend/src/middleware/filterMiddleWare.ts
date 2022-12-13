@@ -1,8 +1,9 @@
 import { Request } from 'express';
 import Filter from '../controllers/restaurantController';
+import DataBase from '../controllers/connectDataBase';
 
-export const filterRestaurants = (req: Request) => {
-  const filter = new Filter();
+export const filterRestaurants = (req: Request, dataBase: DataBase) => {
+  const filter = new Filter(dataBase);
   if (req.body.allergens !== undefined) {
     let prepare = req.body.allergens.split('[');
     prepare = prepare[1].split(']');

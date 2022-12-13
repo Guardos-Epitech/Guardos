@@ -1,5 +1,6 @@
 import { getEnv } from './getEnv';
 import { ListDatabasesResult, MongoClient } from 'mongodb';
+import { IRestaurantBackEnd } from '../models/restaurantInterfaces';
 export default class DataBase {
   url: string;
   userName: string;
@@ -29,12 +30,8 @@ export default class DataBase {
       console.log('Connecting to database...');
       await this.client.connect();
       console.log('Connected to database');
-      await this.listDatabases();
     } catch (e) {
       console.log(e);
-    } finally {
-      console.log('finally');
-      await this.client.close();
     }
   }
 
@@ -43,6 +40,25 @@ export default class DataBase {
       .admin()
       .listDatabases();
     console.log('Databases:');
-    this.databases.databases.forEach(db => console.log(` - ${db.name}`));
+    this.databases.databases
+      .forEach(db => console.log(` - ${db.name}`));
+  }
+
+  getCollection() {
+    return this.client.db('Guardos')
+      .collection('Restaurants')
+      .find()
+      .stream();
+  }
+
+  async listRestaurants() {
+    const collection = await this.getCollection();
+    collection.on('data', (item : IRestaurantBackEnd) => {
+      console.log(item);
+    });
+  }
+
+  async disconnectFromDatabase() {
+    await this.client.close();
   }
 }
