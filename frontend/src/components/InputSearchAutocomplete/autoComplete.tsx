@@ -15,7 +15,8 @@ const theme = createTheme({
   });
 
 interface AutoCompleteProps {
-    data: Array<String>;
+    data: Array<String>,
+    onChange: any
 }
 
 
@@ -28,13 +29,13 @@ const AutoComplete = (props : AutoCompleteProps) => {
 
   const handleChange = (e :  any) => {
     const query = e.target.value
-    console.log(query);
     setValue(query);
     if (query.length > 1) {
       const filterSuggestions = props.data.filter(
         (suggestion : any) =>
           suggestion.indexOf(query) > -1
       );
+      props.onChange(query);
       setSuggestions(filterSuggestions);
       setSuggestionsActive(true);
     } else {
@@ -45,6 +46,7 @@ const AutoComplete = (props : AutoCompleteProps) => {
   const handleClick = (e : any) => {
     setSuggestions([]);
     setValue(e.target.innerText);
+    props.onChange(e.target.innerText);
     setSuggestionsActive(false);
   };
 

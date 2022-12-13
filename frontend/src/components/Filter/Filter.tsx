@@ -57,7 +57,7 @@ const marks = [
 
 type color = "primary" | "secondary" | "default" | "error" | "info" | "success" | "warning"
 
-const Filter = () => {
+const Filter = (prop : any) => {
   const [colorChip, setColorChip] = useState<color>("primary")
   const handleClick = () => {
     if (colorChip == "primary") setColorChip("secondary");
@@ -65,6 +65,37 @@ const Filter = () => {
   };
 
   const navigate = useNavigate();
+  const [states, setStates] = React.useState([
+    { name: "oneStar", value: true },
+    { name: "twoStar", value: true },
+    { name: "threeStar", value: true },
+    { name: "fourStar", value: true },
+    { name: "fiveStar", value: true },
+    { name: "Burger", value: true },
+    { name: "Pizza", value: true },
+    { name: "Salade", value: true },
+    { name: "Sushi", value: true },
+    { name: "Pasta", value: true }
+  ]);
+
+  function onChangeStates(toChange : String) {
+    let statesCopy = [...states];
+    states.map((state, index) => {
+      if (toChange === state.name) {
+        statesCopy[index].value = !statesCopy[index].value;
+      }
+    });
+    console.log(states);
+    setStates(statesCopy);
+    console.log(states);
+    prop.onChange(states);
+    console.log(states);
+  }
+
+  function onChangeRange(event : any) {
+    prop.onRangeChange(event.target.value);
+  }
+
   return (
     <div className={styles.RectFilter}>
       <div className={styles.DivFilter}>
@@ -79,6 +110,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"5 stars"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("fiveStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
@@ -86,6 +118,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"4 stars"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("fourStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
@@ -93,6 +126,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"3 stars"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("threeStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
@@ -100,6 +134,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"2 stars"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("twoStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
@@ -107,6 +142,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"1 star"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("oneStar")}
               />
             </ThemeProvider>
           </div>
@@ -118,7 +154,7 @@ const Filter = () => {
           <div className={styles.DivSlider}>
             <ThemeProvider theme={GlobalStyle()}>
               <Box sx={{ width: "20rem" }}>
-                <Slider defaultValue={30} color="primary" marks={marks} valueLabelDisplay="on"/>
+                <Slider defaultValue={100} color="primary" marks={marks} valueLabelDisplay="on" onChange={(event) => onChangeRange(event)}/>
               </Box>
             </ThemeProvider>
           </div>
@@ -131,6 +167,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"Burger"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("Burger")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
@@ -138,6 +175,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"Sushi"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("Sushi")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
@@ -145,6 +183,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"Pizza"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("Pizza")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
@@ -152,6 +191,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"Salade"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("Salade")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
@@ -159,6 +199,7 @@ const Filter = () => {
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"Pasta"}</span>}
                 className={styles.test}
+                onChange={event => onChangeStates("Pasta")}
               />
             </ThemeProvider>
           </div>

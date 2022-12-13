@@ -35,7 +35,7 @@ const PageBtn = () => {
   });
 };
 
-const RestoCard = () => {
+const RestoCard = (prop : any) => {
   const navigate = useNavigate();
   return (
     <div className={styles.RectCard}>
