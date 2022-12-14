@@ -1,4 +1,3 @@
-import dummyDataRestaurants from '../assets/restaurants.json';
 import { IRestaurantBackEnd, IRestaurantFrontEnd }
   from '../models/restaurantInterfaces';
 import { IDishBE, IDishFE } from '../models/dishInterfaces';
@@ -10,21 +9,21 @@ import DataBase from './connectDataBase';
 export default class Filter {
   restaurants: [IRestaurantBackEnd];
 
-  constructor(database: DataBase) {
-    this.restaurants = this.getAllRestaurants(database);
+  constructor() {
+    this.restaurants = this.getAllRestaurants();
   }
 
   // Create BE object from JSON
-  private getAllRestaurants(database: DataBase) {
+  private getAllRestaurants() {
     let result : [IRestaurantBackEnd];
-    const data = database.getCollection();
-    data.on('data', (elem : IRestaurantBackEnd) => {
+    const data = [{} as IRestaurantBackEnd];
+    for (const elem of data) {
       const obj = this.createBackEndObj({id: elem.id, name: elem.name,
         phoneNumber: elem.phoneNumber, mealType: elem.mealType as any,  /* eslint-disable-line */
         dishes: elem.dishes as any, location: elem.location,  /* eslint-disable-line */
         extras: elem.extras as any});  /* eslint-disable-line */
       result.push(obj);
-    });
+    }
     //Sort mealType for frontend by sortId
     for (const elem of result) {
       elem.mealType.sort((a, b) =>

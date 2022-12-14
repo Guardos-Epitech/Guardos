@@ -4,8 +4,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import path = require('path');
 import filter from './routes/filter';
-import db from './controllers/connectDataBase';
-function main (): void  {
+import connectDataBase from './controllers/connectDataBase';
+async function main()  {
   const app = express();
   const port = 8081;
 
@@ -14,15 +14,14 @@ function main (): void  {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
-  const dataBase = createDatabaseConnection();
-  app.set('db', dataBase);
+  if(await connectDataBase() === 1) {
+    app.listen(port, () => {
+      return console.log(`Express is listening at http://localhost:${port}`);
+    });
+  }
+
   app.use('/api', filter);
 
-  async function createDatabaseConnection() {
-    const Db = new db();
-    await Db.connectToDb();
-    return Db;
-  }
   // catch 404 and forward to error handler
   app.use(function(req: any, res: any, next: any) { /* eslint-disable-line */
     next(createError(404));
@@ -37,10 +36,6 @@ function main (): void  {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
-  });
-
-  app.listen(port, () => {
-    return console.log(`Express is listening at http://localhost:${port}`);
   });
 }
 
