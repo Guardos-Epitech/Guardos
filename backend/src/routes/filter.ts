@@ -3,6 +3,7 @@ import { Response, Request } from 'express';
 import bodyParser from 'body-parser';
 const router = express.Router();
 import { filterRestaurants } from '../middleware/filterMiddleWare';
+import { geocoding } from '../middleware/mapMiddleware';
 
 router.use(bodyParser.json());
 
@@ -19,6 +20,12 @@ router.get('/filter', function (req: Request, res: Response) {
 
 router.post('/filter', function (req: Request, res: Response) {
   const answer = filterRestaurants(req);
+  return res.send(answer);
+});
+
+router.post('/map', function (req: Request, res: Response) {
+  console.log("start geocodeing");
+  const answer = geocoding(req);
   return res.send(answer);
 });
 
