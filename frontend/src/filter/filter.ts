@@ -305,6 +305,43 @@ export default class Filter {
         return results;
     };
 
+    filterForRestaurantWithCategory(lookingFor: string[]) {
+        let results =  [{} as IRestaurantFrontEnd];
+        results.pop();
+        for (let restaurant of this.restaurants) {
+            let inserted = false;
+            let count = 0;
+            let hitRate = 0;
+            let max = 0;
+            for (let searchedWord of lookingFor) {
+                // Check if category of restaurant contains searched word --> return RestaurantObj with 100% hitRate
+                // stop if finding category directly
+                let hitRate = 0;
+                for (let category of restaurant.mealType) {
+                    if (category.name.toLowerCase().includes(searchedWord.toLowerCase())) {
+                        for (let dish of restaurant.dishes) {
+                            if (dish.category.menuGroup.toLowerCase().includes(searchedWord.toLowerCase())) {
+                                count++;
+                                max = restaurant.dishes.length;
+                                hitRate = (count / max) * 100;
+                                break;
+                            }
+                        }
+                        results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, hitRate));
+                        inserted = true;
+                        break;
+                    }
+                }
+            }
+            // If not inserted directly by category, create RestaurantObj with hitRate
+            if (!inserted) {
+                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, hitRate));
+            }
+        }
+        results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+        return results;
+    }
+
     filterForRestaurantWithLocation(lookingFor: string) {
         let results = [{} as IRestaurantFrontEnd];
         results.pop();
@@ -348,7 +385,7 @@ function handleFilterRequest(obj: ICommunicationObject) {
     }
     if (obj.categories !== undefined) {
         check++;
-        tmpFilterObj = filter.filterForRestaurantWithNameOrGroup(obj.categories);
+        tmpFilterObj = filter.filterForRestaurantWithCategory(obj.categories);
         console.log('Filter after categories: ');
         printResults(tmpFilterObj);
     }
@@ -383,7 +420,7 @@ export function testFilter() {
         categories: ['maindish'],
         location: 'Berlin',
         range: 0,
-        rating: [4,5],
+        rating: [0,5],
     }
     handleFilterRequest(commObjAll);
 }
