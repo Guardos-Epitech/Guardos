@@ -1,6 +1,15 @@
 import dummyDataFilter from './filterData.json';
 import dummyDataRestaurants from './restaurants.json';
 
+interface ICommunicationObject {
+    allergenList?: string[];
+    location?: string;
+    name?: string;
+    rating?: number[];
+    range?: number;
+    categories?: string[];
+}
+
 interface ICategories {
     name: string;
     hitRate: number;
@@ -53,6 +62,7 @@ export interface IRestaurantFrontEnd {
     phoneNumber: string;
     categories: [ICategories];
     location: ILocation;
+    rating: number;
     hitRate: number;
 }
 
@@ -60,6 +70,7 @@ export interface IRestaurantBackEnd {
     name: string;
     id: number;
     phoneNumber: string;
+    rating: number;
     dishes: [IDishBE];
     location: ILocation;
     mealType: [IMealType];
@@ -83,6 +94,7 @@ export default class Filter {
             let obj: IRestaurantBackEnd = {
                 name: elem.name,
                 id: elem.id,
+                rating: elem.rating,
                 phoneNumber: elem.phoneNumber,
                 dishes: [{} as IDishBE],
                 location: {} as ILocation,
@@ -138,6 +150,7 @@ export default class Filter {
         if (isNaN(hitRate))
             hitRate = 0;
         let obj: IRestaurantFrontEnd = {
+            rating: restaurant.rating,
             name: restaurant.name,
             id: restaurant.id,
             phoneNumber: restaurant.phoneNumber,
@@ -271,4 +284,106 @@ export default class Filter {
         results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         return results;
     }
+
+    filterForRestaurantWithRating(lookingFor: Number[]) {
+        let results =  [{} as IRestaurantFrontEnd];
+        results.pop();
+
+        for (let restaurant of this.restaurants) {
+            let inserted = false;
+            // Check if rating of restaurant is between the two numbers --> return RestaurantObj with 100% hitRate
+            if (restaurant.rating >= lookingFor[0] && restaurant.rating <= lookingFor[1]) {
+                inserted = true;
+                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 100));
+            }
+            // If not inserted directly by rating, create RestaurantObj with hitRate == 0
+            if (!inserted) {
+                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 0));
+            }
+        }
+        results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+        return results;
+    };
+
+    filterForRestaurantWithLocation(lookingFor: string) {
+        let results = [{} as IRestaurantFrontEnd];
+        results.pop();
+        for (let restaurant of this.restaurants) {
+            let inserted = false;
+            for (let location of restaurant.location.postalCode) {
+                if (location == lookingFor) {
+                    inserted = true;
+                    results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 100));
+                }
+            }
+            if (!inserted) {
+                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 0));
+            }
+        }
+        results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+        return results;
+    };
+}
+
+function handleFilterRequest(obj: ICommunicationObject) {
+    let check = 0;
+    let filter = new Filter();
+    let restaurants = filter.getRestaurants();
+    let result = [{} as IRestaurantFrontEnd];
+    let tmpFilterObj : IRestaurantFrontEnd[];
+    let ratingResult = [] as Number[];
+    result.pop();
+
+    if (obj.name !== undefined) {
+        check++;
+        tmpFilterObj = filter.filterForRestaurantWithNameOrGroup([obj.name]);
+        console.log('Filter after name: ');
+        printResults(tmpFilterObj);
+    }
+    if (obj.allergenList !== undefined) {
+        check++;
+        tmpFilterObj = filter.filterForRestaurantsWithAllergens(obj.allergenList);
+        console.log('Filter after allergens:');
+        printResults(tmpFilterObj);
+    }
+    if (obj.categories !== undefined) {
+        check++;
+        tmpFilterObj = filter.filterForRestaurantWithNameOrGroup(obj.categories);
+        console.log('Filter after categories: ');
+        printResults(tmpFilterObj);
+    }
+    if (obj.rating !== undefined) {
+        check++;
+        tmpFilterObj = filter.filterForRestaurantWithRating(obj.rating);
+        console.log('Filter after rating: ');
+        printResults(tmpFilterObj);
+    }
+    if (obj.range !== undefined) {
+        check++;
+        console.log('range: ' + obj.range);
+    }
+    if (obj.location !== undefined) {
+        check++;
+        tmpFilterObj = filter.filterForRestaurantWithLocation(obj.location);
+        console.log('Filter after location:');
+        printResults(tmpFilterObj);
+    }
+}
+
+function printResults(results: IRestaurantFrontEnd[]) {
+    for (let result of results) {
+        console.log(result);
+    }
+}
+
+export function testFilter() {
+    const commObjAll: ICommunicationObject = {
+        name: 'all',
+        allergenList: ['gluten', 'lactose'],
+        categories: ['maindish'],
+        location: 'Berlin',
+        range: 0,
+        rating: [4,5],
+    }
+    handleFilterRequest(commObjAll);
 }
