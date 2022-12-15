@@ -25,7 +25,7 @@
             "dishes" : [
                 {
                     "id": 0,
-                    "name" : "McSunday",
+                    "name" : "McSunday Stone",
                     "allergens" : "milk",
                     "description" : "bla bla",
                     "price" : 13,

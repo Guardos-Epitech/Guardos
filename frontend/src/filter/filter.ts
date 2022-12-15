@@ -38,6 +38,7 @@ interface ILocation {
     streetNumber: string,
     postalCode: string,
     country: string;
+    city: string;
 }
 
 interface IDishBE {
@@ -56,6 +57,10 @@ interface IDishFE {
     category: ICategoryFE;
 }
 
+interface IFilterObj {
+    savedFilter: ICommunicationObject;
+    savedRestaurants: IRestaurantFrontEnd[][];
+}
 export interface IRestaurantFrontEnd {
     name: string;
     id: number;
@@ -128,6 +133,14 @@ export default class Filter {
 
                 obj.extra.push(extraObj);
             }
+
+            obj.location.city = elem.location.city;
+            obj.location.country = elem.location.country;
+            obj.location.postalCode = elem.location.postalCode;
+            obj.location.streetName = elem.location.streetName;
+            obj.location.streetNumber = elem.location.streetNumber;
+
+
             result.push(obj);
         }
         //Sort mealType for frontend by sortId
@@ -347,11 +360,9 @@ export default class Filter {
         results.pop();
         for (let restaurant of this.restaurants) {
             let inserted = false;
-            for (let location of restaurant.location.postalCode) {
-                if (location == lookingFor) {
-                    inserted = true;
-                    results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 100));
-                }
+            if (restaurant.location.city.toLowerCase().includes(lookingFor)) {
+                inserted = true;
+                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 100));
             }
             if (!inserted) {
                 results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 0));
@@ -365,46 +376,51 @@ export default class Filter {
 function handleFilterRequest(obj: ICommunicationObject) {
     let check = 0;
     let filter = new Filter();
-    let restaurants = filter.getRestaurants();
     let result = [{} as IRestaurantFrontEnd];
-    let tmpFilterObj : IRestaurantFrontEnd[];
-    let ratingResult = [] as Number[];
+    let tmpFilterObj : IFilterObj;
+    let nameFlag = false;
     result.pop();
+    tmpFilterObj = {savedFilter: obj, savedRestaurants: []};
+    tmpFilterObj.savedFilter = obj;
 
     if (obj.name !== undefined) {
+        tmpFilterObj.savedRestaurants.push(filter.filterForRestaurantWithNameOrGroup([obj.name]));
         check++;
-        tmpFilterObj = filter.filterForRestaurantWithNameOrGroup([obj.name]);
-        console.log('Filter after name: ');
-        printResults(tmpFilterObj);
+        nameFlag = true;
     }
     if (obj.allergenList !== undefined) {
+        tmpFilterObj.savedRestaurants.push(filter.filterForRestaurantsWithAllergens(obj.allergenList));
         check++;
-        tmpFilterObj = filter.filterForRestaurantsWithAllergens(obj.allergenList);
-        console.log('Filter after allergens:');
-        printResults(tmpFilterObj);
     }
     if (obj.categories !== undefined) {
+        tmpFilterObj.savedRestaurants.push(filter.filterForRestaurantWithCategory(obj.categories));
         check++;
-        tmpFilterObj = filter.filterForRestaurantWithCategory(obj.categories);
-        console.log('Filter after categories: ');
-        printResults(tmpFilterObj);
     }
     if (obj.rating !== undefined) {
+        tmpFilterObj.savedRestaurants.push(filter.filterForRestaurantWithRating(obj.rating));
         check++;
-        tmpFilterObj = filter.filterForRestaurantWithRating(obj.rating);
-        console.log('Filter after rating: ');
-        printResults(tmpFilterObj);
     }
     if (obj.range !== undefined) {
-        check++;
-        console.log('range: ' + obj.range);
+        console.log('Range: ' + obj.range);
     }
     if (obj.location !== undefined) {
+        tmpFilterObj.savedRestaurants.push(filter.filterForRestaurantWithLocation(obj.location));
         check++;
-        tmpFilterObj = filter.filterForRestaurantWithLocation(obj.location);
-        console.log('Filter after location:');
-        printResults(tmpFilterObj);
     }
+
+    // compare all hitrates in tmpFilterObj and return IRestaurantFrontEnd[] with average hitRate
+    if (check > 1) {
+        for (let i = 0; i < tmpFilterObj.savedRestaurants[0].length; i++) {
+            let hitRate = 0;
+            for (let j = 0; j < tmpFilterObj.savedRestaurants.length; j++) {
+                hitRate += tmpFilterObj.savedRestaurants[j][i].hitRate;
+            }
+            hitRate = hitRate / tmpFilterObj.savedRestaurants.length;
+            tmpFilterObj.savedRestaurants[0][i].hitRate = hitRate;
+        }
+        result = tmpFilterObj.savedRestaurants[0];
+    }
+    console.log(result);
 }
 
 function printResults(results: IRestaurantFrontEnd[]) {
@@ -415,7 +431,7 @@ function printResults(results: IRestaurantFrontEnd[]) {
 
 export function testFilter() {
     const commObjAll: ICommunicationObject = {
-        name: 'all',
+        name: 'stone',
         allergenList: ['gluten', 'lactose'],
         categories: ['maindish'],
         location: 'Berlin',
