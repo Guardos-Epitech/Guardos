@@ -3,4 +3,5 @@ export interface ILocation {
   streetNumber: string,
   postalCode: string,
   country: string;
+  city: string;
 }

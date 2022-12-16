@@ -1,6 +1,5 @@
 import { Request } from 'express';
 import Filter from '../controllers/restaurantController';
-import DataBase from '../controllers/connectDataBase';
 
 export const filterRestaurants = (req: Request) => {
   const filter = new Filter();

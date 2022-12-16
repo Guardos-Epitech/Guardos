@@ -1,125 +1,9 @@
 import { getEnv } from './getEnv';
+import { IRestaurantBackEnd, restaurantSchema }
+  from '../models/restaurantInterfaces';
+import filter from '../controllers/restaurantController';
+
 const mongoose = require('mongoose');  /* eslint-disable-line */
-
-const restaurantSchema = new mongoose.Schema({
-  _id: Number,
-  name: String,
-  id: Number,
-  phoneNumber: String,
-  dishes: [{
-    name: String,
-    description: String,
-    price: Number,
-    allergens: String,
-    category: {
-      menuGroup: String,
-      foodGroup: String,
-      extraGroup: String,
-    },
-  }],
-  location: {
-    streetName: String,
-    streetNumber: String,
-    postalCode: String,
-    country: String,
-  },
-  mealType: [{
-    name: String,
-    id: Number,
-    sortId: Number,
-  }],
-  extras: [{
-    name: String,
-    description: String,
-    price: Number,
-    allergens: String,
-    category: {
-      menuGroup: String,
-      foodGroup: String,
-      extraGroup: String,
-    },
-  }],
-});
-
-// export default class DataBase {
-//   url: string;
-//   userName: string;
-//   password: string;
-//   uri?: string;
-//   cluster: string;
-//   client: any;
-//   databases: ListDatabasesResult;
-//
-//   constructor() {
-//     const env = getEnv();
-//     this.url = env.dbUrl;
-//     this.userName = env.dbUser;
-//     this.password = env.dbPassword;
-//     this.cluster = env.dbCluster;
-//   }
-//
-//   async connectToDb() {
-//     if (this.userName.length === 0 || this.password.length === 0
-//       || this.cluster.length === 0)
-//       return;
-//     this.uri = this.url.replace('aaa', this.userName);
-//     this.uri = this.uri.replace('bbb', this.password);
-//     this.uri = this.uri.replace('ccc', this.cluster) +
-//       '?retryWrites=true&w=majority';
-//     try {
-//       console.log('Connecting to database... with: ' + this.uri);
-//       mongoose.set('strictQuery', false);
-//       mongoose.connect(this.uri,
-//         {
-//           useNewUrlParser: true,
-//           useUnifiedTopology: true
-//         });
-//       this.client = mongoose.connection.getClient();
-//       this.client.on('error', console.error.bind(console, 'connection error:'));
-//       this.client.once('open', async function () {
-//         const RestaurantSchema = mongoose.model('Restaurants',
-//           restaurantSchema);
-//         console.log('Connected to database');
-//         console.log(RestaurantSchema);
-//         const aaa = await RestaurantSchema.find({});
-//         console.log(aaa);
-//         for await (const doc of RestaurantSchema.find()) {
-//           console.log(doc); // Prints documents one at a time
-//         }
-//         console.log('done with printing');
-//       });
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   }
-//
-//   async  listDatabases() {
-//     this.databases = await this.client.db()
-//       .admin()
-//       .listDatabases();
-//     console.log('Databases:');
-//     this.databases.databases
-//       .forEach(db => console.log(` - ${db.name}`));
-//   }
-//
-//   public getCollectionOfRestaurants() {
-//
-//     return this.client;
-//   }
-//
-//   async listRestaurants() {
-//     console.log('Restaurants:');
-//     const collection = await this.getCollectionOfRestaurants();
-//     collection.on('data', (item : IRestaurantBackEnd) => {
-//       console.log(item);
-//     });
-//     console.log('End of restaurants');
-//   }
-//
-//   async disconnectFromDatabase() {
-//     await this.client.close();
-//   }
-// }
 
 export default async function connectDataBase() {
   const env = getEnv();
@@ -137,24 +21,48 @@ export default async function connectDataBase() {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-    const client = mongoose.connection.getClient();
-    await mongoose.connection.once('open', () => {
+    mongoose.connection.once('open', async () => {
       console.log('Connected to Database');
-      mongoose.connection.db.listCollections({name: 'Restaurants'})
-        .next(function(err: any, name: any) {
-          if (err) {
-            console.log(err);
-          }
-          console.log(name); // [{ name: 'dbname.myCollection' }]
-
-        });
-
+      const restaurants = new filter();
+      let count = 0;
+      for (const restaurant of await restaurants.restaurants) {
+        await createNewRestaurant(restaurant, count);
+        count++;
+      }
     });
     return 1;
   } catch (e) {
     console.error(e);
     return -1;
   }
-  return 1;
 }
 
+export async function createNewRestaurant(obj: IRestaurantBackEnd, id: number) {
+  const RestaurantSchema = mongoose.model('Restaurants', restaurantSchema);
+  const upload = new RestaurantSchema({
+    _id: id,
+    name: obj.name,
+    phoneNumber: obj.phoneNumber,
+    website: obj.website,
+    rating: obj.rating,
+    ratingCount: obj.ratingCount,
+    description: obj.description,
+    dishes: obj.dishes,
+    pictures: obj.pictures,
+    openingHours: obj.openingHours,
+    location: obj.location,
+    mealType: obj.mealType,
+    products: obj.products,
+    extras: obj.extras,
+  });
+  console.log(upload.location);
+  upload.save();
+
+  console.log('Restaurant ' + obj.name + ' saved ' + ' with id ' + id);
+
+}
+
+export async function getAllRestaurants() {
+  const RestaurantSchema = mongoose.model('Restaurants', restaurantSchema);
+  return await RestaurantSchema.find();
+}

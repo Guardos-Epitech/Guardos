@@ -19,8 +19,6 @@ router.get('/filter', function (req: Request, res: Response) {
 });
 
 router.post('/filter', function (req: Request, res: Response) {
-  req.app.get('db')
-    .listRestaurants();
   const answer = filterRestaurants(req);
   return res.send(answer);
 });
