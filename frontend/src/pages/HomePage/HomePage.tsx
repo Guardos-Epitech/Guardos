@@ -99,6 +99,16 @@ const HomePage = () => {
     setFilteredRestaurants(handleFilterRequest(inter));
   }
 
+  function renderMenu(index: number) {
+    console.log(filteredRestaurants);
+    console.log(index);
+    for (let i = 0; i < filteredRestaurants.length; i++) {
+      if (i == index) {
+        return filteredRestaurants[i];
+      }
+    }
+  }
+  ///// until here -> more dynamic
   return (
     <div>
       <Header />
@@ -114,7 +124,7 @@ const HomePage = () => {
         <div>
           <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
           {filteredRestaurants.map((item, index) => {
-            return <RestoCard data={item} />
+            return <RestoCard data={item} index={index} onRender={renderMenu}/>
           })}
         </div>
       </div>

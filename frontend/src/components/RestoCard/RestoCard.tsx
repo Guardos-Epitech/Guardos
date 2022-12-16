@@ -37,6 +37,13 @@ const PageBtn = () => {
 
 const RestoCard = (prop : any) => {
   const navigate = useNavigate();
+
+  function renderDynamicMenu(index: number) {
+    return(
+      prop.onRender(index)
+    );
+  }
+
   return (
     <div className={styles.RectCard}>
       <img className={styles.RestoImg} src={restoimg} alt="Resto Img" />
@@ -63,7 +70,7 @@ const RestoCard = (prop : any) => {
               <Button
                 variant="contained"
                 sx={{ width: "12.13rem" }}
-                onClick={() => NavigateTo("/menu", navigate)}
+                onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu(prop.index))}
               >
                 Restaurant page
               </Button>

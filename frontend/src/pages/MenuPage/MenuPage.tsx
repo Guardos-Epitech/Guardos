@@ -11,6 +11,7 @@ import {List, ListItem} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import burgerImg from "@src/assets/dishImages/burger.jpg";
 import pizzaImg from "@src/assets/dishImages/pizza.jpg";
+import { useLocation } from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -28,11 +29,13 @@ const MenuPage = () => {
     const dishDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n" +
         "Why do we use it?\n";
     const price = 10.00;
+    const location = useLocation();
 
     return (
         <>
             <Header/>
             <div className={styles.RectOnImg}>
+                {location.state.name}
                 <List>
                     <ListItem>
                         <h2 className={styles.RestaurantTitle}>{restaurantName}</h2>
