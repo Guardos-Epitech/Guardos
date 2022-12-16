@@ -24,9 +24,10 @@ router.post('/filter', function (req: Request, res: Response) {
 });
 
 router.post('/map', function (req: Request, res: Response) {
-  console.log("start geocodeing");
   const answer = geocoding(req);
-  return res.send(answer);
+  answer.then(function (result) {
+    return res.send(result);
+  });
 });
 
 export default router;
