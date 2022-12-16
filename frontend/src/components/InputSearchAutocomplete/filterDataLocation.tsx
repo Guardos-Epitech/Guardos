@@ -4,7 +4,8 @@ var autoCompleteData:String[] = [
     "Potsdamm",
     "Barcelona", 
     "Bern", 
-    "Kopenhagen" 
+    "Kopenhagen",
+    "Munich"
 ];
 
 export default autoCompleteData;

@@ -5,6 +5,7 @@
             "name" : "mcdonalds",
             "phoneNumber" : "0123091",
             "rating" : 3.8,
+            "range" : 40,
             "description": "McDonald's Corporation is an American multinational fast food chain, founded in 1940 as a restaurant operated by Richard and Maurice McDonald, in San Bernardino, California, United States.",
             "mealType": [
                 {
@@ -53,7 +54,7 @@
                 "streetNumber": "6A",
                 "postalCode": "12570",
                 "country" : "germany",
-                "city" : "munich"
+                "city" : "Munich"
             },
             "extras": [{
                 "id": 0,
@@ -73,6 +74,7 @@
             "name" : "burger king",
             "phoneNumber": "01232191",
             "rating" : 3.8,
+            "range" : 79,
             "description": "Burger King is an American-based multinational chain of hamburger fast food restaurants. Headquartered in Miami-Dade County, Florida, the company was founded in 1953 as Insta-Burger King, a Jacksonville, Florida–based restaurant chain.",
             "mealType": [
                 {
@@ -122,7 +124,7 @@
                 "streetNumber": "10",
                 "postalCode": "12123",
                 "country" : "germany",
-                "city" : "berlin"
+                "city" : "Berlin"
             },
             "extras": [{
                 "id": 0,
@@ -142,6 +144,7 @@
             "name" : "burgerme",
             "phoneNumber": "0123091123",
             "rating" : 4.7,
+            "range" : 10,
             "description": "You want freshly prepared burgers, delivered to your home in just 25 minutes? Then burgerme is the right place for you! How about a real classic like our Cheese Burger, with juicy beef, melting cheese, spicy onions, pickles, fresh tomatoes and crisp lettuce, served with the right sauces in a brioche bun? Or would you prefer something fancy, like our Big Angus Teriyaki, the New Yorker or our Hot Crunchy Chicken? Of course, we also have plenty of vegetarian and vegan burgers on offer - and delicious finger food, crisp salads and sweet desserts make the offer perfect!",
             "mealType": [
                 {
@@ -191,7 +194,7 @@
                 "streetNumber": "96A",
                 "postalCode": "12590",
                 "country" : "germany",
-                "city" : "berlin"
+                "city" : "Berlin"
             },
             "extras": [{
                 "id": 0,
@@ -223,6 +226,7 @@
             "name" : "SaleEPepe",
             "phoneNumber": "0242091313",
             "rating" : 4.7,
+            "range" : 5,
             "description": "30 years of gastronomic experience and traditional Italian cuisine. Function room for up to 100 people upstairs with its own bar!",
             "mealType": [
                 {
@@ -272,7 +276,7 @@
                 "streetNumber": "28",
                 "postalCode": "10789",
                 "country" : "germany",
-                "city" : "berlin"
+                "city" : "Berlin"
             },
             "extras": [{
                 "id": 0,
@@ -304,6 +308,7 @@
             "name" : "Restaurant at the stone square",
             "phoneNumber": "013144244",
             "rating" : 4.7,
+            "range" : 99,
             "description": "There's more than good company and pleasant conversations at the dinner table. With a variety of flavors in combination with seasonal-regional products we are offering a sharing menu, that lives off small dishes rich in finesse. Choose exactly what you like.",
             "mealType": [
                 {
@@ -353,7 +358,7 @@
                 "streetNumber": "4",
                 "postalCode": "10623",
                 "country" : "germany",
-                "city" : "berlin"
+                "city" : "Berlin"
             },
             "extras": [{
                 "id": 0,

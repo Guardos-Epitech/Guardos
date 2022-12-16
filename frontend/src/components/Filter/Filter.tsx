@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import Button from "@mui/material/Button";
 import { NavigateTo } from "@src/utils/NavigateTo";
 import { useNavigate } from "react-router-dom";
+import { ICommunicationObject } from "@src/filter/filter";
 
 const GlobalStyle = () => {
   return createTheme({
@@ -80,20 +81,46 @@ const Filter = (prop : any) => {
 
   function onChangeStates(toChange : String) {
     let statesCopy = [...states];
+    let min = 0;
+    let max = 0;
+    let categoriesSelected = [];
+
     states.map((state, index) => {
       if (toChange === state.name) {
         statesCopy[index].value = !statesCopy[index].value;
       }
     });
-    console.log(states);
+
     setStates(statesCopy);
-    console.log(states);
-    prop.onChange(states);
-    console.log(states);
+
+    for (let i = 0; i < 5; i++) {
+      if (states[i].value == true) {
+        if (min == 0 && max == 0) {
+          min = i + 1;
+          max = i + 1;
+        } else if (max < i + 1) {
+          max = i + 1;
+        }
+      }
+    }
+    for (let i = 5; i < states.length; i++) {
+      if (states[i].value == true) {
+        categoriesSelected.push(states[i].name);
+      }
+    }
+    const inter: ICommunicationObject = {
+      rating: [min, max],
+      categories: categoriesSelected
+    }
+
+    prop.onChange(inter, states);
   }
 
   function onChangeRange(event : any) {
-    prop.onRangeChange(event.target.value);
+    const inter: ICommunicationObject = {
+      range: event.target.value
+    }
+    prop.onRangeChange(inter);
   }
 
   return (
@@ -211,16 +238,16 @@ const Filter = (prop : any) => {
           <div>
             <Stack direction="row" spacing={1}>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="Aller 1" color={colorChip} variant="outlined" onClick={handleClick} />
+                <Chip label="milk" color={colorChip} variant="outlined" onClick={handleClick} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="Aller 2" color={colorChip} variant="outlined" onClick={handleClick} />
+                <Chip label="shellfish" color={colorChip} variant="outlined" onClick={handleClick} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="Aller 3" color={colorChip} variant="outlined" onClick={handleClick} />
+                <Chip label="eggs" color={colorChip} variant="outlined" onClick={handleClick} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="Aller 4" color={colorChip} variant="outlined" onClick={handleClick} />
+                <Chip label="peanut" color={colorChip} variant="outlined" onClick={handleClick} />
               </ThemeProvider>
             </Stack>
           </div>

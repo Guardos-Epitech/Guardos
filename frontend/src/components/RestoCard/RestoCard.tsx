@@ -42,7 +42,7 @@ const RestoCard = (prop : any) => {
       <img className={styles.RestoImg} src={restoimg} alt="Resto Img" />
       <div>
         <div className={styles.DivTopTitle}>
-          <span className={styles.TitleResto}>Bar & Restaurant Wartesaal</span>
+          <span className={styles.TitleResto}>{prop.data.name}</span>
           <div className={styles.DivRating}>
             <span className={styles.TitleRating}>Rating:</span>
             <img
@@ -54,10 +54,10 @@ const RestoCard = (prop : any) => {
         </div>
         <div className={styles.DivAddress}>
           <PlaceIcon />
-          <span>Zinnowitzer Straße 5, Berlin 10115</span>
+          <span>{prop.data.location.streetName} {prop.data.location.streetNumber}, {prop.data.location.city} {prop.data.location.postalCode}</span>
         </div>
         <div className={styles.DivDesc}>
-          <p className={styles.TxtDescription}>{loremIpsum({ count: 6 })}</p>
+          <p className={styles.TxtDescription}>{prop.data.description}</p>
           <div className={styles.BtnPage}>
             <ThemeProvider theme={PageBtn()}>
               <Button
