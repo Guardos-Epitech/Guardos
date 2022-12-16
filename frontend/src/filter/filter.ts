@@ -395,22 +395,31 @@ class FilterQuery {
         return results;
     }
 
-    filterForRestaurantWithAllergens(lookingFor: number) {
+    filterForRestaurantWithAllergen(lookingFor: Array<string>) {
         let results = [{} as IRestaurantFrontEnd];
         results.pop();
         for (let restaurant of this.restaurants) {
-            let inserted = false;
-            if (restaurant.range <= lookingFor) {
-                inserted = true;
-                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 100));
+            let hitrate = 0;
+            for (let dish of restaurant.dishes) {
+                for (let allerg of lookingFor) {
+                    if (dish.allergens.toLowerCase().includes(allerg.toLowerCase())) {
+                        hitrate = 100;
+                        break;
+                    }
+                }
+                if (hitrate == 100) {
+                    break;
+                }
             }
-            if (!inserted) {
-                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 0));
+            if (hitrate == 100) {
+                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, hitrate));
+            } else {
+                results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, hitrate));
             }
         }
         results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         return results;
-    }
+    };
 
     returnDefaultQuery() {
         let results = [{} as IRestaurantFrontEnd];

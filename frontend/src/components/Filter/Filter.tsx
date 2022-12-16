@@ -60,10 +60,6 @@ type color = "primary" | "secondary" | "default" | "error" | "info" | "success" 
 
 const Filter = (prop : any) => {
   const [colorChip, setColorChip] = useState<color>("primary")
-  const handleClick = () => {
-    if (colorChip == "primary") setColorChip("secondary");
-    if (colorChip == "secondary") setColorChip("primary");
-  };
 
   const navigate = useNavigate();
   const [states, setStates] = React.useState([
@@ -78,6 +74,40 @@ const Filter = (prop : any) => {
     { name: "Sushi", value: true },
     { name: "Pasta", value: true }
   ]);
+
+  const [allegens, setAllergen] = React.useState([
+    { name: "milk", value: false },
+    { name: "peanut", value: false },
+    { name: "shellfish", value: false },
+    { name: "eggs", value: false }
+  ]);
+
+  const handleClick = (name: string) => {
+    let allergensCopy = [...allegens];
+    let allergenListChanged = [];
+    if (colorChip == "primary") setColorChip("secondary");
+    if (colorChip == "secondary") setColorChip("primary");
+
+    allegens.map((state, index) => {
+      if (name === state.name) {
+        allergensCopy[index].value = !allergensCopy[index].value;
+      }
+    });
+    setAllergen(allergensCopy);
+
+    for (let i = 0; i < allergensCopy.length; i++) {
+      if (allergensCopy[i].value) {
+        allergenListChanged.push(allergensCopy[i].name);
+      }
+    }
+    const inter: ICommunicationObject = {
+      allergenList: allergenListChanged
+    }
+    console.log("yes");
+    console.log(allergensCopy);
+
+    prop.onChange(inter, allergensCopy);
+  };
 
   function onChangeStates(toChange : String) {
     let statesCopy = [...states];
@@ -103,9 +133,9 @@ const Filter = (prop : any) => {
         }
       }
     }
-    for (let i = 5; i < states.length; i++) {
-      if (states[i].value == true) {
-        categoriesSelected.push(states[i].name);
+    for (let i = 5; i < statesCopy.length; i++) {
+      if (statesCopy[i].value == true) {
+        categoriesSelected.push(statesCopy[i].name);
       }
     }
     const inter: ICommunicationObject = {
@@ -238,16 +268,16 @@ const Filter = (prop : any) => {
           <div>
             <Stack direction="row" spacing={1}>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="milk" color={colorChip} variant="outlined" onClick={handleClick} />
+                <Chip label="milk" color={colorChip} variant="outlined" onClick={(event) => handleClick("milk")} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="shellfish" color={colorChip} variant="outlined" onClick={handleClick} />
+                <Chip label="shellfish" color={colorChip} variant="outlined" onClick={(event) => handleClick("shellfish")} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="eggs" color={colorChip} variant="outlined" onClick={handleClick} />
+                <Chip label="eggs" color={colorChip} variant="outlined" onClick={(event) => handleClick("eggs")} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="peanut" color={colorChip} variant="outlined" onClick={handleClick} />
+                <Chip label="peanut" color={colorChip} variant="outlined" onClick={(event) => handleClick("peanut")} />
               </ThemeProvider>
             </Stack>
           </div>

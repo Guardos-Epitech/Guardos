@@ -28,12 +28,19 @@ const HomePage = () => {
   ]);
   const [rangeValue, setRangeValue] = React.useState(100);
   const [filteredRestaurants, setFilteredRestaurants] = React.useState<IRestaurantFrontEnd[]>(handleFilterRequest({name: ''}));
+  const [allegens, setAllergens] = React.useState([
+    { name: "milk", value: false },
+    { name: "peanut", value: false },
+    { name: "shellfish", value: false },
+    { name: "eggs", value: false }
+  ]);
 
   function handleFilterChange(obj: ICommunicationObject, check?: any) {
     let location = inputFields[1];
     let nameSearch = inputFields[0];
     let rangeSearch = rangeValue;
     let buttons = filterButtons;
+    let allegen = allegens;
 
     if (obj.location) {
       location = obj.location;
@@ -46,12 +53,19 @@ const HomePage = () => {
     }
     if (obj.rating) {
       setFilterButtons(check);
-      buttons = check
+      buttons = check;
     }
+    if (obj.allergenList) {
+      setAllergens(check);
+      console.log(allegens);
+      allegen = check;
+    }
+    console.log(obj);
 
     let min = 0;
     let max = 0;
     let categoriesSelected = [];
+    let allergenListChanged = [];
 
     for (let i = 0; i < 5; i++) {
       if (buttons[i].value == true) {
@@ -68,12 +82,19 @@ const HomePage = () => {
         categoriesSelected.push(filterButtons[i].name);
       }
     }
+    for (let i = 0; i < allegen.length; i++) {
+      if (allegen[i].value) {
+        allergenListChanged.push(allegen[i].name);
+      }
+    }
+
     const inter: ICommunicationObject = {
       range: rangeSearch,
       rating: [min, max],
       name: nameSearch,
       location: location,
-      categories: categoriesSelected
+      categories: categoriesSelected,
+      allergenList: allergenListChanged
     }
     setFilteredRestaurants(handleFilterRequest(inter));
   }
