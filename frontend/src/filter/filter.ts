@@ -8,6 +8,7 @@ export interface ICommunicationObject {
     rating?: number[]; //2 float rating lowest and highest
     range?: number;
     categories?: string[];
+    dashes?: any;
 }
 
 interface ICategories {
@@ -71,6 +72,7 @@ export interface IRestaurantFrontEnd {
     range: number
     description: string;
     hitRate: number;
+    dishes: any;
 }
 
 export interface IRestaurantBackEnd {
@@ -177,7 +179,8 @@ class FilterQuery {
             phoneNumber: restaurant.phoneNumber,
             categories: [{} as ICategories],
             location: restaurant.location,
-            hitRate: hitRate
+            hitRate: hitRate,
+            dishes: restaurant.dishes
         };
         obj.categories.pop();
 

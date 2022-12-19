@@ -35,37 +35,44 @@ const MenuPage = () => {
         <>
             <Header/>
             <div className={styles.RectOnImg}>
-                {location.state.name}
                 <List>
                     <ListItem>
-                        <h2 className={styles.RestaurantTitle}>{restaurantName}</h2>
+                        <h2 className={styles.RestaurantTitle}>{location.state.name}</h2>
                     </ListItem>
                     <ListItem>
                         <div className={styles.Address}>
                             <ThemeProvider theme={theme}>
                                 <PlaceIcon color={"primary"}/>
                             </ThemeProvider>
-                            <span className={styles.RestaurantAddress}>{restaurantAddress}</span>
+                            <span className={styles.RestaurantAddress}>{location.state.location.streetName} {location.state.location.streetNumber}, {location.state.location.city} {location.state.location.postalCode}</span>
                         </div>
                     </ListItem>
                 </List>
             </div>
             <Layout>
                 <Category title={"Appetizers"}>
-                    <Dish dishName={dishName} dishAllergens={dishAllergens} dishDescription={dishDescription}
-                          imageSrc={burgerImg} price={price}/>
-                    <Dish dishName={dishName} dishAllergens={dishAllergens} dishDescription={dishDescription}
-                          imageSrc={""} price={price}/>
+                    {location.state.dishes.map((item : any, index: number) => {
+                        if (item.category.menuGroup === "appetizer") {
+                            return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
+                            imageSrc={burgerImg} price={item.price}/> 
+                        }
+                    })}
                 </Category>
                 <Category title={"Main Courses"}>
-                    <Dish dishName={dishName} dishAllergens={dishAllergens}
-                          dishDescription={dishDescription + dishDescription} imageSrc={pizzaImg} price={price}/>
-                    <Dish dishName={dishName} dishAllergens={dishAllergens}
-                          dishDescription={dishDescription + dishDescription} imageSrc={""} price={price}/>
-                    <Dish dishName={dishName} dishAllergens={dishAllergens} dishDescription={dishDescription}
-                          imageSrc={burgerImg} price={price}/>
-                    <Dish dishName={dishName} dishAllergens={dishAllergens} dishDescription={dishDescription}
-                          imageSrc={burgerImg} price={price}/>
+                    {location.state.dishes.map((item : any, index: number) => {
+                        if (item.category.menuGroup === "maindish") {
+                            return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
+                            imageSrc={burgerImg} price={item.price}/> 
+                        }
+                    })}
+                </Category>
+                <Category title={"Dessert"}>
+                    {location.state.dishes.map((item : any, index: number) => {
+                        if (item.category.menuGroup === "desert") {
+                            return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
+                            imageSrc={burgerImg} price={item.price}/> 
+                        }
+                    })}
                 </Category>
             </Layout>
         </>

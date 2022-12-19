@@ -60,7 +60,6 @@ const HomePage = () => {
       console.log(allegens);
       allegen = check;
     }
-    console.log(obj);
 
     let min = 0;
     let max = 0;
@@ -100,10 +99,9 @@ const HomePage = () => {
   }
 
   function renderMenu(index: number) {
-    console.log(filteredRestaurants);
-    console.log(index);
     for (let i = 0; i < filteredRestaurants.length; i++) {
       if (i == index) {
+        console.log(filteredRestaurants[i]);
         return filteredRestaurants[i];
       }
     }

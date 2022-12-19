@@ -1,3 +1,3 @@
 export const NavigateTo = async (destination: string, navigate: any, data?: any) => {
-  navigate(destination, data);
+  navigate(destination, { state: data ? data : { } });
 };
