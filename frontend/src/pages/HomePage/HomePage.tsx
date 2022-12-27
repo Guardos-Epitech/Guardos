@@ -38,7 +38,7 @@ const HomePage = () => {
     let buttons = filterButtons;
     let allergen = allergens;
 
-    if (obj.location) {
+    if (obj.location || obj.name) {
       location = obj.location;
       nameSearch = obj.name;
       setInputFields([obj.name, obj.location]);
