@@ -1,10 +1,9 @@
 import { useState } from "react";
 import React from "react";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import styles from "./autoComplete.module.scss";
-import inputSyles from "../InputSearch/InputSearch.module.scss"
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import styles from "./autoComplete.module.scss";
+import inputSyles from "@src/components/InputSearch/InputSearch.module.scss"
 
 const theme = createTheme({
     palette: {
@@ -15,10 +14,9 @@ const theme = createTheme({
   });
 
 interface AutoCompleteProps {
-    data: Array<String>,
-    onChange: any
+    data: Array<string>,
+    onChange: Function
 }
-
 
 const AutoComplete = (props : AutoCompleteProps) => {
     
@@ -105,7 +103,6 @@ const AutoComplete = (props : AutoCompleteProps) => {
         </div>
     </ThemeProvider>
   );
-  
 };
 
 export default AutoComplete;

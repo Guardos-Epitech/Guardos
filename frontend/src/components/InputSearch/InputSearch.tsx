@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./InputSearch.module.scss";
+import styles from "@src/components/InputSearch/InputSearch.module.scss";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
-import Autocomplete from "../../components/InputSearchAutocomplete/autoComplete";
-import autoCompleteData from "../../components/InputSearchAutocomplete/filterDataLocation";
-import { ICommunicationObject } from "@src/filter/filter";
+import Autocomplete from "@src/components/InputSearchAutocomplete/AutoComplete";
+import autoCompleteData from "@src/components/InputSearchAutocomplete/filterDataLocation";
+import { IFilterObject } from "@src/filter/filter";
 
 const theme = createTheme({
   palette: {
@@ -42,7 +42,7 @@ const PageBtn = () => {
   });
 };
 
-const InputSearch = (prop : any) => {
+const InputSearch = (props : any) => {
   const [name, setName] = React.useState("");
   const [location, setLocation] = React.useState("");
 
@@ -56,11 +56,11 @@ const InputSearch = (prop : any) => {
   }
 
   function sendButtonData(name: string, location: string) {
-    const inter: ICommunicationObject = {
+    const inter: IFilterObject = {
       name: name,
       location: location
     }
-    prop.onChange(inter);
+    props.onChange(inter);
   }
 
   return (
@@ -75,7 +75,7 @@ const InputSearch = (prop : any) => {
       </ThemeProvider>
       <Autocomplete data={autoCompleteData} onChange={onChangeLocation}/>
       <ThemeProvider theme={PageBtn()}>
-        <Button variant="contained" endIcon={<SearchIcon />} onClick={(event) => sendButtonData(name, location)} >Search</Button>
+        <Button variant="contained" endIcon={<SearchIcon />} onClick={() => sendButtonData(name, location)} >Search</Button>
       </ThemeProvider>
     </div>
   );

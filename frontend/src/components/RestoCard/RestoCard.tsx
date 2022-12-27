@@ -35,12 +35,18 @@ const PageBtn = () => {
   });
 };
 
-const RestoCard = (prop : any) => {
+const RestoCard = (props : any) => {
   const navigate = useNavigate();
+  const name = props.data.name;
+  const streetName = props.data.location.streetName;
+  const streetNumber = props.data.location.streetNumber;
+  const city = props.data.location.city;
+  const postalCode = props.data.location.postalCode;
+  const description = props.data.description;
 
   function renderDynamicMenu(index: number) {
     return(
-      prop.onRender(index)
+      props.onRender(index)
     );
   }
 
@@ -49,7 +55,7 @@ const RestoCard = (prop : any) => {
       <img className={styles.RestoImg} src={restoimg} alt="Resto Img" />
       <div>
         <div className={styles.DivTopTitle}>
-          <span className={styles.TitleResto}>{prop.data.name}</span>
+          <span className={styles.TitleResto}>{name}</span>
           <div className={styles.DivRating}>
             <span className={styles.TitleRating}>Rating:</span>
             <img
@@ -61,16 +67,16 @@ const RestoCard = (prop : any) => {
         </div>
         <div className={styles.DivAddress}>
           <PlaceIcon />
-          <span>{prop.data.location.streetName} {prop.data.location.streetNumber}, {prop.data.location.city} {prop.data.location.postalCode}</span>
+          <span>{streetName} {streetNumber}, {city} {postalCode}</span>
         </div>
         <div className={styles.DivDesc}>
-          <p className={styles.TxtDescription}>{prop.data.description}</p>
+          <p className={styles.TxtDescription}>{description}</p>
           <div className={styles.BtnPage}>
             <ThemeProvider theme={PageBtn()}>
               <Button
                 variant="contained"
                 sx={{ width: "12.13rem" }}
-                onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu(prop.index))}
+                onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu(props.index))}
               >
                 Restaurant page
               </Button>

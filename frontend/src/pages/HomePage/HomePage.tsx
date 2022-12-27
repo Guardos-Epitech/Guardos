@@ -5,11 +5,7 @@ import InputSearch from "@src/components/InputSearch/InputSearch";
 import RestoCard from "@src/components/RestoCard/RestoCard";
 import MapButton from "@src/components/MapButton/MapButton";
 import Filter from "@src/components/Filter/Filter";
-import {handleFilterRequest, IRestaurantFrontEnd, ICommunicationObject} from "@src/filter/filter";
-import FilterQuery from "@src/filter/filter";
-import dummyDataRestaurants from '../../filter/restaurants.json';
-import {useSetState} from "react-use";
-import { get } from "https";
+import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
 
 const HomePage = () => {
   // needs to be changed for the database && be sorted out as an own component
@@ -22,25 +18,25 @@ const HomePage = () => {
     { name: "fiveStar", value: true },
     { name: "Burger", value: true },
     { name: "Pizza", value: true },
-    { name: "Salade", value: true },
+    { name: "Salad", value: true },
     { name: "Sushi", value: true },
     { name: "Pasta", value: true }
   ]);
   const [rangeValue, setRangeValue] = React.useState(100);
   const [filteredRestaurants, setFilteredRestaurants] = React.useState<IRestaurantFrontEnd[]>(handleFilterRequest({name: ''}));
-  const [allegens, setAllergens] = React.useState([
+  const [allergens, setAllergens] = React.useState([
     { name: "milk", value: false },
     { name: "peanut", value: false },
     { name: "shellfish", value: false },
     { name: "eggs", value: false }
   ]);
 
-  function handleFilterChange(obj: ICommunicationObject, check?: any) {
+  function handleFilterChange(obj: IFilterObject, check?: any) {
     let location = inputFields[1];
     let nameSearch = inputFields[0];
     let rangeSearch = rangeValue;
     let buttons = filterButtons;
-    let allegen = allegens;
+    let allergen = allergens;
 
     if (obj.location) {
       location = obj.location;
@@ -57,8 +53,7 @@ const HomePage = () => {
     }
     if (obj.allergenList) {
       setAllergens(check);
-      console.log(allegens);
-      allegen = check;
+      allergen = check;
     }
 
     let min = 0;
@@ -81,13 +76,13 @@ const HomePage = () => {
         categoriesSelected.push(filterButtons[i].name);
       }
     }
-    for (let i = 0; i < allegen.length; i++) {
-      if (allegen[i].value) {
-        allergenListChanged.push(allegen[i].name);
+    for (let i = 0; i < allergen.length; i++) {
+      if (allergen[i].value) {
+        allergenListChanged.push(allergen[i].name);
       }
     }
 
-    const inter: ICommunicationObject = {
+    const inter: IFilterObject = {
       range: rangeSearch,
       rating: [min, max],
       name: nameSearch,
@@ -101,18 +96,17 @@ const HomePage = () => {
   function renderMenu(index: number) {
     for (let i = 0; i < filteredRestaurants.length; i++) {
       if (i == index) {
-        console.log(filteredRestaurants[i]);
         return filteredRestaurants[i];
       }
     }
   }
-  ///// until here -> more dynamic
+  // until here -> more dynamic
   return (
     <div>
       <Header />
       <div className={styles.RectOnImg}>
         <span className={styles.TitleSearch}>What are you looking for ?</span>
-        <InputSearch onChange={handleFilterChange} />
+        <InputSearch onChange={handleFilterChange}/>
       </div>
       <div className={styles.DivContent}>
         <div className={styles.DivMapBtn}>
@@ -122,7 +116,7 @@ const HomePage = () => {
         <div>
           <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
           {filteredRestaurants.map((item, index) => {
-            return <RestoCard data={item} index={index} onRender={renderMenu}/>
+            return <RestoCard data={item} index={index} onRender={renderMenu} key={item}/>
           })}
         </div>
       </div>

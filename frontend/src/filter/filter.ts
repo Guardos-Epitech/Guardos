@@ -1,7 +1,7 @@
 import dummyDataFilter from './filterData.json';
 import dummyDataRestaurants from './restaurants.json';
 
-export interface ICommunicationObject {
+export interface IFilterObject {
     allergenList?: string[];
     location?: string;
     name?: string;
@@ -59,9 +59,10 @@ interface IDishFE {
 }
 
 interface IFilterObj {
-    savedFilter: ICommunicationObject;
+    savedFilter: IFilterObject;
     savedRestaurants: IRestaurantFrontEnd[][];
 }
+
 export interface IRestaurantFrontEnd {
     name: string;
     id: number;
@@ -312,7 +313,7 @@ class FilterQuery {
         return results;
     }
 
-    filterForRestaurantWithRating(lookingFor: Number[]) {
+    filterForRestaurantWithRating(lookingFor: number[]) {
         let results =  [{} as IRestaurantFrontEnd];
         results.pop();
 
@@ -330,7 +331,7 @@ class FilterQuery {
         }
         results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         return results;
-    };
+    }
 
     filterForRestaurantWithCategory(lookingFor: string[]) {
         let results =  [{} as IRestaurantFrontEnd];
@@ -379,7 +380,7 @@ class FilterQuery {
         }
         results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         return results;
-    };
+    }
 
     filterForRestaurantWithRange(lookingFor: number) {
         let results = [{} as IRestaurantFrontEnd];
@@ -404,8 +405,8 @@ class FilterQuery {
         for (let restaurant of this.restaurants) {
             let hitrate = 0;
             for (let dish of restaurant.dishes) {
-                for (let allerg of lookingFor) {
-                    if (dish.allergens.toLowerCase().includes(allerg.toLowerCase())) {
+                for (let allergen of lookingFor) {
+                    if (dish.allergens.toLowerCase().includes(allergen.toLowerCase())) {
                         hitrate = 100;
                         break;
                     }
@@ -422,7 +423,7 @@ class FilterQuery {
         }
         results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
         return results;
-    };
+    }
 
     returnDefaultQuery() {
         let results = [{} as IRestaurantFrontEnd];
@@ -434,7 +435,7 @@ class FilterQuery {
     }
 }
 
-export const handleFilterRequest = function(obj: ICommunicationObject) {
+export const handleFilterRequest = (obj: IFilterObject) => {
     let check = 0;
     let filter = new FilterQuery();
     let result = filter.returnDefaultQuery();
@@ -493,7 +494,7 @@ function printResults(results: IRestaurantFrontEnd[]) {
 }
 
 export function testFilter() {
-    const commObjAll: ICommunicationObject = {
+    const commObjAll: IFilterObject = {
         name: 'stone',
         allergenList: ['gluten', 'lactose'],
         categories: ['maindish'],

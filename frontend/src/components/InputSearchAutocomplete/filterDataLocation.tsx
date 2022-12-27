@@ -1,4 +1,4 @@
-var autoCompleteData:String[] = [
+const autoCompleteData:string[] = [
     "Berlin",
     "Dublin",
     "Potsdamm",

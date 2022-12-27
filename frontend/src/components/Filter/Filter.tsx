@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styles from "./Filter.module.scss";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -7,10 +6,8 @@ import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import Button from "@mui/material/Button";
-import { NavigateTo } from "@src/utils/NavigateTo";
-import { useNavigate } from "react-router-dom";
-import { ICommunicationObject } from "@src/filter/filter";
+import { IFilterObject } from "@src/filter/filter";
+import styles from "./Filter.module.scss";
 
 const GlobalStyle = () => {
   return createTheme({
@@ -58,10 +55,9 @@ const marks = [
 
 type color = "primary" | "secondary" | "default" | "error" | "info" | "success" | "warning"
 
-const Filter = (prop : any) => {
+const Filter = (props : any) => {
   const [colorChip, setColorChip] = useState<color>("primary")
 
-  const navigate = useNavigate();
   const [states, setStates] = React.useState([
     { name: "oneStar", value: true },
     { name: "twoStar", value: true },
@@ -70,12 +66,12 @@ const Filter = (prop : any) => {
     { name: "fiveStar", value: true },
     { name: "Burger", value: true },
     { name: "Pizza", value: true },
-    { name: "Salade", value: true },
+    { name: "Salad", value: true },
     { name: "Sushi", value: true },
     { name: "Pasta", value: true }
   ]);
 
-  const [allegens, setAllergen] = React.useState([
+  const [allergens, setAllergens] = React.useState([
     { name: "milk", value: false },
     { name: "peanut", value: false },
     { name: "shellfish", value: false },
@@ -83,37 +79,35 @@ const Filter = (prop : any) => {
   ]);
 
   const handleClick = (name: string) => {
-    let allergensCopy = [...allegens];
-    let allergenListChanged = [];
+    const allergensCopy = [...allergens];
+    const allergenListChanged = [];
     if (colorChip == "primary") setColorChip("secondary");
     if (colorChip == "secondary") setColorChip("primary");
 
-    allegens.map((state, index) => {
+    allergens.map((state, index) => {
       if (name === state.name) {
         allergensCopy[index].value = !allergensCopy[index].value;
       }
     });
-    setAllergen(allergensCopy);
+    setAllergens(allergensCopy);
 
     for (let i = 0; i < allergensCopy.length; i++) {
       if (allergensCopy[i].value) {
         allergenListChanged.push(allergensCopy[i].name);
       }
     }
-    const inter: ICommunicationObject = {
+    const inter: IFilterObject = {
       allergenList: allergenListChanged
     }
-    console.log("yes");
-    console.log(allergensCopy);
 
-    prop.onChange(inter, allergensCopy);
+    props.onChange(inter, allergensCopy);
   };
 
-  function onChangeStates(toChange : String) {
-    let statesCopy = [...states];
+  function onChangeStates(toChange : string) {
+    const statesCopy = [...states];
+    const categoriesSelected = [];
     let min = 0;
     let max = 0;
-    let categoriesSelected = [];
 
     states.map((state, index) => {
       if (toChange === state.name) {
@@ -138,19 +132,19 @@ const Filter = (prop : any) => {
         categoriesSelected.push(statesCopy[i].name);
       }
     }
-    const inter: ICommunicationObject = {
+    const inter: IFilterObject = {
       rating: [min, max],
       categories: categoriesSelected
     }
 
-    prop.onChange(inter, states);
+    props.onChange(inter, states);
   }
 
   function onChangeRange(event : any) {
-    const inter: ICommunicationObject = {
+    const inter: IFilterObject = {
       range: event.target.value
     }
-    prop.onRangeChange(inter);
+    props.onRangeChange(inter);
   }
 
   return (
@@ -166,40 +160,35 @@ const Filter = (prop : any) => {
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"5 stars"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("fiveStar")}
+                onChange={() => onChangeStates("fiveStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
                 label={<span className={styles.TitleCheck}>{"4 stars"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("fourStar")}
+                onChange={() => onChangeStates("fourStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"3 stars"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("threeStar")}
+                label={<span className={styles.TitleCheck}>{"3 stars"}</span>}               
+                onChange={() => onChangeStates("threeStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"2 stars"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("twoStar")}
+                label={<span className={styles.TitleCheck}>{"2 stars"}</span>}               
+                onChange={() => onChangeStates("twoStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"1 star"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("oneStar")}
+                label={<span className={styles.TitleCheck}>{"1 star"}</span>}               
+                onChange={() => onChangeStates("oneStar")}
               />
             </ThemeProvider>
           </div>
@@ -222,41 +211,36 @@ const Filter = (prop : any) => {
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Burger"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("Burger")}
+                label={<span className={styles.TitleCheck}>{"Burger"}</span>}             
+                onChange={() => onChangeStates("Burger")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Sushi"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("Sushi")}
+                label={<span className={styles.TitleCheck}>{"Sushi"}</span>}              
+                onChange={() => onChangeStates("Sushi")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Pizza"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("Pizza")}
+                label={<span className={styles.TitleCheck}>{"Pizza"}</span>}             
+                onChange={() => onChangeStates("Pizza")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Salade"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("Salade")}
+                label={<span className={styles.TitleCheck}>{"Salad"}</span>}             
+                onChange={() => onChangeStates("Salad")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Pasta"}</span>}
-                className={styles.test}
-                onChange={event => onChangeStates("Pasta")}
+                label={<span className={styles.TitleCheck}>{"Pasta"}</span>}            
+                onChange={() => onChangeStates("Pasta")}
               />
             </ThemeProvider>
           </div>
@@ -268,16 +252,16 @@ const Filter = (prop : any) => {
           <div>
             <Stack direction="row" spacing={1}>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="milk" color={colorChip} variant="outlined" onClick={(event) => handleClick("milk")} />
+                <Chip label="milk" color={colorChip} variant="outlined" onClick={() => handleClick("milk")} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="shellfish" color={colorChip} variant="outlined" onClick={(event) => handleClick("shellfish")} />
+                <Chip label="shellfish" color={colorChip} variant="outlined" onClick={() => handleClick("shellfish")} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="eggs" color={colorChip} variant="outlined" onClick={(event) => handleClick("eggs")} />
+                <Chip label="eggs" color={colorChip} variant="outlined" onClick={() => handleClick("eggs")} />
               </ThemeProvider>
               <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="peanut" color={colorChip} variant="outlined" onClick={(event) => handleClick("peanut")} />
+                <Chip label="peanut" color={colorChip} variant="outlined" onClick={() => handleClick("peanut")} />
               </ThemeProvider>
             </Stack>
           </div>

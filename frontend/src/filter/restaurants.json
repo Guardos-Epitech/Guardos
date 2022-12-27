@@ -274,26 +274,26 @@
             "dishes" : [
                 {
                     "id": 0,
-                    "name" : "Angus Salade",
+                    "name" : "Angus salad",
                     "allergens" : "shellfish",
                     "description" : "Lettuce leaves, cocktail tomatoes, Grana Padano, Angus, steak pepper. With a dressing of your choice Our recommendation: Balsamic dressing.",
                     "price" : 5.43,
                     "category" : {
                         "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
-                        "foodGroup": "salade"
+                        "foodGroup": "salad"
                     }
                 },
                 {
                     "id": 1,
-                    "name" : "Caesar Salade",
+                    "name" : "Caesar salad",
                     "allergens" : "shellfish",
                     "description" : "Lettuce leaves, cocktail tomatoes, Grana Padano, Angus, steak pepper. With a dressing of your choice Our recommendation: Balsamic dressing.",
                     "price" : 3.43,
                     "category" : {
                         "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
-                        "foodGroup": "salade"
+                        "foodGroup": "salad"
                     }
                 },
                 {
@@ -399,7 +399,7 @@
                     "category" : {
                         "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
-                        "foodGroup": "salade"
+                        "foodGroup": "salad"
                     }
                 },
                 {
@@ -411,7 +411,7 @@
                     "category" : {
                         "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
-                        "foodGroup": "salade"
+                        "foodGroup": "salad"
                     }
                 },
                 {
@@ -423,7 +423,7 @@
                     "category" : {
                         "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
-                        "foodGroup": "salade"
+                        "foodGroup": "salad"
                     }
                 },
                 {
@@ -517,7 +517,7 @@
                     "category" : {
                         "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
-                        "foodGroup": "salade"
+                        "foodGroup": "salad"
                     }
                 },
                 {
@@ -529,7 +529,7 @@
                     "category" : {
                         "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
-                        "foodGroup": "salade"
+                        "foodGroup": "salad"
                     }
                 },
                 {
@@ -541,7 +541,7 @@
                     "category" : {
                         "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
-                        "foodGroup": "salade"
+                        "foodGroup": "salad"
                     }
                 },
                 {
