@@ -8,7 +8,7 @@ export interface IFilterObject {
     rating?: number[]; //2 float rating lowest and highest
     range?: number;
     categories?: string[];
-    dashes?: any;
+    dishes?: any;
 }
 
 interface ICategories {
@@ -440,13 +440,11 @@ export const handleFilterRequest = (obj: IFilterObject) => {
     let filter = new FilterQuery();
     let result = filter.returnDefaultQuery();
     let tmpFilterObj : IFilterObj;
-    let nameFlag = false;
     tmpFilterObj = {savedFilter: obj, savedRestaurants: []};
     tmpFilterObj.savedFilter = obj;
     if (obj.name !== undefined) {
         tmpFilterObj.savedRestaurants.push(filter.filterForRestaurantWithNameOrGroup([obj.name]));
         check++;
-        nameFlag = true;
     }
     if (obj.allergenList !== undefined) {
         tmpFilterObj.savedRestaurants.push(filter.filterForRestaurantsWithAllergens(obj.allergenList));

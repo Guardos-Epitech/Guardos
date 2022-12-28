@@ -23,7 +23,7 @@ const HomePage = () => {
     { name: "Pasta", value: true }
   ]);
   const [rangeValue, setRangeValue] = React.useState(100);
-  const [filteredRestaurants, setFilteredRestaurants] = React.useState<IRestaurantFrontEnd[]>(handleFilterRequest({name: ''}));
+  const [filteredRestaurants, setFilteredRestaurants] = React.useState<Array<IRestaurantFrontEnd>>(handleFilterRequest({name: ''}));
   const [allergens, setAllergens] = React.useState([
     { name: "milk", value: false },
     { name: "peanut", value: false },
@@ -93,9 +93,9 @@ const HomePage = () => {
     setFilteredRestaurants(handleFilterRequest(inter));
   }
 
-  function renderMenu(index: number) {
+  function renderMenu(id: number) {
     for (let i = 0; i < filteredRestaurants.length; i++) {
-      if (i == index) {
+      if (id == i) {
         return filteredRestaurants[i];
       }
     }
@@ -116,7 +116,7 @@ const HomePage = () => {
         <div>
           <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
           {filteredRestaurants.map((item, index) => {
-            return <RestoCard data={item} index={index} onRender={renderMenu} key={item}/>
+            return <RestoCard data={item} dataIndex={index} key={index} onRender={renderMenu}/>
           })}
         </div>
       </div>

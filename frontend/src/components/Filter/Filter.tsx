@@ -55,7 +55,13 @@ const marks = [
 
 type color = "primary" | "secondary" | "default" | "error" | "info" | "success" | "warning"
 
-const Filter = (props : any) => {
+
+interface FilterProps {
+  onChange: Function,
+  onRangeChange: Function
+}
+
+const Filter = (props : FilterProps) => {
   const [colorChip, setColorChip] = useState<color>("primary")
 
   const [states, setStates] = React.useState([

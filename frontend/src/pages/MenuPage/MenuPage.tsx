@@ -25,9 +25,6 @@ const MenuPage = () => {
     const streetNumber = location.state.location.streetNumber;
     const city = location.state.location.city;
     const postalCode = location.state.location.postalCode;
-
-
-
     return (
         <>
             <Header/>
@@ -51,7 +48,7 @@ const MenuPage = () => {
                     {location.state.dishes.map((item : any, index: number) => {
                         if (item.category.menuGroup === "appetizer") {
                             return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={item}/> 
+                            imageSrc={burgerImg} price={item.price} key={index}/> 
                         }
                     })}
                 </Category>
@@ -59,7 +56,7 @@ const MenuPage = () => {
                     {location.state.dishes.map((item : any, index: number) => {
                         if (item.category.menuGroup === "maindish") {
                             return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={item}/> 
+                            imageSrc={burgerImg} price={item.price} key={index}/> 
                         }
                     })}
                 </Category>
@@ -67,7 +64,7 @@ const MenuPage = () => {
                     {location.state.dishes.map((item : any, index: number) => {
                         if (item.category.menuGroup === "dessert") {
                             return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={item}/> 
+                            imageSrc={burgerImg} price={item.price} key={index}/> 
                         }
                     })}
                 </Category>

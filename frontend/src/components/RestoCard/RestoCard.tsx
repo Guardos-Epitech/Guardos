@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./RestoCard.module.scss";
 import restoimg from "@src/assets/restoimg.jpeg";
 import PlaceIcon from "@mui/icons-material/Place";
-import { loremIpsum } from "lorem-ipsum";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ratingimg from "@src/assets/ratingimg.png";
 import { useNavigate } from "react-router-dom";
 import { NavigateTo } from "@src/utils/NavigateTo";
+import { IRestaurantFrontEnd } from "@src/filter/filter";
 
 const PageBtn = () => {
   return createTheme({
@@ -35,7 +35,14 @@ const PageBtn = () => {
   });
 };
 
-const RestoCard = (props : any) => {
+interface RestoCardProps {
+  data: IRestaurantFrontEnd,
+  dataIndex: number,
+  key: number,
+  onRender: Function
+}
+
+const RestoCard = (props : RestoCardProps) => {
   const navigate = useNavigate();
   const name = props.data.name;
   const streetName = props.data.location.streetName;
@@ -44,9 +51,9 @@ const RestoCard = (props : any) => {
   const postalCode = props.data.location.postalCode;
   const description = props.data.description;
 
-  function renderDynamicMenu(index: number) {
+  function renderDynamicMenu(key: number) {
     return(
-      props.onRender(index)
+      props.onRender(key)
     );
   }
 
@@ -76,7 +83,7 @@ const RestoCard = (props : any) => {
               <Button
                 variant="contained"
                 sx={{ width: "12.13rem" }}
-                onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu(props.index))}
+                onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu(props.dataIndex))}
               >
                 Restaurant page
               </Button>
