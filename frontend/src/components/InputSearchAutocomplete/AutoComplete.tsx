@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import styles from "./autoComplete.module.scss";
+import styles from "./AutoComplete.module.scss";
 import inputSyles from "@src/components/InputSearch/InputSearch.module.scss"
 
 const theme = createTheme({
