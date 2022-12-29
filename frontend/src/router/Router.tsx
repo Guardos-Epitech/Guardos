@@ -10,9 +10,9 @@ const MVPRouter = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="filter" element={<FilterPage />} />
-        <Route path="menu" element={<MenuPage />} />
-        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/filter" element={<FilterPage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/" element={<HomePage />}/>
       </Routes>
     </BrowserRouter>
   );
