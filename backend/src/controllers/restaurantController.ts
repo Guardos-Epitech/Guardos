@@ -1,5 +1,4 @@
 import { IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd }
-  from '../models/restaurantInterfaces';
 import { IDishBE, IDishFE } from '../models/dishInterfaces';
 import { ICategories } from '../models/categoryInterfaces';
 import { ILocation } from '../models/locationInterfaces';
@@ -38,6 +37,7 @@ export default class Filter {
         (a.sortId > b.sortId) ? 1 : -1);
     }
     console.log(result);
+
     return result;
   }
 
@@ -186,6 +186,7 @@ export default class Filter {
     results.pop();
 
     for (const restaurant of await this.restaurants) {
+
       let count = 0;
 
       // Check if restaurant has any dishes with allergens to get hitRate
@@ -247,6 +248,7 @@ export default class Filter {
           restaurant as IRestaurantBackEnd, 100));
         continue;
       }
+
       for (const searchedWord of lookingFor) {
         // Check if name of restaurant contains searched word --> return RestaurantObj with 100% hitRate
         // stop if finding name directly
@@ -485,4 +487,3 @@ export const handleFilterRequest = async function(obj: ICommunication) {
   }
   return result;
 };
-

@@ -18,4 +18,3 @@ export interface IDishFE {
   pictures: [string];
   category: ICategoryFE;
 }
-

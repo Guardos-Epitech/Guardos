@@ -28,7 +28,17 @@
 }
 
 .DivRating {
+  padding-top: 1rem;
   display: grid;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(3, auto);
+}
+
+.DivCategories {
+  padding-top: 1rem;
+  display: grid;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(3, auto);
 }
 
 .TitleCheck {
@@ -38,13 +48,23 @@
   font-weight: 400;
 }
 
+.DivAller {
+  margin-top: 1rem;
+}
+
+.DivTitleAller {
+  margin-bottom: 2rem;
+}
+
 .DivFilter {
   padding-top: 2rem;
   margin-left: 2rem;
+  height: 100%;
 }
 
 .DivRange {
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .TitleRangeValue {
@@ -57,4 +77,11 @@
 
 .DivSlider {
   margin-top: 1rem;
+}
+
+.BtnPage {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 1rem 1rem 0;
 }
