@@ -1,6 +1,6 @@
 import Filter from '../controllers/restaurantController';
-import { ICommunication } from "../models/communicationInterfaces";
-import { IFilterObj } from "../models/filterInterfaces";
+import { ICommunication } from '../models/communicationInterfaces';
+import { IFilterObj } from '../models/filterInterfaces';
 
 export const handleFilterRequest = async function(obj: ICommunication) {
   let check = 0;

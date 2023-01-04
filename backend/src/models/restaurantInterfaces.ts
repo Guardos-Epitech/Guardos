@@ -50,7 +50,6 @@ export interface IRestaurantBackEnd {
   products: [IProducts];
 }
 
-
 //Database structure for restaurants
 export const restaurantSchema = new mongoose.Schema({
   _id: Number,
