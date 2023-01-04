@@ -1,7 +1,6 @@
 import { getEnv } from './getEnv';
 import { IRestaurantBackEnd, restaurantSchema }
   from '../models/restaurantInterfaces';
-import filter from '../controllers/restaurantController';
 
 const mongoose = require('mongoose');  /* eslint-disable-line */
 
@@ -23,12 +22,6 @@ export default async function connectDataBase() {
     });
     mongoose.connection.once('open', async () => {
       console.log('Connected to Database');
-      const restaurants = new filter();
-      let count = 0;
-      for (const restaurant of await restaurants.restaurants) {
-        await createNewRestaurant(restaurant, count);
-        count++;
-      }
     });
     return 1;
   } catch (e) {

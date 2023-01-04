@@ -18,8 +18,8 @@ router.get('/filter', function (req: Request, res: Response) {
     .send('Hello filter!');
 });
 
-router.post('/filter', function (req: Request, res: Response) {
-  const answer = filterRestaurants(req);
+router.post('/filter', async function (req: Request, res: Response) {
+  const answer = await filterRestaurants(req);
   return res.send(answer);
 });
 

@@ -4,7 +4,6 @@ import { IDishBE, IDishFE } from '../models/dishInterfaces';
 import { ICategories } from '../models/categoryInterfaces';
 import { ILocation } from '../models/locationInterfaces';
 import { IMealType } from '../models/mealTypeInterfaces';
-import { getAllRestaurants } from './connectDataBase'; // for later usage
 import test from '../controllers/test.json';
 import { ICommunication } from '../models/communicationInterfaces';
 import { IFilterObj } from '../models/filterInterfaces';
@@ -436,13 +435,12 @@ export const handleFilterRequest = async function(obj: ICommunication) {
   const filter = new Filter();
   const result = filter.returnDefaultQuery();
   const tmpFilterObj : IFilterObj = {savedFilter: obj, savedRestaurants: []};
-  let nameFlag = false;
+
   tmpFilterObj.savedFilter = obj;
   if (obj.name !== undefined) {
     tmpFilterObj.savedRestaurants
       .push(await filter.filterForRestaurantWithNameOrGroup([obj.name]));
     check++;
-    nameFlag = true;
   }
   if (obj.allergenList !== undefined) {
     tmpFilterObj.savedRestaurants
