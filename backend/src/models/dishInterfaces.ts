@@ -17,4 +17,5 @@ export interface IDishFE {
   allergens: string;
   pictures: [string];
   category: ICategoryFE;
+  //products [IProducts]; //WIP create IProducts
 }
