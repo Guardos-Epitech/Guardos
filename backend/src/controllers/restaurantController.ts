@@ -1,4 +1,5 @@
 import { IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd }
+  from '../models/restaurantInterfaces';
 import { IDishBE, IDishFE } from '../models/dishInterfaces';
 import { ICategories } from '../models/categoryInterfaces';
 import { ILocation } from '../models/locationInterfaces';
