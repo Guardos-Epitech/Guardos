@@ -4,6 +4,9 @@
             "id" : 1,
             "name" : "mcdonalds",
             "phoneNumber" : "0123091",
+            "rating" : 3.8,
+            "range" : 40,
+            "description": "McDonald's Corporation is an American multinational fast food chain, founded in 1940 as a restaurant operated by Richard and Maurice McDonald, in San Bernardino, California, United States.",
             "mealType": [
                 {
                 "id": 0,
@@ -19,31 +22,90 @@
                 "id": 2,
                 "name": "drink",
                 "sortId": 3
-            }
-            ],
+            }],
             "dishes" : [
                 {
                     "id": 0,
                     "name" : "McSunday",
-                    "allergens" : "milk,sugar",
-                    "description" : "bla bla",
-                    "price" : 13,
+                    "allergens" : "milk",
+                    "description" : "Welcome to the top of the iceberg. Enjoy the prospect of creamy soft ice cream with 100% milk from Bavaria. So hurry up, the McSundae® is calling!",
+                    "price" : 3.2,
                     "category" : {
-                        "extraGroup" : "cheese, olives",
+                        "extraGroup" : "cheese,olives",
                         "menuGroup": "dessert",
-                        "foodGroup": "ice,burger"
+                        "foodGroup": "ice"
                     }
                 },
                 {
                     "id": 1,
+                    "name" : "McFlurry",
+                    "allergens" : "milk",
+                    "description" : "The popular classic is a real multi-tasker. Whether with various toppings and sauces or simply without - the creamy milk ice cream with 100% milk from Bavaria is everything but boring.",
+                    "price" : 3.8,
+                    "category" : {
+                        "extraGroup" : "cheese,olives",
+                        "menuGroup": "dessert",
+                        "foodGroup": "ice"
+                    }
+                },
+                {
+                    "id": 2,
                     "name" : "Big Mac",
-                    "allergens" : "cheese,salat",
-                    "description" : "the real mc",
-                    "price" : 21,
+                    "allergens" : "milk,eggs",
+                    "description" : "What has made our Big Mac so special for 50 years? Quite simply what's inside: crunchy lettuce, melt-in-your-mouth cheese, our legendary Big Mac® sauce and, above all, delicious beef! That's why it's not just a double-decker, it's doubly delicious!",
+                    "price" : 6.4,
                     "category" : {
                         "extraGroup": "cheese, olives",
                         "menuGroup": "maindish",
-                        "foodGroup": "burger,salad"
+                        "foodGroup": "burger"
+                    }
+                },
+                {
+                    "id": 3,
+                    "name" : "Big Tasty Bacon",
+                    "allergens" : "milk,eggs",
+                    "description" : "MMMH, simply tasty: Juicy beef, hearty bacon, crisp lettuce and tomatoes, all topped with an incomparable smoky Tasty Sauce and with processed cheese preparation with cheddar make the Big Tasty® Bacon simply THE classic. Don't make your taste buds wait too long for this giant of flavor!",
+                    "price" : 8.3,
+                    "category" : {
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "maindish",
+                        "foodGroup": "burger"
+                    }
+                },
+                {
+                    "id": 4,
+                    "name" : "Hamburger Royal TS",
+                    "allergens" : "milk,eggs",
+                    "description" : "Nobility on everyone's lips. The Hamburger Royal TS already belongs to the tasty high nobility by nature. A mild sandwich sauce, imperial crisp lettuce, more fine beef and two noble tomato slices. Tataaa! How that tastes!",
+                    "price" : 6.5,
+                    "category" : {
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "maindish",
+                        "foodGroup": "burger"
+                    }
+                },
+                {
+                    "id": 5,
+                    "name" : "MCToast",
+                    "allergens" : "milk,eggs",
+                    "description" : "It's worth getting up again, because McToast® is now available with a new recipe. Melt-in-the-mouth cheese and juicy ham wrapped in two delicious slices of toast will make your tired eyes grow wide. Because with McToast® Ham & Cheese, the day can only be good: whether individually, in a breakfast duo or breakfast menu.",
+                    "price" : 3.1,
+                    "category" : {
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "burger"
+                    }
+                },
+                {
+                    "id": 6,
+                    "name" : "MCMuffin",
+                    "allergens" : "milk,eggs",
+                    "description" : "Delicious start to the day! Delicious, juicy and insanely tasty. The McMuffin Fresh Chicken is the perfect breakfast product for anyone who is already in the mood for something 'hearty' in the morning. Crispy breaded chicken, tangy processed cheese preparation, crunchy lettuce and tomatoes are topped off with a mild sauce and are simply a delight.",
+                    "price" : 3.6,
+                    "category" : {
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "burger"
                     }
                 }
             ],
@@ -51,7 +113,10 @@
                 "streetName": "beckerstreet",
                 "streetNumber": "6A",
                 "postalCode": "12570",
-                "country" : "germany"
+                "country" : "germany",
+                "city" : "Munich",
+                "latitude": 52.508076,
+                "longitude": 13.333333
             },
             "extras": [{
                 "id": 0,
@@ -70,6 +135,9 @@
             "id" : 2,
             "name" : "burger king",
             "phoneNumber": "01232191",
+            "rating" : 3.8,
+            "range" : 79,
+            "description": "Burger King is an American-based multinational chain of hamburger fast food restaurants. Headquartered in Miami-Dade County, Florida, the company was founded in 1953 as Insta-Burger King, a Jacksonville, Florida–based restaurant chain.",
             "mealType": [
                 {
                     "id": 0,
@@ -90,26 +158,74 @@
             "dishes" : [
                 {
                     "id": 0,
-                    "name" : "Big Sunday ice",
-                    "allergens" : "milk,sugar",
-                    "description" : "bla bla",
-                    "price" : 12,
+                    "name" : "King Sunday",
+                    "allergens" : "milk",
+                    "description" : "Melt away: the new King Sundae with creamy soft ice cream. Provides a summer feeling, no matter what the occasion.",
+                    "price" : 3.2,
                     "category" : {
                         "extraGroup": "cheese, olives",
                         "menuGroup": "dessert",
-                        "foodGroup": "burger, ice"
+                        "foodGroup": "ice"
                     }
                 },
                 {
                     "id": 1,
-                    "name" : "Big Big Mac",
-                    "allergens" : "cheese,salat",
-                    "description" : "the real big mc",
-                    "price" : 5,
+                    "name" : "King Fusion",
+                    "allergens" : "milk",
+                    "description" : "Has everything a good dessert needs. The King Fusion Oreo® made of creamy soft ice cream and deliciously chocolatey Oreo® pieces. Always worth a sin. Also available in Have It Your Way, Lion® Caramel, KitKat® or Smarties® Strawberry.",
+                    "price" : 4.5,
                     "category" : {
                         "extraGroup": "cheese, olives",
                         "menuGroup": "dessert",
-                        "foodGroup": "burger,salad"
+                        "foodGroup": "ice"
+                    }
+                },
+                {
+                    "id": 2,
+                    "name" : "Ben & Jerry's Cookie Dough",
+                    "allergens" : "milk,shellfish",
+                    "description" : "A cup of ice cream is always good, right? Then how about a delicious Ben & Jerry's Cookie Dough with giant pieces of cookie dough? Just order it from the delivery service, have it delivered to your home and stay cool.",
+                    "price" : 6.88,
+                    "category" : {
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "dessert",
+                        "foodGroup": "ice"
+                    }
+                },
+                {
+                    "id": 3,
+                    "name" : "Ben & Jerry's Cookie Dough",
+                    "allergens" : "milk,shellfish",
+                    "description" : "A cup of ice cream is always good, right? Then how about a delicious Ben & Jerry's Cookie Dough with giant pieces of cookie dough? Just order it from the delivery service, have it delivered to your home and stay cool.",
+                    "price" : 6.88,
+                    "category" : {
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "dessert",
+                        "foodGroup": "ice"
+                    }
+                },
+                {
+                    "id": 4,
+                    "name" : "King’s Chorizo Beef",
+                    "allergens" : "milk,shellfish",
+                    "description" : "Hola amigos. This time we bring you culinary to Spain. On our new King's Chorizo Beef, you'll find real air-dried chorizo with a distinct hint of paprika and a slight spiciness. It's accompanied by a spicy Salsa Brava: a Spanish-style BBQ sauce. Also on board are our exclusive King's Selection ingredients: crunchy arugula, a fluffy brioche bun and a juicy 150 gram* beef patty.",
+                    "price" : 9.4,
+                    "category" : {
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "maindish",
+                        "foodGroup": "burger"
+                    }
+                },
+                {
+                    "id": 5,
+                    "name" : "King’s Champ 'n' Cheese Double",
+                    "allergens" : "milk,shellfish",
+                    "description" : "The King's Champ & Cheese is back - with an improved recipe: crispy fried onions, extra spicy BBQ mushrooms and now new with fiery chili cheese sauce. These exclusive ingredients are served with crunchy arugula, fresh onions and tomatoes and two 150 gram* flame-grilled beef patties - in the usual fluffy brioche bun.",
+                    "price" : 8.3,
+                    "category" : {
+                        "extraGroup": "cheese, olives",
+                        "menuGroup": "maindish",
+                        "foodGroup": "burger"
                     }
                 }
             ],
@@ -117,7 +233,10 @@
                 "streetName": "Notbeckerstreet",
                 "streetNumber": "10",
                 "postalCode": "12123",
-                "country" : "germany"
+                "country" : "germany",
+                "city" : "Berlin",
+                "latitude": 52.505971,
+                "longitude": 13.331798
             },
             "extras": [{
                 "id": 0,
@@ -136,6 +255,9 @@
             "id" : 3,
             "name" : "burgerme",
             "phoneNumber": "0123091123",
+            "rating" : 4.7,
+            "range" : 10,
+            "description": "You want freshly prepared burgers, delivered to your home in just 25 minutes? Then burgerme is the right place for you! How about a real classic like our Cheese Burger, with juicy beef, melting cheese, spicy onions, pickles, fresh tomatoes and crisp lettuce, served with the right sauces in a brioche bun? Or would you prefer something fancy, like our Big Angus Teriyaki, the New Yorker or our Hot Crunchy Chicken? Of course, we also have plenty of vegetarian and vegan burgers on offer - and delicious finger food, crisp salads and sweet desserts make the offer perfect!",
             "mealType": [
                 {
                     "id": 0,
@@ -156,25 +278,61 @@
             "dishes" : [
                 {
                     "id": 0,
-                    "name" : "BurgerMega Sunday Ice",
-                    "allergens" : "sugar",
-                    "description" : "bla bla",
-                    "price" : 12,
+                    "name" : "Angus salad",
+                    "allergens" : "shellfish",
+                    "description" : "Lettuce leaves, cocktail tomatoes, Grana Padano, Angus, steak pepper. With a dressing of your choice Our recommendation: Balsamic dressing.",
+                    "price" : 5.43,
                     "category" : {
-                        "extraGroup": "cheese, olives",
-                        "menuGroup": "dessert",
-                        "foodGroup": "burger"
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "salad"
                     }
                 },
                 {
                     "id": 1,
-                    "name" : "Monster Salad",
-                    "allergens" : "sugar",
-                    "description" : "bla bla",
-                    "price" : 10,
+                    "name" : "Caesar salad",
+                    "allergens" : "shellfish",
+                    "description" : "Lettuce leaves, cocktail tomatoes, Grana Padano, Angus, steak pepper. With a dressing of your choice Our recommendation: Balsamic dressing.",
+                    "price" : 3.43,
                     "category" : {
-                        "extraGroup": "cheese, olives",
+                        "extraGroup": "cheese, morzerella",
                         "menuGroup": "appetizer",
+                        "foodGroup": "salad"
+                    }
+                },
+                {
+                    "id": 2,
+                    "name" : "Chocolate Cake",
+                    "allergens" : "milk",
+                    "description" : "Chocolate Cake",
+                    "price" : 4.53,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "dessert",
+                        "foodGroup": "ice"
+                    }
+                },
+                {
+                    "id": 3,
+                    "name" : "Muffin Miss Chocoholic",
+                    "allergens" : "milk",
+                    "description" : "Muffin Miss Chocoholic",
+                    "price" : 4.3,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "dessert",
+                        "foodGroup": "ice"
+                    }
+                },
+                {
+                    "id": 4,
+                    "name" : "Fresh Veggie",
+                    "allergens" : "milk",
+                    "description" : "Muffin Miss Chocoholic",
+                    "price" : 7.4,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "maindish",
                         "foodGroup": "burger"
                     }
                 }
@@ -183,7 +341,250 @@
                 "streetName": "beckeraaastreet",
                 "streetNumber": "96A",
                 "postalCode": "12590",
-                "country" : "germany"
+                "country" : "germany",
+                "city" : "Berlin",
+                "latitude": 52.506266,
+                "longitude": 13.333369
+            },
+            "extras": [{
+                "id": 0,
+                "name" : "cheese",
+                "allergens" : "milk",
+                "description" : "bla bla",
+                "price" : 1,
+                "category" : {
+                    "extraGroup": "",
+                    "menuGroup": "",
+                    "foodGroup": ""}
+            },
+                {
+                "id": 1,
+                "name" : "morzerella",
+                "allergens" : "milk",
+                    "description" : "bla bla",
+                    "price" : 2,
+                    "category" : {
+                        "extraGroup": "",
+                        "menuGroup": "",
+                        "foodGroup": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id" : 4,
+            "name" : "SaleEPepe",
+            "phoneNumber": "0242091313",
+            "rating" : 4.7,
+            "range" : 5,
+            "description": "30 years of gastronomic experience and traditional Italian cuisine. Function room for up to 100 people upstairs with its own bar!",
+            "mealType": [
+                {
+                    "id": 0,
+                    "name": "maindish",
+                    "sortId": 3
+                },
+                {
+                    "id": 1,
+                    "name": "dessert",
+                    "sortId": 1
+                },
+                {
+                    "id": 2,
+                    "name": "appetizer",
+                    "sortId": 2
+                }
+            ],
+            "dishes" : [
+                {
+                    "id": 0,
+                    "name" : "Antipasto Casa",
+                    "allergens" : "milk,peanut",
+                    "description" : "Antipasto Casa",
+                    "price" : 10.99,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "salad"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name" : "Focaccia Classica",
+                    "allergens" : "milk,soybean",
+                    "description" : "Focaccia Classica",
+                    "price" : 4.77,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "salad"
+                    }
+                },
+                {
+                    "id": 2,
+                    "name" : "Carpaccio di manzo",
+                    "allergens" : "milk,soybean",
+                    "description" : "Carpaccio di manzo",
+                    "price" : 6.3,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "salad"
+                    }
+                },
+                {
+                    "id": 3,
+                    "name" : "Rimini",
+                    "allergens" : "milk,soybean",
+                    "description" : "Rimini",
+                    "price" : 7.8,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "maindish",
+                        "foodGroup": "pizza"
+                    }
+                },
+                {
+                    "id": 4,
+                    "name" : "Capricciosa",
+                    "allergens" : "milk,soybean",
+                    "description" : "Capricciosa",
+                    "price" : 8.7,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "maindish",
+                        "foodGroup": "pizza"
+                    }
+                }
+            ],
+            "location" : {
+                "streetName": "Nürnberger Str.",
+                "streetNumber": "28",
+                "postalCode": "10789",
+                "country" : "germany",
+                "city" : "Berlin",
+                "latitude": 52.50593185424805,
+                "longitude": 13.342033386230469
+            },
+            "extras": [{
+                "id": 0,
+                "name" : "cheese",
+                "allergens" : "milk",
+                "description" : "bla bla",
+                "price" : 1,
+                "category" : {
+                    "extraGroup": "",
+                    "menuGroup": "",
+                    "foodGroup": ""}
+            },
+                {
+                "id": 1,
+                "name" : "morzerella",
+                "allergens" : "milk",
+                    "description" : "bla bla",
+                    "price" : 2,
+                    "category" : {
+                        "extraGroup": "",
+                        "menuGroup": "",
+                        "foodGroup": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id" : 5,
+            "name" : "Restaurant at the stone square",
+            "phoneNumber": "013144244",
+            "rating" : 4.7,
+            "range" : 99,
+            "description": "There's more than good company and pleasant conversations at the dinner table. With a variety of flavors in combination with seasonal-regional products we are offering a sharing menu, that lives off small dishes rich in finesse. Choose exactly what you like.",
+            "mealType": [
+                {
+                    "id": 0,
+                    "name": "maindish",
+                    "sortId": 3
+                },
+                {
+                    "id": 1,
+                    "name": "dessert",
+                    "sortId": 1
+                },
+                {
+                    "id": 2,
+                    "name": "appetizer",
+                    "sortId": 2
+                }
+            ],
+            "dishes" : [
+                {
+                    "id": 0,
+                    "name" : "Antipasto Casa",
+                    "allergens" : "milk,peanut",
+                    "description" : "Antipasto Casa",
+                    "price" : 10.99,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "salad"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name" : "Focaccia Classica",
+                    "allergens" : "milk,soybean",
+                    "description" : "Focaccia Classica",
+                    "price" : 4.77,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "salad"
+                    }
+                },
+                {
+                    "id": 2,
+                    "name" : "Carpaccio di manzo",
+                    "allergens" : "milk,soybean",
+                    "description" : "Carpaccio di manzo",
+                    "price" : 6.3,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "appetizer",
+                        "foodGroup": "salad"
+                    }
+                },
+                {
+                    "id": 3,
+                    "name" : "Rimini",
+                    "allergens" : "milk,soybean",
+                    "description" : "Rimini",
+                    "price" : 7.8,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "maindish",
+                        "foodGroup": "pizza"
+                    }
+                },
+                {
+                    "id": 4,
+                    "name" : "Capricciosa",
+                    "allergens" : "milk,soybean",
+                    "description" : "Capricciosa",
+                    "price" : 8.7,
+                    "category" : {
+                        "extraGroup": "cheese, morzerella",
+                        "menuGroup": "maindish",
+                        "foodGroup": "pizza"
+                    }
+                }
+            ],
+            "location" : {
+                "streetName": "Steinpl.",
+                "streetNumber": "4",
+                "postalCode": "10623",
+                "country" : "germany",
+                "city" : "Berlin",
+                "latitude": 52.505617,
+                "longitude": 13.3326212
             },
             "extras": [{
                 "id": 0,

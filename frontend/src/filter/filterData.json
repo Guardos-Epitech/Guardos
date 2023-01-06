@@ -7,16 +7,25 @@
                     "name" : "milk"
                 },
                 {
-                    "name" : "bread"
+                    "name" : "tree nut"
                 },
                 {
-                    "name" : "cheese"
+                    "name" : "peanut"
                 },
                 {
-                    "name" : "salad"
+                    "name" : "eggs"
                 },
                 {
-                    "name" : "sugar"
+                    "name" : "fish"
+                },
+                {
+                    "name" : "gluten"
+                },
+                {
+                    "name" : "shellfish"
+                },
+                {
+                    "name" : "soybean"
                 }
             ]
         },
@@ -32,11 +41,15 @@
                     "identifier" : "food-group"
                 },
                 {
-                    "name" : "ice",
+                    "name" : "pizza",
                     "identifier" : "food-group"
                 },
                 {
                     "name" : "salad",
+                    "identifier" : "food-group"
+                },
+                {
+                    "name" : "pasta",
                     "identifier" : "food-group"
                 },
                 {

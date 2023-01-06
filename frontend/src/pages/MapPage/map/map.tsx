@@ -15,6 +15,7 @@ import { Vector as VL } from "ol/layer";
 import { Style, Circle as CircleStyle, Stroke, Fill, Icon } from "ol/style";
 import dummyDataRestaurant from "../../../assets/restaurantList/restaurants.json";
 import markerIcon from "../../../assets/marker.png";
+import Geolocation from 'ol/Geolocation.js';
 
 const Berlin = [13.409523443447888, 52.52111129522459];
 const Epitech = [13.328820, 52.508540];// long,lat
@@ -65,12 +66,14 @@ export class MapComponent extends React.PureComponent<TMapProps, TMapState> {
       source: new OSM(),
     });
 
+    const view = new View({
+      center: Berlin,
+      zoom: 15,
+    });
+
     const map = new Map({
       target: this.mapDivRef.current,
-      view: new View({
-        center: Berlin,
-        zoom: 15,
-      }),
+      view: view,
       layers: [layer],
     });
 
@@ -132,13 +135,11 @@ export class MapComponent extends React.PureComponent<TMapProps, TMapState> {
 
   render() {
     return (
-      <div className="map" ref={this.mapDivRef}>
-        {this.state.mapContext && (
-          <MapContext.Provider value={this.state.mapContext}>
-            <VectorLayer />
-          </MapContext.Provider>
-        )}
-      </div>
+      <>
+        <div className="map" ref={this.mapDivRef}>
+          <VectorLayer />
+        </div>
+      </>
     );
   }
 }

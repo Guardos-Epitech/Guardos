@@ -12,6 +12,12 @@
     gap: 2.5rem;
 }
 
+.TitleSearch {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.188rem;
+    color: #ffffff;
+  }
+
 .MapTitle {
     font-family: "Montserrat", sans-serif;
     font-size: 2.188rem;
@@ -29,4 +35,15 @@
 .DivAddress {
     display: flex;
     align-items: center;
+}
+
+.DivContent {
+    display: flex;
+    align-items: normal;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+.DivMapBtn {
+    margin-right: 4rem;
 }
