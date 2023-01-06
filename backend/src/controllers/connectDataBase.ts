@@ -1,18 +1,18 @@
-import { getEnv } from './getEnv';
 import { IRestaurantBackEnd, restaurantSchema }
   from '../models/restaurantInterfaces';
+import * as process from 'process';
+import * as dotenv from 'dotenv';
 
 const mongoose = require('mongoose');  /* eslint-disable-line */
+export const succeed = 1;
+export const failed = -1;
 
 export default async function connectDataBase() {
-  const env = getEnv();
-  const url = env.dbUrl;
-  const userName = env.dbUser;
-  const password = env.dbPassword;
-  const cluster = env.dbCluster;
-  let uri = url.replace('aaa', userName);
-  uri = uri.replace('bbb', password);
-  uri = uri.replace('ccc', cluster) + '?retryWrites=true&w=majority';
+  dotenv.config();
+  const userName = process.env.dbUser;
+  const password = process.env.dbPassword;
+  const cluster = process.env.dbCluster;
+  const uri = 'mongodb+srv://' + userName + ':' + password + '@' + cluster + '/Guardos?retryWrites=true&w=majority';
   try {
     console.log('Connecting to database...');
     mongoose.set('strictQuery', false);
@@ -23,10 +23,10 @@ export default async function connectDataBase() {
     mongoose.connection.once('open', async () => {
       console.log('Connected to Database');
     });
-    return 1;
+    return succeed;
   } catch (e) {
     console.error(e);
-    return -1;
+    return failed;
   }
 }
 
@@ -48,11 +48,8 @@ export async function createNewRestaurant(obj: IRestaurantBackEnd, id: number) {
     products: obj.products,
     extras: obj.extras,
   });
-  console.log(upload.location);
   upload.save();
-
   console.log('Restaurant ' + obj.name + ' saved ' + ' with id ' + id);
-
 }
 
 export async function getAllRestaurants() {
