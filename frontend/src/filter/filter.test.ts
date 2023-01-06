@@ -41,10 +41,10 @@ test("filterForRestaurantWithNameOrGroupCase1Name", () => {
 
 function getCheck(original: IRestaurantBackEnd[], result: IRestaurantFrontEnd[]) {
     let check = 0;
-    for (let org in original) {
-        for (let filtered in result) {
+    for (const org in original) {
+        for (const filtered in result) {
             if (result[filtered].id === original[org].id) {
-                for (let num in original[org].mealType) {
+                for (const num in original[org].mealType) {
                     if (original[org].mealType[num].name === result[filtered].categories[num].name) {
                         check++;
                     }
@@ -56,8 +56,8 @@ function getCheck(original: IRestaurantBackEnd[], result: IRestaurantFrontEnd[])
 }
 
 function getExpectedRes(original: IRestaurantBackEnd[], expectedRes: number) {
-    for (let org in original) {
-        for (let num in original[org].mealType) {
+    for (const org in original) {
+        for (const num in original[org].mealType) {
             expectedRes++;
         }
     }
@@ -66,18 +66,18 @@ function getExpectedRes(original: IRestaurantBackEnd[], expectedRes: number) {
 
 test("checkIfDishesAreFilteredRightForAllergenSearch", () => {
     const filter = new Filter();
-    let original = filter.restaurants;
+    const original = filter.restaurants;
     const result = filter.filterForRestaurantsWithAllergens(["milk"]);
-    let check = getCheck(original, result);
-    let expectedRes = getExpectedRes(original, 0);
+    const check = getCheck(original, result);
+    const expectedRes = getExpectedRes(original, 0);
     expect(check).toBe(expectedRes);
 });
 
 test("checkIfDishesAreSortedRightForRestaurantOrGroupSearch", () => {
     const filter = new Filter();
-    let original = filter.restaurants;
+    const original = filter.restaurants;
     const result = filter.filterForRestaurantWithNameOrGroup(["ice"]);
-    let check = getCheck(original, result);
-    let expectedRes = getExpectedRes(original, 0);
+    const check = getCheck(original, result);
+    const expectedRes = getExpectedRes(original, 0);
     expect(check).toBe(expectedRes);
 });
