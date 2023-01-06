@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import path = require('path');
 import filter from './routes/filter';
-import { connectDataBase, succeed } from './controllers/connectDataBase';
+import { connectDataBase, SUCCEED } from './controllers/connectDataBase';
 
 async function main() {
   const app = express();
@@ -15,7 +15,7 @@ async function main() {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
-  if(await connectDataBase() === succeed) {
+  if(await connectDataBase() === SUCCEED) {
     app.listen(port, () => {
       return console.log(`Express is listening at http://localhost:${port}`);
     });

@@ -4,7 +4,7 @@ import * as process from 'process';
 import * as dotenv from 'dotenv';
 
 const mongoose = require('mongoose');  /* eslint-disable-line */
-export const succeed = 1;
+export const SUCCEED = 1;
 export const failed = -1;
 
 export async function connectDataBase() {
@@ -12,7 +12,7 @@ export async function connectDataBase() {
   const userName = process.env.dbUser;
   const password = process.env.dbPassword;
   const cluster = process.env.dbCluster;
-  const uri = 'mongodb+srv://' + userName + ':' + password + '@' + cluster + '/Guardos?retryWrites=true&w=majority';
+  const uri =`mongodb+srv://${userName}:${password}@${cluster}/Guardos?retryWrites=true&w=majority`;
   try {
     console.log('Connecting to database...');
     mongoose.set('strictQuery', false);
@@ -23,7 +23,7 @@ export async function connectDataBase() {
     mongoose.connection.once('open', async () => {
       console.log('Connected to Database');
     });
-    return succeed;
+    return SUCCEED;
   } catch (e) {
     console.error(e);
     return failed;
