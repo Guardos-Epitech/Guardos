@@ -4,7 +4,7 @@ import { IMealType } from './mealTypeInterfaces';
 import { ICategories } from './categoryInterfaces';
 import mongoose from 'mongoose';
 
-export interface IProducts{
+export interface IProducts {
   name: string;
   allergens: string;
   ingredients: [string];
@@ -12,10 +12,10 @@ export interface IProducts{
 
 //0 == Monday, 1 == Tuesday, 2 == Wednesday, 3 == Thursday, 4 == Friday, 5 == Saturday, 6 == Sunday
 // 7 == Alldays
-export interface IOpeningHours{
+export interface IOpeningHours {
   open: string;
   close: string;
-  day:number;
+  day: number;
 }
 
 export interface IRestaurantFrontEnd {
@@ -87,13 +87,13 @@ export const restaurantSchema = new mongoose.Schema({
     city: String,
   },
   mealType: [{
-    name: String,
     _id: Number,
+    name: String,
     sortId: Number,
   }],
   extras: [{
-    name: String,
     _id: Number,
+    name: String,
     description: String,
     price: Number,
     pictures: [String],
