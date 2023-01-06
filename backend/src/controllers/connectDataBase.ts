@@ -7,7 +7,7 @@ const mongoose = require('mongoose');  /* eslint-disable-line */
 export const succeed = 1;
 export const failed = -1;
 
-export default async function connectDataBase() {
+export async function connectDataBase() {
   dotenv.config();
   const userName = process.env.dbUser;
   const password = process.env.dbPassword;
@@ -52,7 +52,8 @@ export async function createNewRestaurant(obj: IRestaurantBackEnd, id: number) {
   console.log('Restaurant ' + obj.name + ' saved ' + ' with id ' + id);
 }
 
-export async function getAllRestaurants() {
+export async function readAndGetAllRestaurants() {
+  console.log('Reading all restaurants');
   const RestaurantSchema = mongoose.model('Restaurants', restaurantSchema);
   return await RestaurantSchema.find();
 }

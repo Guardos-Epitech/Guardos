@@ -4,30 +4,36 @@ import { IDishBE, IDishFE } from '../models/dishInterfaces';
 import { ICategories } from '../models/categoryInterfaces';
 import { ILocation } from '../models/locationInterfaces';
 import { IMealType } from '../models/mealTypeInterfaces';
-import test from '../controllers/test.json';
+import { readAndGetAllRestaurants } from './connectDataBase';
 
 export default class Filter {
   restaurants: Promise<IRestaurantBackEnd[]>;
 
   constructor() {
     this.restaurants = this.getAllRestaurants();
-    console.log(this.restaurants);
   }
 
   // Create BE object from JSON
   private async getAllRestaurants() {
     const result : IRestaurantBackEnd[] = [];
-    //const data = await getAllRestaurants();
-    const data = test.restaurants;
+    const data = await readAndGetAllRestaurants();
     for (const elem of data) {
-      const obj = this.createBackEndObj({id: elem.id, name: elem.name,
-        description: elem.description, rating: elem.rating,
+      const obj = this.createBackEndObj({
+        id: elem.id,
+        name: elem.name,
+        description: elem.description,
+        rating: elem.rating,
         ratingCount: elem.ratingCount,
-        openingHours: elem.openingHours as any, pictures: elem.pictures as any, /* eslint-disable-line */
-        products: elem.products as any, website: elem.website, /* eslint-disable-line */
-        phoneNumber: elem.phoneNumber, mealType: elem.mealType as any,  /* eslint-disable-line */
-        dishes: elem.dishes as any, location: elem.location as any,  /* eslint-disable-line */
-        extras: elem.extras as any});  /* eslint-disable-line */
+        openingHours: elem.openingHours,
+        pictures: elem.pictures,
+        products: elem.products,
+        website: elem.website,
+        phoneNumber: elem.phoneNumber,
+        mealType: elem.mealType,
+        dishes: elem.dishes,
+        location: elem.location,
+        extras: elem.extras
+      });
       result.push(obj);
     }
     //Sort mealType for frontend by sortId
@@ -35,8 +41,6 @@ export default class Filter {
       elem.mealType.sort((a, b) =>
         (a.sortId > b.sortId) ? 1 : -1);
     }
-    console.log(result);
-
     return result;
   }
 
@@ -56,7 +60,7 @@ export default class Filter {
     products: [IProducts];
     extras: [IDishBE] }) {
 
-    const obj: IRestaurantBackEnd = {
+    const restaurantBE: IRestaurantBackEnd = {
       name: restaurant.name,
       description: restaurant.description,
       id: restaurant.id,
@@ -72,15 +76,15 @@ export default class Filter {
       mealType: [{} as IMealType],
       extras: [{} as IDishBE],
     };
-    obj.dishes.pop();
-    obj.mealType.pop();
-    obj.extras.pop();
-    obj.products.pop();
-    obj.openingHours.pop();
-    let dishid = 0;
+    restaurantBE.dishes.pop();
+    restaurantBE.mealType.pop();
+    restaurantBE.extras.pop();
+    restaurantBE.products.pop();
+    restaurantBE.openingHours.pop();
+    let dishId = 0;
     for (const dish of restaurant.dishes) {
       const dishObj: IDishBE = {
-        id: dishid,
+        id: dishId,
         name: dish.name,
         description: dish.description,
         products: dish.products,
@@ -89,23 +93,23 @@ export default class Filter {
         allergens: dish.allergens,
         category: dish.category
       };
-      dishid++;
-      obj.dishes.push(dishObj);
+      dishId++;
+      restaurantBE.dishes.push(dishObj);
     }
     for (const openingHoursElement of restaurant.openingHours) {
-      obj.openingHours.push(openingHoursElement);
+      restaurantBE.openingHours.push(openingHoursElement);
     }
     for (const mealTypeElement of restaurant.mealType) {
-      obj.mealType.push(mealTypeElement);
+      restaurantBE.mealType.push(mealTypeElement);
     }
     for (const product of restaurant.products) {
-      obj.products.push(product);
+      restaurantBE.products.push(product);
     }
-    obj.location = restaurant.location;
-    let extraid = 0;
+    restaurantBE.location = restaurant.location;
+    let extraId = 0;
     for (const extra of restaurant.extras) {
       const extraObj: IDishBE = {
-        id: extraid,
+        id: extraId,
         name: extra.name,
         description: extra.description,
         products: extra.products,
@@ -114,10 +118,10 @@ export default class Filter {
         allergens: extra.allergens,
         category: extra.category
       };
-      extraid++;
-      obj.extras.push(extraObj);
+      extraId++;
+      restaurantBE.extras.push(extraObj);
     }
-    return obj;
+    return restaurantBE;
   }
 
   getRestaurants() {
@@ -296,7 +300,7 @@ export default class Filter {
   }
 
   async filterForRestaurantWithRating(lookingFor: number[]) {
-    const results =  [{} as IRestaurantFrontEnd];
+    const results = [{} as IRestaurantFrontEnd];
     results.pop();
 
     for (const restaurant of await this.restaurants) {
