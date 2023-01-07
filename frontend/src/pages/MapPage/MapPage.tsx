@@ -7,6 +7,7 @@ import Filter from "@src/components/Filter/Filter";
 import InputSearch from "@src/components/InputSearch/InputSearch";
 import BackButton from '@src/components/HomeButton/HomeButton';
 import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
+import RestoCard from "@src/components/RestoCard/RestoCard";
 
 const theme = createTheme({
     palette: {
@@ -101,6 +102,13 @@ const MapPage = () => {
     }
     setFilteredRestaurants(handleFilterRequest(inter));
   }
+  function renderMenu(id: number) {
+    for (let i = 0; i < filteredRestaurants.length; i++) {
+      if (id == i) {
+        return filteredRestaurants[i];
+      }
+    }
+  }
     return (
         <>
           <Header/>
@@ -113,7 +121,7 @@ const MapPage = () => {
               <BackButton />
               <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange}/>
             </div>
-            <Map></Map>    
+            <Map/>   
           </div>  
        </>
     );

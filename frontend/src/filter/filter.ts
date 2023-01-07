@@ -40,6 +40,8 @@ interface ILocation {
     postalCode: string,
     country: string;
     city: string;
+    longitude: number;
+    latitude: number;
 }
 
 interface IDishBE {
@@ -148,6 +150,8 @@ class FilterQuery {
             obj.location.postalCode = elem.location.postalCode;
             obj.location.streetName = elem.location.streetName;
             obj.location.streetNumber = elem.location.streetNumber;
+            obj.location.latitude = elem.location.latitude;
+            obj.location.longitude = elem.location.latitude;
 
 
             result.push(obj);

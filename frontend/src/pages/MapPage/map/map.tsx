@@ -13,9 +13,10 @@ import { Feature } from "ol";
 import VectorSource from "ol/source/Vector";
 import { Vector as VL } from "ol/layer";
 import { Style, Circle as CircleStyle, Stroke, Fill, Icon } from "ol/style";
-import dummyDataRestaurant from "../../../assets/restaurantList/restaurants.json";
+import dummyDataRestaurant from "../../../filter/restaurants.json";
 import markerIcon from "../../../assets/marker.png";
 import Geolocation from 'ol/Geolocation.js';
+import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
 
 const Berlin = [13.409523443447888, 52.52111129522459];
 const Epitech = [13.328820, 52.508540];// long,lat
