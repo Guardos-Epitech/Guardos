@@ -174,6 +174,7 @@ class FilterQuery {
         const obj: IRestaurantFrontEnd = {
             name: restaurant.name,
             id: restaurant.id,
+            rating: restaurant.rating,
             range: restaurant.range,
             description: restaurant.description,
             phoneNumber: restaurant.phoneNumber,
