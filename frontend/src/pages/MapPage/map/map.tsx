@@ -39,16 +39,18 @@ export class MapComponent extends React.PureComponent<TMapProps, TMapState> {
   state: TMapState = {};
   restaurants: IMapLoc[];
 
-  constructor(props: TMapProps) {
+  constructor(props: TMapProps, retsau: IRestaurantFrontEnd[]) {
     super(props);
     this.mapDivRef = React.createRef<HTMLDivElement>();
-    this.restaurants = this.getAllRestaurantsLocation()
+    // this.restaurants = this.getAllRestaurantsLocation()
+    this.restaurants = this.getAllRestaurantsLocation(retsau);
   }
 
-  private getAllRestaurantsLocation(): IMapLoc[] {
+  private getAllRestaurantsLocation(restauList: IRestaurantFrontEnd[]): IMapLoc[] {
     const result : IMapLoc[] = [];
     result.pop();
-    for (const elem of dummyDataRestaurant.restaurants) {
+    // for (const elem of dummyDataRestaurant.restaurants) {
+    for (const elem of restauList) {
       const obj: IMapLoc = {name: elem.name, lat: elem.location.latitude,
         long: elem.location.longitude, street: elem.location.streetName,
         streetNumber: elem.location.streetNumber,
