@@ -268,9 +268,11 @@ const Filter = (props : FilterProps) => {
           <div>
             <Stack direction="row" spacing={1}>
               {allergens.map((allergen) => {
-                return <ThemeProvider theme={GlobalStyle()}>
-                        <Chip label={allergen.name} color={allergen.colorButton} variant="outlined" onClick={() => handleClick(allergen.name)} />
-                        </ThemeProvider>
+                return (
+                <ThemeProvider theme={GlobalStyle()}>
+                  <Chip label={allergen.name} color={allergen.colorButton} variant="outlined" onClick={() => handleClick(allergen.name)} />
+                </ThemeProvider>
+                );
               })}
             </Stack>
           </div>
