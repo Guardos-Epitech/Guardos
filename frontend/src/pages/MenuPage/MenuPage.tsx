@@ -32,7 +32,7 @@ const MenuPage = () => {
           <ListItem>
             <div className={styles.Address}>
               <ThemeProvider theme={theme}>
-                <PlaceIcon color={"primary"} />
+                <PlaceIcon color="primary" />
               </ThemeProvider>
               <span className={styles.RestaurantAddress}>{address}</span>
             </div>
@@ -40,7 +40,7 @@ const MenuPage = () => {
         </List>
       </div>
       <Layout>
-        <Category title={"Appetizers"}>
+        <Category title="Appetizers">
           {resto.dishes.map((item: any, index: number) => {
             if (item.category.menuGroup === "appetizer") {
               return (
@@ -57,7 +57,7 @@ const MenuPage = () => {
             }
           })}
         </Category>
-        <Category title={"Main Courses"}>
+        <Category title="Main Courses">
           {resto.dishes.map((item: any, index: number) => {
             if (item.category.menuGroup === "maindish") {
               return (
@@ -65,7 +65,7 @@ const MenuPage = () => {
                   dishName={item.name}
                   dishAllergens={item.allergens.split(",")}
                   dishDescription={item.description}
-                  options={"double cheese, double meat"}
+                  options="double cheese, double meat"
                   imageSrc={burgerImg}
                   price={item.price}
                   key={index}
@@ -74,7 +74,7 @@ const MenuPage = () => {
             }
           })}
         </Category>
-        <Category title={"Dessert"}>
+        <Category title="Dessert">
           {resto.dishes.map((item: any, index: number) => {
             if (item.category.menuGroup === "dessert") {
               return (

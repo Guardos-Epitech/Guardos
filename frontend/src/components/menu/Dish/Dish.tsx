@@ -66,7 +66,7 @@ const Dish = (props: IDishProps) => {
                 </div>
               )}
             </span>
-            <h3>{`${price.toFixed(2)} €`}</h3>
+            <h3>{priceStr}</h3>
           </Grid>
         </Grid>
       </div>
@@ -90,9 +90,9 @@ const Dish = (props: IDishProps) => {
               {dishDescription}
             </p>
             <span className={styles.OptionsText}>
-              {options && options.length != 0 && (
+              {options && options.length !== 0 && (
                 <div className={!extended && styles.OptionsWrap}>
-                  <b>{"Options: "}</b>
+                  <b>Options: </b>
                   {options}
                 </div>
               )}
