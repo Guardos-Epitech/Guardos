@@ -68,7 +68,7 @@ const InputSearch = (props : any) => {
       <ThemeProvider theme={theme}>
         <TextField
           label="Name"
-          variant="outlined"
+          variant="filled"
           className={styles.InputSearch}
           onChange={onChangeName}
         />

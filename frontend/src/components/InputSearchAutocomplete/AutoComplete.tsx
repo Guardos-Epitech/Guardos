@@ -93,7 +93,7 @@ const AutoComplete = (props : AutoCompleteProps) => {
         <div>
           <TextField
             label="Location"
-            variant="outlined"
+            variant="filled"
             className={inputSyles.InputSearch}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
