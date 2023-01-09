@@ -9,6 +9,8 @@ import BackButton from '@src/components/HomeButton/HomeButton';
 import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
 import RestoCard from "@src/components/RestoCard/RestoCard";
 
+import MapView from '@src/components/Map/Map';
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -121,7 +123,8 @@ const MapPage = () => {
               <BackButton />
               <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange}/>
             </div>
-            <Map/>   
+            {/* <Map/>    */}
+            <MapView data={filteredRestaurants} />
           </div>  
        </>
     );
