@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -22,6 +22,8 @@ import styles from "./Map.module.scss";
 const Berlin = [13.409523443447888, 52.52111129522459];
 const Epitech = [13.328820, 52.508540];// long,lat
 
+useGeographic();
+
 interface IMapLoc {
     name: string;
     lat: number;
@@ -36,23 +38,22 @@ interface MapProps {
 }
 
 const MapView = (props : MapProps) => {
+  const mapElement = useRef();
+  const [map, setMap] = useState(null);
+  const mapRef = useRef();
 
-    const layer = new TileLayer({
-        source: new OSM(),
-    });
+  mapRef.current = map;
+    
+  const layer = new TileLayer({
+    source: new OSM(),
+  });
 
-    const view = new View({
-        center: Berlin,
-        zoom: 15,
-    });
+  const view = new View({
+      center: Epitech,
+      zoom: 15,
+  });
 
-    const map = new Map({ 
-        view: view,
-        layers: [layer],
-        target: styles.map
-    });
-
-    let markerList: Feature[] = [];
+  let markerList: Feature[] = [];
     markerList.pop();
 
     for (const elem of props.data) {
@@ -66,40 +67,56 @@ const MapView = (props : MapProps) => {
     };
 
     const stylesMarker = {
-        'geoMarker': new Style({
-          image: new CircleStyle({
-            radius: 7,
-            fill: new Fill({color: 'red'}),
-            stroke: new Stroke({
-              color: 'white',
-              width: 2,
-            }),
+      'geoMarker': new Style({
+        image: new CircleStyle({
+          radius: 7,
+          fill: new Fill({color: 'red'}),
+          stroke: new Stroke({
+            color: 'white',
+            width: 2,
           }),
         }),
-        'icon': new Style({
-          image: new Icon({
-            anchor: [0.5, 1],
-            src: markerIcon,
-            scale: 0.05,
-          }),
+      }),
+      'icon': new Style({
+        image: new Icon({
+          anchor: [0.5, 1],
+          src: markerIcon,
+          scale: 0.05,
         }),
-    };
+      }),
+  };
 
-    const vectorLayer = new VL({
-        source: new VectorSource({
-          // features: [epitechMarker],
-          features: markerList,
-        }),
-        style: function (feature) {
-          return stylesMarker['icon'];
-        },
-    });
+  const vectorLayer = new VL({
+    source: new VectorSource({
+      // features: [epitechMarker],
+      features: markerList,
+    }),
+    style: function (feature) {
+      return stylesMarker['icon'];
+    },
+});
 
-    map.addLayer(vectorLayer);
+  useEffect(() => {
+    const initialMap = new Map({
+      target: mapElement.current,
+      layers: [vectorLayer, layer],
+      view: view,
+    })
+    setMap(initialMap);
+  }, []);
+
+    // const map = new Map({ 
+    //     view: view,
+    //     layers: [layer],
+    //     target: mapElement.current
+    // });
+
+    // map.addLayer(vectorLayer);
     
     return (
       <>
-        <div className={styles.map} id='map'/>
+        {/* <div className={styles.map} id='map'/> */}
+        <div ref={mapElement} className={styles.map} id="map" />
       </>
     )
 };
