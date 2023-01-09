@@ -29,7 +29,7 @@ const Rating = ({ restoRating, restoRatingsCount }: IRatingProps) => {
     <ThemeProvider theme={RatingColor}>
       { [...Array(fullRating)].map((elem, index) =>
         <ThemeProvider key={index} theme={RatingColor}>
-          <StarIcon className={styles.StarPosition} color="primary" key={index} />
+          <StarIcon className={styles.StarPosition} color="primary" />
         </ThemeProvider>
       )}
       { restoRating - fullRating > 0 &&
