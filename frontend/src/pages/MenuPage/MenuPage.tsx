@@ -6,6 +6,9 @@ import Category from "@src/components/menu/Category/Category";
 import Layout from "@src/components/Layout/Layout";
 import Header from "@src/components/Header/Header";
 import burgerImg from "@src/assets/dishImages/burger.jpg";
+import pizzaImg from "@src/assets/dishImages/dummyPizza.jpg";
+import iceImg from "@src/assets/dishImages/dummyIcecream.jpg";
+import saladImg from "@src/assets/dishImages/dummySalad.jpg";
 import PlaceIcon from "@mui/icons-material/Place";
 import {List, ListItem} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
@@ -48,15 +51,20 @@ const MenuPage = () => {
                     {location.state.dishes.map((item : any, index: number) => {
                         if (item.category.menuGroup === "appetizer") {
                             return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={index}/> 
+                            imageSrc={saladImg} price={item.price} key={index}/> 
                         }
                     })}
                 </Category>
                 <Category title={"Main Courses"}>
                     {location.state.dishes.map((item : any, index: number) => {
                         if (item.category.menuGroup === "maindish") {
-                            return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={index}/> 
+                            if (item.category.foodGroup == "pizza") {
+                                return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
+                                imageSrc={pizzaImg} price={item.price} key={index}/> 
+                            } else {
+                                return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
+                                imageSrc={burgerImg} price={item.price} key={index}/> 
+                            }
                         }
                     })}
                 </Category>
@@ -64,7 +72,7 @@ const MenuPage = () => {
                     {location.state.dishes.map((item : any, index: number) => {
                         if (item.category.menuGroup === "dessert") {
                             return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={index}/> 
+                            imageSrc={iceImg} price={item.price} key={index}/> 
                         }
                     })}
                 </Category>
