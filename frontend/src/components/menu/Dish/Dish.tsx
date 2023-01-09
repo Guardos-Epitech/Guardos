@@ -18,7 +18,7 @@ const Dish = (props: IDishProps) => {
   const [extended, setExtended] = useState(false);
   const { dishName, dishAllergens, dishDescription, options, price } = props;
   const imageSrc =
-    props.imageSrc && props.imageSrc.length != 0
+    props.imageSrc?.length > 0
       ? props.imageSrc
       : placeholderImg;
   const priceStr = `${price.toFixed(2)} €`;

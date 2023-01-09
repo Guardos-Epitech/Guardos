@@ -54,7 +54,7 @@ const RestoCard = (props : IRestoCardProps) => {
   const imageSrc = props.imageSrc && props.imageSrc.length != 0 ? props.imageSrc : placeholderImg;
 
   const handleClick = () => {
-    setExtended(!extended);
+    setExtended((prevState) => !prevState);
   }
 
   return (

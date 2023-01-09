@@ -22,15 +22,14 @@ interface IRatingProps {
   restoRatingsCount: number
 }
 
-const Rating = (props: IRatingProps) => {
-  const { restoRating, restoRatingsCount } = props;
+const Rating = ({ restoRating, restoRatingsCount }: IRatingProps) => {
   const fullRating = Math.floor(restoRating);
 
   return (
     <ThemeProvider theme={RatingColor}>
       { [...Array(fullRating)].map((elem, index) =>
         <ThemeProvider key={index} theme={RatingColor}>
-          <StarIcon className={styles.StarPosition} color={"primary"} key={index} />
+          <StarIcon className={styles.StarPosition} color="primary" key={index} />
         </ThemeProvider>
       )}
       { restoRating - fullRating > 0 &&
@@ -40,11 +39,11 @@ const Rating = (props: IRatingProps) => {
       }
       { [...Array(Math.floor(5 - restoRating))].map((elem, index) =>
         <ThemeProvider key={index} theme={RatingColor}>
-          <StarOutlineIcon className={styles.StarPosition} color={"primary"} key={index} />
+          <StarOutlineIcon className={styles.StarPosition} color={"primary"} />
         </ThemeProvider>
       )}
       <span className={styles.RatingCount}>
-        {`(${restoRatingsCount})`}
+        {restoRatingsCount}
       </span>
     </ThemeProvider>
   );

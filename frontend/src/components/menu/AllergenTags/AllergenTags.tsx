@@ -31,7 +31,7 @@ interface IAllergenTagsProps {
 }
 
 const AllergenTags = (props: IAllergenTagsProps) => {
-    const dishAllergens = props.dishAllergens;
+    const {dishAllergens} = props;
 
     return (
         <ThemeProvider theme={Tags()}>
