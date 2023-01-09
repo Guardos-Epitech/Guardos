@@ -85,7 +85,7 @@ const RestoCard = (props : RestoCardProps) => {
                 sx={{ width: "12.13rem" }}
                 onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu(props.dataIndex))}
               >
-                Restaurant page
+                Visit
               </Button>
             </ThemeProvider>
           </div>
