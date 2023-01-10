@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MenuPage from "@src/pages/MenuPage";
 import HomePage from "@src/pages/HomePage";
 import ScrollToTop from "@src/components/ScrollToTop/ScrollToTop";
+import AppOutlet from "@src/pages/AppOutlet/AppOutlet";
 
 const MVPRouter = () => {
   return (
