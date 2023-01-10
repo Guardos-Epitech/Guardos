@@ -5,10 +5,6 @@ import Dish from "@src/components/menu/Dish/Dish";
 import Category from "@src/components/menu/Category/Category";
 import Layout from "@src/components/Layout/Layout";
 import Header from "@src/components/Header/Header";
-import burgerImg from "@src/assets/dishImages/burger.jpg";
-import pizzaImg from "@src/assets/dishImages/dummyPizza.jpg";
-import iceImg from "@src/assets/dishImages/dummyIcecream.jpg";
-import saladImg from "@src/assets/dishImages/dummySalad.jpg";
 import PlaceIcon from "@mui/icons-material/Place";
 import { List, ListItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -56,7 +52,7 @@ const MenuPage = () => {
                         dishAllergens={dish.allergens.split(',')}
                         dishDescription={dish.description}
                         options={dish.category.extraGroup}
-                        imageSrc={burgerImg}
+                        imageSrc={dish.pictures[0]}
                         price={dish.price}
                     />
               )})}

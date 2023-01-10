@@ -42,7 +42,6 @@ interface IRestoCardProps {
   resto: IRestaurantFrontEnd,
   dataIndex: number,
   key: number,
-  imageSrc?: string
 }
 
 const RestoCard = (props : IRestoCardProps) => {
@@ -51,7 +50,7 @@ const RestoCard = (props : IRestoCardProps) => {
   const { name, rating, description, categories } = props.resto;
   const { streetName, streetNumber, postalCode, city, country } = props.resto.location;
   const address = `${streetName} ${streetNumber}, ${postalCode} ${city}, ${country}`;
-  const imageSrc = props.imageSrc && props.imageSrc.length != 0 ? props.imageSrc : placeholderImg;
+  const imageSrc = props.resto.pictures[0] && props.resto.pictures[0].length != 0 ? props.resto.pictures[0]  : placeholderImg;
 
   const handleClick = () => {
     setExtended((prevState) => !prevState);

@@ -55,6 +55,7 @@ export interface IDishFE {
     description: string;
     price: number;
     allergens: string;
+    pictures: [string];
     category: ICategoryFE;
 }
 

@@ -6,7 +6,6 @@ import RestoCard from "@src/components/RestoCard/RestoCard";
 import MapButton from "@src/components/MapButton/MapButton";
 import Filter from "@src/components/Filter/Filter";
 import { IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
-import restoImg from "@src/assets/restoimg.jpeg";
 import { getFilteredRestos } from "@src/services/filterCalls";
 
 const HomePage = () => {
@@ -122,7 +121,7 @@ const HomePage = () => {
         <div>
           <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
           {filteredRestaurants?.map((item, index) => {
-            return <RestoCard resto={item} dataIndex={index} key={index} imageSrc={restoImg}/>
+            return <RestoCard resto={item} dataIndex={index} key={index} />
           })}
         </div>
       </div>
