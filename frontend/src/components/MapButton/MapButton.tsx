@@ -15,7 +15,7 @@ const MapBtn = () => {
     },
     palette: {
       primary: {
-        main: "#AC2A37",
+        main: "#6d071a",
         contrastText: "#ffffff",
       },
       secondary: {

@@ -1,13 +1,15 @@
-import React from "react";
-import styles from "./RestoCard.module.scss";
-import restoimg from "@src/assets/restoimg.jpeg";
+import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import PlaceIcon from "@mui/icons-material/Place";
 import Button from "@mui/material/Button";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import ratingimg from "@src/assets/ratingimg.png";
-import { useNavigate } from "react-router-dom";
-import { NavigateTo } from "@src/utils/NavigateTo";
+import {Grid, Paper} from "@mui/material";
+import styles from "./RestoCard.module.scss";
+
 import { IRestaurantFrontEnd } from "@src/filter/filter";
+import Rating from "@src/components/RestoCard/Rating/Rating";
+import placeholderImg from "@src/assets/placeholder.png";
+import {NavigateTo} from "@src/utils/NavigateTo";
 
 const PageBtn = () => {
   return createTheme({
@@ -17,11 +19,12 @@ const PageBtn = () => {
         textTransform: "none",
         fontSize: "1.13rem",
         fontWeight: "500",
+        padding: "0"
       },
     },
     palette: {
       primary: {
-        main: "#AC2A37",
+        main: "#6d071a",
         contrastText: "#ffffff",
       },
       secondary: {
@@ -35,63 +38,75 @@ const PageBtn = () => {
   });
 };
 
-interface RestoCardProps {
-  data: IRestaurantFrontEnd,
+interface IRestoCardProps {
+  resto: IRestaurantFrontEnd,
   dataIndex: number,
   key: number,
-  onRender: Function
+  imageSrc?: string
 }
 
-const RestoCard = (props : RestoCardProps) => {
+const RestoCard = (props : IRestoCardProps) => {
   const navigate = useNavigate();
-  const name = props.data.name;
-  const streetName = props.data.location.streetName;
-  const streetNumber = props.data.location.streetNumber;
-  const city = props.data.location.city;
-  const postalCode = props.data.location.postalCode;
-  const description = props.data.description;
+  const [extended, setExtended ] = useState(false);
+  const { name, rating, description, categories } = props.resto;
+  const { streetName, streetNumber, postalCode, city, country } = props.resto.location;
+  const address = `${streetName} ${streetNumber}, ${postalCode} ${city}, ${country}`;
+  const imageSrc = props.imageSrc && props.imageSrc.length != 0 ? props.imageSrc : placeholderImg;
 
-  function renderDynamicMenu(key: number) {
-    return(
-      props.onRender(key)
-    );
+  const handleClick = () => {
+    setExtended((prevState) => !prevState);
   }
 
   return (
-    <div className={styles.RectCard}>
-      <img className={styles.RestoImg} src={restoimg} alt="Resto Img" />
-      <div>
-        <div className={styles.DivTopTitle}>
-          <span className={styles.TitleResto}>{name}</span>
-          <div className={styles.DivRating}>
-            <span className={styles.TitleRating}>Rating:</span>
-            <img
-              className={styles.RatingImg}
-              src={ratingimg}
-              alt="Rating Img"
-            />
+    <Paper className={styles.DishBox} elevation={3} onClick={handleClick}>
+      <Grid container>
+        <Grid item xs={3} className={styles.GridItemImage}>
+          {imageSrc && (
+              <img
+                  src={imageSrc}
+                  alt={name}
+                  className={styles.ImageDimensions}
+              />
+          )}
+        </Grid>
+
+        <Grid item xs={9} className={styles.GridItem}>
+          <div className={styles.FlexParent}>
+            <h3 className={styles.DishTitle}>{name}</h3>
+            <Rating restoRating={rating} restoRatingsCount={78} />{/*TODO: get ratings count*/}
           </div>
-        </div>
-        <div className={styles.DivAddress}>
-          <PlaceIcon />
-          <span>{streetName} {streetNumber}, {city} {postalCode}</span>
-        </div>
-        <div className={styles.DivDesc}>
-          <p className={styles.TxtDescription}>{description}</p>
+          <div className={styles.FlexParent}>
+            <PlaceIcon />
+            <span className={styles.AddressText}>{address}</span>
+          </div>
+          <p
+              className={
+                extended
+                    ? styles.JustificationPrintExtended
+                    : styles.JustificationPrint
+              }
+          >
+            {description}
+          </p>
           <div className={styles.BtnPage}>
             <ThemeProvider theme={PageBtn()}>
               <Button
-                variant="contained"
-                sx={{ width: "12.13rem" }}
-                onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu(props.dataIndex))}
+                  className={styles.RestoBtn}
+                  variant="contained"
+                  onClick={() => NavigateTo("/menu", navigate, {
+                    // menu: categories, TODO: just pass menu instead of whole resto object
+                    resto: props.resto,
+                    restoName: name,
+                    address: address,
+                  })}
               >
-                Visit
+                Menu
               </Button>
             </ThemeProvider>
           </div>
-        </div>
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 

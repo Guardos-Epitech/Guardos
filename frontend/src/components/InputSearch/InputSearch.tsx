@@ -28,7 +28,7 @@ const PageBtn = () => {
     },
     palette: {
       primary: {
-        main: "#AC2A37",
+        main: "#6d071a",
         contrastText: "#ffffff",
       },
       secondary: {
@@ -68,7 +68,7 @@ const InputSearch = (props : any) => {
       <ThemeProvider theme={theme}>
         <TextField
           label="Name"
-          variant="outlined"
+          variant="filled"
           className={styles.InputSearch}
           onChange={onChangeName}
         />
