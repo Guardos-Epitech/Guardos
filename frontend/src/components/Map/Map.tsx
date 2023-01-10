@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -24,14 +24,24 @@ const Epitech = [13.328820, 52.508540];// long,lat
 
 useGeographic();
 
-interface IMapLoc {
-    name: string;
-    lat: number;
-    long: number;
-    street: string;
-    streetNumber: string;
-    postal: string;
-}
+const layer = new TileLayer({
+  source: new OSM(),
+});
+
+const view = new View({
+    center: Epitech,
+    zoom: 15,
+});
+
+const stylesMarker = {
+  'icon': new Style({
+    image: new Icon({
+      anchor: [0.5, 1],
+      src: markerIcon,
+      scale: 0.05,
+    }),
+  }),
+};
 
 interface MapProps {
     data: IRestaurantFrontEnd[]
@@ -39,86 +49,47 @@ interface MapProps {
 
 const MapView = (props : MapProps) => {
   const mapElement = useRef();
-  const [map, setMap] = useState(null);
-  const mapRef = useRef();
-
-  mapRef.current = map;
-    
-  const layer = new TileLayer({
-    source: new OSM(),
-  });
-
-  const view = new View({
-      center: Epitech,
-      zoom: 15,
-  });
-
-  let markerList: Feature[] = [];
-    markerList.pop();
-
-    for (const elem of props.data) {
-        const obj = new Feature({
-            type: 'icon',
-            geometry: new Point([elem.location.longitude, elem.location.latitude]),
-            description: elem.name,
-            address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
-        });
-        markerList.push(obj);
-    };
-
-    const stylesMarker = {
-      'geoMarker': new Style({
-        image: new CircleStyle({
-          radius: 7,
-          fill: new Fill({color: 'red'}),
-          stroke: new Stroke({
-            color: 'white',
-            width: 2,
-          }),
-        }),
-      }),
-      'icon': new Style({
-        image: new Icon({
-          anchor: [0.5, 1],
-          src: markerIcon,
-          scale: 0.05,
-        }),
-      }),
-  };
-
-  const vectorLayer = new VL({
-    source: new VectorSource({
-      // features: [epitechMarker],
-      features: markerList,
-    }),
-    style: function (feature) {
-      return stylesMarker['icon'];
-    },
-});
-
+  
   useEffect(() => {
-    const initialMap = new Map({
+    if (!mapElement.current) {
+      return;
+    }
+
+    const map = new Map({
       target: mapElement.current,
-      layers: [vectorLayer, layer],
       view: view,
-    })
-    setMap(initialMap);
+      layers: [layer],
+    });
+
+    let markerList: Feature[] = [];
+    for (const elem of props.data) {
+      const obj = new Feature({
+        type: 'icon',
+        geometry: new Point([elem.location.longitude, elem.location.latitude]),
+        description: elem.name,
+        address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
+      });
+      console.log("lat: ", elem.location.latitude, "long: ", elem.location.longitude);
+      markerList.push(obj);
+    }
+    console.log("propsdata" , props.data);
+    console.log("dummydata", dummyDataRestaurant);
+
+    const vectorLayer = new VL({
+      source: new VectorSource({
+        features: markerList,
+      }),
+      style: function (feature) {
+        return stylesMarker['icon'];
+      },
+    });
+
+    map.addLayer(vectorLayer);
   }, []);
 
-    // const map = new Map({ 
-    //     view: view,
-    //     layers: [layer],
-    //     target: mapElement.current
-    // });
-
-    // map.addLayer(vectorLayer);
-    
-    return (
-      <>
-        {/* <div className={styles.map} id='map'/> */}
-        <div ref={mapElement} className={styles.map} id="map" />
-      </>
-    )
+  return (
+    <div ref={mapElement} className={styles.map} id="map" />
+  )
 };
 
 export default MapView;

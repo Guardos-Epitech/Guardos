@@ -50,7 +50,7 @@ export class MapComponent extends React.PureComponent<TMapProps, TMapState> {
     const result : IMapLoc[] = [];
     result.pop();
     // for (const elem of dummyDataRestaurant.restaurants) {
-    for (const elem of restauList) {
+    for (const elem of dummyDataRestaurant.restaurants) {
       const obj: IMapLoc = {name: elem.name, lat: elem.location.latitude,
         long: elem.location.longitude, street: elem.location.streetName,
         streetNumber: elem.location.streetNumber,
@@ -81,8 +81,6 @@ export class MapComponent extends React.PureComponent<TMapProps, TMapState> {
     });
 
     let markerList: Feature[] = [];
-    markerList.pop();
-
     for (const elem of this.restaurants) {
       const obj = new Feature({
         type: 'icon',
@@ -92,7 +90,7 @@ export class MapComponent extends React.PureComponent<TMapProps, TMapState> {
       });
       markerList.push(obj);
     }
-
+    console.log(markerList);
     const epitechMarker = new Feature({
       type: 'geoMarker',
       geometry: new Point(Epitech),

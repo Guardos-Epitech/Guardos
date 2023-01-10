@@ -151,7 +151,7 @@ class FilterQuery {
             obj.location.streetName = elem.location.streetName;
             obj.location.streetNumber = elem.location.streetNumber;
             obj.location.latitude = elem.location.latitude;
-            obj.location.longitude = elem.location.latitude;
+            obj.location.longitude = elem.location.longitude;
 
 
             result.push(obj);
