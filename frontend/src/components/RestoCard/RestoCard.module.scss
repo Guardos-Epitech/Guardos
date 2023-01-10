@@ -1,65 +1,85 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Orbitron&display=swap");
+@import "../../general";
 
-.RectCard {
-  width: 73.81rem;
-  height: 14.81rem;
-  background-color: #ffffff;
-  filter: drop-shadow(0rem 0.25rem 0.313rem rgba(0, 0, 0, 0.25));
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
+.DishBox {
+  background: $white;
+  margin-bottom: 1.5rem;
+  border-radius: 1.2rem !important;
 }
 
-.TitleResto {
-  font-weight: 700;
+.DishBox:hover {
+  background-color: $white;
+  cursor: pointer;
+}
+
+.FlexParent {
+  display: flex;
+}
+
+.GridItem {
+  padding: 2rem;
+}
+
+.GridItemImage {
+  padding: 1rem 0 1rem 1rem;
+}
+
+.ImageDimensions {
+  width: 100%;
+  height: auto;
+  max-height: 11rem;
+  object-fit: cover;
+  border-radius: 0.625rem;
+}
+
+.DishTitle {
+  margin: 0 1rem 0.4rem 0;
   font-family: "Montserrat", sans-serif;
-  font-size: 1.56rem;
+  font-size: 1.5rem;
 }
 
-.DivAddress {
-  display: flex;
-  align-items: center;
-}
-
-.RestoImg {
-  width: 16rem;
-  margin-left: 1.7rem;
-  margin-right: 1.7rem;
-}
-
-.TxtDescription {
-  text-align: left;
-  font-size: 1rem;
-  width: 39.31rem;
-  height: 7.06rem;
-}
-
-.DivDesc {
-  display: flex;
-  align-items: flex-end;
-}
-
-.TitleRating {
-  font-weight: 400;
+.JustificationPrint {
+  text-align: justify;
+  text-justify: inter-word;
   font-family: "Montserrat", sans-serif;
-  font-size: 1.06rem;
-  margin-left: 18rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
-.RatingImg {
-  width: 10rem;
+.JustificationPrintExtended {
+  text-align: justify;
+  text-justify: inter-word;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
 }
 
-.DivRating {
-  display: flex;
-  align-items: center;
+.ActionMenu {
+  margin-right: 0;
+  margin-left: auto;
 }
 
-.DivTopTitle {
-  display: flex;
-  align-items: center;
+.AddressText {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  margin: 0.1rem 0 0 0.3rem;
 }
 
 .BtnPage {
-  margin-left: 1rem;
+  display: flex;
+  padding-top: 0.3rem;
+}
+
+.RestoBtn {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+  padding: 0.2rem 0.8rem !important;
 }

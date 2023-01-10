@@ -6,6 +6,7 @@ import RestoCard from "@src/components/RestoCard/RestoCard";
 import MapButton from "@src/components/MapButton/MapButton";
 import Filter from "@src/components/Filter/Filter";
 import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
+import restoImg from "@src/assets/restoimg.jpeg";
 
 const HomePage = () => {
   // needs to be changed for the database && be sorted out as an own component
@@ -93,13 +94,6 @@ const HomePage = () => {
     setFilteredRestaurants(handleFilterRequest(inter));
   }
 
-  function renderMenu(id: number) {
-    for (let i = 0; i < filteredRestaurants.length; i++) {
-      if (id == i) {
-        return filteredRestaurants[i];
-      }
-    }
-  }
   // until here -> more dynamic
   return (
     <div>
@@ -116,7 +110,7 @@ const HomePage = () => {
         <div>
           <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
           {filteredRestaurants.map((item, index) => {
-            return <RestoCard data={item} dataIndex={index} key={index} onRender={renderMenu}/>
+            return <RestoCard resto={item} dataIndex={index} key={index} imageSrc={restoImg}/>
           })}
         </div>
       </div>

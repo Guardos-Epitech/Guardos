@@ -7,70 +7,93 @@ import Layout from "@src/components/Layout/Layout";
 import Header from "@src/components/Header/Header";
 import burgerImg from "@src/assets/dishImages/burger.jpg";
 import PlaceIcon from "@mui/icons-material/Place";
-import {List, ListItem} from "@mui/material";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
+import { List, ListItem } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
-    palette: {
-        primary: {
-            main: "#FAFAFA",
-        },
+  palette: {
+    primary: {
+      main: "#FAFAFA",
     },
+  },
 });
 
 const MenuPage = () => {
-    const location = useLocation();
-    const name = location.state.name;
-    const streetName = location.state.location.streetName;
-    const streetNumber = location.state.location.streetNumber;
-    const city = location.state.location.city;
-    const postalCode = location.state.location.postalCode;
-    return (
-        <>
-            <Header/>
-            <div className={styles.RectOnImg}>
-                <List>
-                    <ListItem>
-                        <h2 className={styles.RestaurantTitle}>{name}</h2>
-                    </ListItem>
-                    <ListItem>
-                        <div className={styles.Address}>
-                            <ThemeProvider theme={theme}>
-                                <PlaceIcon color={"primary"}/>
-                            </ThemeProvider>
-                            <span className={styles.RestaurantAddress}>{streetName} {streetNumber}, {city} {postalCode}</span>
-                        </div>
-                    </ListItem>
-                </List>
+  const { /*menu,*/ restoName, address, resto } = useLocation().state;
+
+  return (
+    <>
+      <Header />
+      <div className={styles.RectOnImg}>
+        <List>
+          <ListItem>
+            <h2 className={styles.RestaurantTitle}>{restoName}</h2>
+          </ListItem>
+          <ListItem>
+            <div className={styles.Address}>
+              <ThemeProvider theme={theme}>
+                <PlaceIcon color="primary" />
+              </ThemeProvider>
+              <span className={styles.RestaurantAddress}>{address}</span>
             </div>
-            <Layout>
-                <Category title={"Appetizers"}>
-                    {location.state.dishes.map((item : any, index: number) => {
-                        if (item.category.menuGroup === "appetizer") {
-                            return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={index}/> 
-                        }
-                    })}
-                </Category>
-                <Category title={"Main Courses"}>
-                    {location.state.dishes.map((item : any, index: number) => {
-                        if (item.category.menuGroup === "maindish") {
-                            return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={index}/> 
-                        }
-                    })}
-                </Category>
-                <Category title={"Dessert"}>
-                    {location.state.dishes.map((item : any, index: number) => {
-                        if (item.category.menuGroup === "dessert") {
-                            return <Dish dishName={item.name} dishAllergens={item.allergens} dishDescription={item.description}
-                            imageSrc={burgerImg} price={item.price} key={index}/> 
-                        }
-                    })}
-                </Category>
-            </Layout>
-        </>
-    );
+          </ListItem>
+        </List>
+      </div>
+      <Layout>
+        <Category title="Appetizers">
+          {resto.dishes.map((item: any, index: number) => {
+            if (item.category.menuGroup === "appetizer") {
+              return (
+                <Dish
+                  dishName={item.name}
+                  dishAllergens={item.allergens.split(",")}
+                  dishDescription={item.description}
+                  options={""} // TODO: replace with real options
+                  imageSrc={burgerImg}
+                  price={item.price}
+                  key={index}
+                />
+              );
+            }
+          })}
+        </Category>
+        <Category title="Main Courses">
+          {resto.dishes.map((item: any, index: number) => {
+            if (item.category.menuGroup === "maindish") {
+              return (
+                <Dish
+                  dishName={item.name}
+                  dishAllergens={item.allergens.split(",")}
+                  dishDescription={item.description}
+                  options="double cheese, double meat"
+                  imageSrc={burgerImg}
+                  price={item.price}
+                  key={index}
+                />
+              );
+            }
+          })}
+        </Category>
+        <Category title="Dessert">
+          {resto.dishes.map((item: any, index: number) => {
+            if (item.category.menuGroup === "dessert") {
+              return (
+                <Dish
+                  dishName={item.name}
+                  dishAllergens={item.allergens.split(",")}
+                  dishDescription={item.description}
+                  options={""} // TODO: replace with real data
+                  imageSrc={burgerImg}
+                  price={item.price}
+                  key={index}
+                />
+              );
+            }
+          })}
+        </Category>
+      </Layout>
+    </>
+  );
 };
 
 export default MenuPage;
