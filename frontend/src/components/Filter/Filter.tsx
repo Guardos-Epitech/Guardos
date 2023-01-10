@@ -8,6 +8,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { IFilterObject } from "@src/filter/filter";
 import styles from "./Filter.module.scss";
+import { colors } from "@mui/material";
 
 const GlobalStyle = () => {
   return createTheme({
@@ -35,6 +36,9 @@ const GlobalStyle = () => {
             textTransform: "none",
             fontSize: "1rem",
             fontWeight: "400",
+            "&&:hover": {
+              backgroundColor: '#C46973'
+            }
           },
         },
       },
@@ -55,6 +59,11 @@ const marks = [
 
 type color = "primary" | "secondary" | "default" | "error" | "info" | "success" | "warning"
 
+interface allergen {
+  name : string;
+  value : boolean;
+  colorButton : color;
+}
 
 interface FilterProps {
   onChange: Function,
@@ -62,8 +71,6 @@ interface FilterProps {
 }
 
 const Filter = (props : FilterProps) => {
-  const [colorChip, setColorChip] = useState<color>("primary")
-
   const [states, setStates] = React.useState([
     { name: "oneStar", value: true },
     { name: "twoStar", value: true },
@@ -77,22 +84,25 @@ const Filter = (props : FilterProps) => {
     { name: "Pasta", value: true }
   ]);
 
-  const [allergens, setAllergens] = React.useState([
-    { name: "milk", value: false },
-    { name: "peanut", value: false },
-    { name: "shellfish", value: false },
-    { name: "eggs", value: false }
+  const [allergens, setAllergens] = React.useState<allergen[]>([
+    { name: "milk", value: false, colorButton: "primary" },
+    { name: "peanut", value: false, colorButton: "primary" },
+    { name: "shellfish", value: false, colorButton: "primary" },
+    { name: "eggs", value: false, colorButton: "primary"  }
   ]);
 
   const handleClick = (name: string) => {
     const allergensCopy = [...allergens];
     const allergenListChanged = [];
-    if (colorChip == "primary") setColorChip("secondary");
-    if (colorChip == "secondary") setColorChip("primary");
 
     allergens.map((state, index) => {
       if (name === state.name) {
         allergensCopy[index].value = !allergensCopy[index].value;
+        if (allergensCopy[index].colorButton == "primary") {
+          allergensCopy[index].colorButton = "secondary";
+        } else {
+          allergensCopy[index].colorButton = "primary";
+        }
       }
     });
     setAllergens(allergensCopy);
@@ -257,18 +267,13 @@ const Filter = (props : FilterProps) => {
           </div>
           <div>
             <Stack direction="row" spacing={1}>
-              <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="milk" color={colorChip} variant="outlined" onClick={() => handleClick("milk")} />
-              </ThemeProvider>
-              <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="shellfish" color={colorChip} variant="outlined" onClick={() => handleClick("shellfish")} />
-              </ThemeProvider>
-              <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="eggs" color={colorChip} variant="outlined" onClick={() => handleClick("eggs")} />
-              </ThemeProvider>
-              <ThemeProvider theme={GlobalStyle()}>
-                <Chip label="peanut" color={colorChip} variant="outlined" onClick={() => handleClick("peanut")} />
-              </ThemeProvider>
+              {allergens.map((allergen) => {
+                return (
+                <ThemeProvider theme={GlobalStyle()}>
+                  <Chip label={allergen.name} color={allergen.colorButton} variant="outlined" onClick={() => handleClick(allergen.name)} />
+                </ThemeProvider>
+                );
+              })}
             </Stack>
           </div>
         </div>
