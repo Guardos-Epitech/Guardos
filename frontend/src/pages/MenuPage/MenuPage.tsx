@@ -9,6 +9,7 @@ import burgerImg from "@src/assets/dishImages/burger.jpg";
 import PlaceIcon from "@mui/icons-material/Place";
 import { List, ListItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ICategories, IDishFE } from "@src/filter/filter";
 
 const theme = createTheme({
   palette: {
@@ -19,7 +20,7 @@ const theme = createTheme({
 });
 
 const MenuPage = () => {
-  const { /*menu,*/ restoName, address, resto } = useLocation().state;
+  const { menu, restoName, address } = useLocation().state;
 
   return (
     <>
@@ -40,57 +41,25 @@ const MenuPage = () => {
         </List>
       </div>
       <Layout>
-        <Category title="Appetizers">
-          {resto.dishes.map((item: any, index: number) => {
-            if (item.category.menuGroup === "appetizer") {
-              return (
-                <Dish
-                  dishName={item.name}
-                  dishAllergens={item.allergens.split(",")}
-                  dishDescription={item.description}
-                  options={""} // TODO: replace with real options
-                  imageSrc={burgerImg}
-                  price={item.price}
-                  key={index}
-                />
-              );
-            }
-          })}
-        </Category>
-        <Category title="Main Courses">
-          {resto.dishes.map((item: any, index: number) => {
-            if (item.category.menuGroup === "maindish") {
-              return (
-                <Dish
-                  dishName={item.name}
-                  dishAllergens={item.allergens.split(",")}
-                  dishDescription={item.description}
-                  options="double cheese, double meat"
-                  imageSrc={burgerImg}
-                  price={item.price}
-                  key={index}
-                />
-              );
-            }
-          })}
-        </Category>
-        <Category title="Dessert">
-          {resto.dishes.map((item: any, index: number) => {
-            if (item.category.menuGroup === "dessert") {
-              return (
-                <Dish
-                  dishName={item.name}
-                  dishAllergens={item.allergens.split(",")}
-                  dishDescription={item.description}
-                  options={""} // TODO: replace with real data
-                  imageSrc={burgerImg}
-                  price={item.price}
-                  key={index}
-                />
-              );
-            }
-          })}
-        </Category>
+        {menu.map((category: ICategories, index: number) => {
+          return (
+          <>
+            {category.dishes.length > 0 && <Category key={category.name + index} title={category.name}>
+              {category.dishes.map((dish: IDishFE, index: number) => {
+                return (
+                    <Dish
+                        key={dish.name + index}
+                        dishName={dish.name}
+                        dishAllergens={dish.allergens.split(',')}
+                        dishDescription={dish.description}
+                        options={dish.category.extraGroup}
+                        imageSrc={burgerImg}
+                        price={dish.price}
+                    />
+              )})}
+            </Category>}
+          </>
+        )})}
       </Layout>
     </>
   );

@@ -1,12 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./HomePage.module.scss";
 import Header from "@src/components/Header/Header";
 import InputSearch from "@src/components/InputSearch/InputSearch";
 import RestoCard from "@src/components/RestoCard/RestoCard";
 import MapButton from "@src/components/MapButton/MapButton";
 import Filter from "@src/components/Filter/Filter";
-import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
+import { IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
 import restoImg from "@src/assets/restoimg.jpeg";
+import { getFilteredRestos } from "@src/services/filterCalls";
 
 const HomePage = () => {
   // needs to be changed for the database && be sorted out as an own component
@@ -24,7 +25,7 @@ const HomePage = () => {
     { name: "Pasta", value: true }
   ]);
   const [rangeValue, setRangeValue] = React.useState(100);
-  const [filteredRestaurants, setFilteredRestaurants] = React.useState<Array<IRestaurantFrontEnd>>(handleFilterRequest({name: ''}));
+  const [filteredRestaurants, setFilteredRestaurants] = React.useState<Array<IRestaurantFrontEnd>>();
   const [allergens, setAllergens] = React.useState([
     { name: "milk", value: false },
     { name: "peanut", value: false },
@@ -32,7 +33,18 @@ const HomePage = () => {
     { name: "eggs", value: false }
   ]);
 
-  function handleFilterChange(obj: IFilterObject, check?: any) {
+  useEffect(() => {
+    updateRestoData();
+  }, []);
+
+  const updateRestoData = () => {
+    const inter: IFilterObject = { name: "" }
+    getFilteredRestos(inter).then((res) => {
+      setFilteredRestaurants(res);
+    });
+  }
+
+  async function handleFilterChange(obj: IFilterObject, check?: any) {
     let location = inputFields[1];
     let nameSearch = inputFields[0];
     let rangeSearch = rangeValue;
@@ -91,7 +103,7 @@ const HomePage = () => {
       categories: categoriesSelected,
       allergenList: allergenListChanged
     }
-    setFilteredRestaurants(handleFilterRequest(inter));
+    setFilteredRestaurants(await getFilteredRestos(inter));
   }
 
   // until here -> more dynamic
@@ -109,7 +121,7 @@ const HomePage = () => {
         </div>
         <div>
           <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
-          {filteredRestaurants.map((item, index) => {
+          {filteredRestaurants?.map((item, index) => {
             return <RestoCard resto={item} dataIndex={index} key={index} imageSrc={restoImg}/>
           })}
         </div>

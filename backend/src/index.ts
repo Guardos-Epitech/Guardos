@@ -5,6 +5,7 @@ import logger from 'morgan';
 import path = require('path');
 import filter from './routes/filter';
 import { connectDataBase, SUCCEED } from './controllers/connectDataBase';
+import cors from 'cors';
 
 async function main() {
   const app = express();
@@ -15,6 +16,8 @@ async function main() {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(cors({ origin: String('http://localhost:8080/') }));
+
   if(await connectDataBase() === SUCCEED) {
     app.listen(port, () => {
       return console.log(`Express is listening at http://localhost:${port}`);
