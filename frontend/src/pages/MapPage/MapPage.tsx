@@ -2,13 +2,10 @@ import React from 'react';
 import styles from "@src/pages/MapPage/MapPage.module.scss";
 import Header from "@src/components/Header/Header";
 import {createTheme} from "@mui/material/styles";
-import { Map } from "./map";
 import Filter from "@src/components/Filter/Filter";
 import InputSearch from "@src/components/InputSearch/InputSearch";
 import BackButton from '@src/components/HomeButton/HomeButton';
 import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
-import RestoCard from "@src/components/RestoCard/RestoCard";
-
 import MapView from '@src/components/Map/Map';
 
 const theme = createTheme({
@@ -18,7 +15,6 @@ const theme = createTheme({
         },
     },
 });
-
 
 const MapPage = () => {
   const [inputFields, setInputFields] = React.useState(['', '']);
@@ -34,6 +30,7 @@ const MapPage = () => {
     { name: "Sushi", value: true },
     { name: "Pasta", value: true }
   ]);
+
   const [rangeValue, setRangeValue] = React.useState(100);
   const [filteredRestaurants, setFilteredRestaurants] = React.useState<Array<IRestaurantFrontEnd>>(handleFilterRequest({name: ''}));
   const [allergens, setAllergens] = React.useState([
@@ -83,11 +80,13 @@ const MapPage = () => {
         }
       }
     }
+
     for (let i = 5; i < buttons.length; i++) {
       if (buttons[i].value == true) {
         categoriesSelected.push(filterButtons[i].name);
       }
     }
+
     for (let i = 0; i < allergen.length; i++) {
       if (allergen[i].value) {
         allergenListChanged.push(allergen[i].name);
@@ -116,7 +115,6 @@ const MapPage = () => {
           <BackButton />
           <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange}/>
         </div>
-            {/* <Map/>    */}
         <MapView data={filteredRestaurants} />
       </div>  
     </>

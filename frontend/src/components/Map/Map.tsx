@@ -9,14 +9,9 @@ import "ol/ol.css";
 import { Feature } from "ol";
 import VectorSource from "ol/source/Vector";
 import { Vector as VL } from "ol/layer";
-import { Style, Circle as CircleStyle, Stroke, Fill, Icon } from "ol/style";
+import { Style, Icon } from "ol/style";
 import markerIcon from "../../assets/marker.png";
-
-import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
-
-import dummyDataRestaurant from "../../filter/restaurants.json";
-import VectorLayer from "ol/layer/Vector";
-
+import { IRestaurantFrontEnd } from "@src/filter/filter";
 import styles from "./Map.module.scss";
 
 const Berlin = [13.409523443447888, 52.52111129522459];
@@ -51,7 +46,6 @@ const MapView = (props : MapProps) => {
   const mapElement = useRef();
   const [map, setMap] = useState(null);
   
-
   const testMarkerL = useMemo(() => {
     let markerList: Feature[] = [];
     for (const elem of props.data) {
@@ -68,14 +62,14 @@ const MapView = (props : MapProps) => {
     return markerList;
   }, [props.data]);
 
-    const vectorLayer = useMemo(() => new VL({
-      source: new VectorSource({
-        features: testMarkerL,
-      }),
-      style: function (feature) {
-        return stylesMarker['icon'];
-      },
-    }), [testMarkerL]);
+  const vectorLayer = useMemo(() => new VL({
+    source: new VectorSource({
+      features: testMarkerL,
+    }),
+    style: function (feature) {
+      return stylesMarker['icon'];
+    },
+  }), [testMarkerL]);
 
   useEffect(() => {
     if (!mapElement.current) {
