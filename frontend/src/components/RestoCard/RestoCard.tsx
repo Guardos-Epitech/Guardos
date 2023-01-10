@@ -94,8 +94,7 @@ const RestoCard = (props : IRestoCardProps) => {
                   className={styles.RestoBtn}
                   variant="contained"
                   onClick={() => NavigateTo("/menu", navigate, {
-                    // menu: categories, TODO: just pass menu instead of whole resto object
-                    resto: props.resto,
+                    menu: categories,
                     restoName: name,
                     address: address,
                   })}
