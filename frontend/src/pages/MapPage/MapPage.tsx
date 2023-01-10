@@ -104,30 +104,23 @@ const MapPage = () => {
     }
     setFilteredRestaurants(handleFilterRequest(inter));
   }
-  function renderMenu(id: number) {
-    for (let i = 0; i < filteredRestaurants.length; i++) {
-      if (id == i) {
-        return filteredRestaurants[i];
-      }
-    }
-  }
-    return (
-        <>
-          <Header/>
-          <div className={styles.RectOnImg}>
-            <span className={styles.TitleSearch}>What are you looking for ?</span>
-            <InputSearch />
-          </div>     
-          <div className={styles.DivContent}>
-            <div className={styles.DivMapBtn}>
-              <BackButton />
-              <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange}/>
-            </div>
+  return (
+    <>
+      <Header/>
+      <div className={styles.RectOnImg}>
+        <span className={styles.TitleSearch}>What are you looking for ?</span>
+        <InputSearch />
+      </div>     
+      <div className={styles.DivContent}>
+        <div className={styles.DivMapBtn}>
+          <BackButton />
+          <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange}/>
+        </div>
             {/* <Map/>    */}
-            <MapView data={filteredRestaurants} />
-          </div>  
-       </>
-    );
+        <MapView data={filteredRestaurants} />
+      </div>  
+    </>
+  );
 };
 
 export default MapPage;

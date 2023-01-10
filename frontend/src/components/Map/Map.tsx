@@ -49,7 +49,34 @@ interface MapProps {
 
 const MapView = (props : MapProps) => {
   const mapElement = useRef();
+  const [map, setMap] = useState(null);
   
+
+  const testMarkerL = useMemo(() => {
+    let markerList: Feature[] = [];
+    for (const elem of props.data) {
+      const obj = new Feature({
+        type: 'icon',
+        geometry: new Point([elem.location.longitude, elem.location.latitude]),
+        description: elem.name,
+        address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
+        name: 'Marker',
+      });
+      console.log("lat: ", elem.location.latitude, "long: ", elem.location.longitude);
+      markerList.push(obj);
+    };
+    return markerList;
+  }, [props.data]);
+
+    const vectorLayer = useMemo(() => new VL({
+      source: new VectorSource({
+        features: testMarkerL,
+      }),
+      style: function (feature) {
+        return stylesMarker['icon'];
+      },
+    }), [testMarkerL]);
+
   useEffect(() => {
     if (!mapElement.current) {
       return;
@@ -60,33 +87,21 @@ const MapView = (props : MapProps) => {
       view: view,
       layers: [layer],
     });
-
-    let markerList: Feature[] = [];
-    for (const elem of props.data) {
-      const obj = new Feature({
-        type: 'icon',
-        geometry: new Point([elem.location.longitude, elem.location.latitude]),
-        description: elem.name,
-        address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
-      });
-      console.log("lat: ", elem.location.latitude, "long: ", elem.location.longitude);
-      markerList.push(obj);
-    }
-    console.log("propsdata" , props.data);
-    console.log("dummydata", dummyDataRestaurant);
-
-    const vectorLayer = new VL({
-      source: new VectorSource({
-        features: markerList,
-      }),
-      style: function (feature) {
-        return stylesMarker['icon'];
-      },
-    });
-
-    map.addLayer(vectorLayer);
+    setMap(map);
+    
   }, []);
 
+  useEffect(() => {
+    if (map) {
+      map.getLayers().forEach((layer: any) => {
+        if (layer&& layer.get('name') === 'Marker') {
+          map.removeLayer(layer);
+        }
+      });
+      map.addLayer(vectorLayer);
+    }
+  }, [vectorLayer, map]);
+  console.log(props.data);
   return (
     <div ref={mapElement} className={styles.map} id="map" />
   )
