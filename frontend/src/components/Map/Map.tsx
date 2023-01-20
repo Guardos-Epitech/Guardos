@@ -14,6 +14,10 @@ import markerIcon from "../../assets/marker.png";
 import { IRestaurantFrontEnd } from "@src/filter/filter";
 import styles from "./Map.module.scss";
 import { Popover } from "bootstrap";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { NavigateTo } from "@src/utils/NavigateTo";
 
 const Berlin = [13.409523443447888, 52.52111129522459];
 const Epitech = [13.328820, 52.508540];// long,lat
@@ -45,16 +49,44 @@ function disposePopover() {
     popover.dispose();
     popover = undefined;
   }
-}
+};
+
+const PageBtn = () => {
+  return createTheme({
+    typography: {
+      button: {
+        fontFamily: "Montserrat",
+        textTransform: "none",
+        fontSize: "1.13rem",
+        fontWeight: "500",
+      },
+    },
+    palette: {
+      primary: {
+        main: "#AC2A37",
+        contrastText: "#ffffff",
+      },
+      secondary: {
+        main: "#094067",
+        contrastText: "#ffffff",
+      },
+    },
+    shape: {
+      borderRadius: 5,
+    },
+  });
+};
 
 interface MapProps {
   data: IRestaurantFrontEnd[]
 }
 
 const MapView = (props: MapProps) => {
+  const navigate = useNavigate();
   const mapElement = useRef();
   const [map, setMap] = useState(null);
   const element = document.getElementById('popup');
+  const [clickedFeature, setClickedFeature] = useState(null);
 
   const testMarkerL = useMemo(() => {
     let markerList: Feature[] = [];
@@ -64,6 +96,8 @@ const MapView = (props: MapProps) => {
         geometry: new Point([elem.location.longitude, elem.location.latitude]),
         description: elem.name,
         address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
+        index: elem.id,
+        objectR: elem,
         name: 'Marker',
       });
       markerList.push(obj);
@@ -136,6 +170,7 @@ const MapView = (props: MapProps) => {
           title: feature.get('description'),
         });
         popover.show();
+        setClickedFeature(feature.get('objectR'));
       });
       map.on('pointermove', function (e: any) {
         const pixel = map.getEventPixel(e.originalEvent);
@@ -144,10 +179,32 @@ const MapView = (props: MapProps) => {
       });
       map.on('movestart', disposePopover);
     }
-  }, [element, popup])
+  }, [element, popup]);
+
+  function renderDynamicMenu() {
+    return (
+      clickedFeature
+    );
+  }
 
   return (
-    <div ref={mapElement} className={styles.map} id="map"><div id="popup" className="ol-popup" /></div>
+    <div ref={mapElement} className={styles.map} id="map">
+      <div id="popup" className="ol-popup">
+        <div id="popup-content">
+          <div className={styles.BtnPage}>
+            <ThemeProvider theme={PageBtn()}>
+              <Button
+                variant="contained"
+                sx={{ width: "12.13rem" }}
+                onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu())}
+              >
+                Restaurant page
+              </Button>
+            </ThemeProvider>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 };
 
