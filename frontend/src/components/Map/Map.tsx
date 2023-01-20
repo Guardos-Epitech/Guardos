@@ -6,13 +6,14 @@ import { OSM } from "ol/source";
 import { Point } from 'ol/geom';
 import { useGeographic } from 'ol/proj';
 import "ol/ol.css";
-import { Feature } from "ol";
+import { Feature, Overlay } from "ol";
 import VectorSource from "ol/source/Vector";
 import { Vector as VL } from "ol/layer";
 import { Style, Icon } from "ol/style";
 import markerIcon from "../../assets/marker.png";
 import { IRestaurantFrontEnd } from "@src/filter/filter";
 import styles from "./Map.module.scss";
+import { Popover } from "bootstrap";
 
 const Berlin = [13.409523443447888, 52.52111129522459];
 const Epitech = [13.328820, 52.508540];// long,lat
@@ -24,8 +25,8 @@ const layer = new TileLayer({
 });
 
 const view = new View({
-    center: Epitech,
-    zoom: 15,
+  center: Epitech,
+  zoom: 15,
 });
 
 const stylesMarker = {
@@ -38,14 +39,23 @@ const stylesMarker = {
   }),
 };
 
-interface MapProps {
-    data: IRestaurantFrontEnd[]
+let popover: any;
+function disposePopover() {
+  if (popover) {
+    popover.dispose();
+    popover = undefined;
+  }
 }
 
-const MapView = (props : MapProps) => {
+interface MapProps {
+  data: IRestaurantFrontEnd[]
+}
+
+const MapView = (props: MapProps) => {
   const mapElement = useRef();
   const [map, setMap] = useState(null);
-  
+  const element = document.getElementById('popup');
+
   const testMarkerL = useMemo(() => {
     let markerList: Feature[] = [];
     for (const elem of props.data) {
@@ -56,7 +66,6 @@ const MapView = (props : MapProps) => {
         address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
         name: 'Marker',
       });
-      console.log("lat: ", elem.location.latitude, "long: ", elem.location.longitude);
       markerList.push(obj);
     };
     return markerList;
@@ -82,22 +91,62 @@ const MapView = (props : MapProps) => {
       layers: [layer],
     });
     setMap(map);
-    
+
   }, []);
 
   useEffect(() => {
     if (map) {
       map.getLayers().forEach((layer: any) => {
-        if (layer&& layer.get('name') === 'Marker') {
+        if (layer && layer.get('name') === 'Marker') {
           map.removeLayer(layer);
         }
       });
       map.addLayer(vectorLayer);
     }
   }, [vectorLayer, map]);
-  console.log(props.data);
+
+  const popup = useMemo(() => new Overlay({
+    element: element,
+    positioning: 'bottom-center',
+    stopEvent: false,
+  }), [element]);
+
+  useEffect(() => {
+    if (map) {
+      map.addOverlay(popup);
+    };
+  }, [popup]);
+
+  useEffect(() => {
+    if (map) {
+      map.on('click', function (evt: any) {
+        console.log("click");
+        const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature: Feature) {
+          return feature;
+        });
+        disposePopover();
+        if (!feature) {
+          return;
+        }
+        popup.setPosition(evt.coordinate);
+        popover = new Popover(element, {
+          placement: 'top',
+          html: true,
+          content: feature.get('description') + '<br/>' + feature.get('address'),
+        });
+        popover.show();
+      });
+      map.on('pointermove', function (e: any) {
+        const pixel = map.getEventPixel(e.originalEvent);
+        const hit = map.hasFeatureAtPixel(pixel);
+        map.getTarget().style.cursor = hit ? 'pointer' : '';
+      });
+      map.on('movestart', disposePopover);
+    }
+  }, [element, popup])
+
   return (
-    <div ref={mapElement} className={styles.map} id="map" />
+    <div ref={mapElement} className={styles.map} id="map"><div id="popup" /></div>
   )
 };
 

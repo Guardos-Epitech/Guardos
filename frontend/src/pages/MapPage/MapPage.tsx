@@ -1,19 +1,19 @@
 import React from 'react';
 import styles from "@src/pages/MapPage/MapPage.module.scss";
 import Header from "@src/components/Header/Header";
-import {createTheme} from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import Filter from "@src/components/Filter/Filter";
 import InputSearch from "@src/components/InputSearch/InputSearch";
 import BackButton from '@src/components/HomeButton/HomeButton';
-import {handleFilterRequest, IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
+import { handleFilterRequest, IRestaurantFrontEnd, IFilterObject } from "@src/filter/filter";
 import MapView from '@src/components/Map/Map';
 
 const theme = createTheme({
-    palette: {
-        primary: {
-            main: "#FAFAFA",
-        },
+  palette: {
+    primary: {
+      main: "#FAFAFA",
     },
+  },
 });
 
 const MapPage = () => {
@@ -32,7 +32,7 @@ const MapPage = () => {
   ]);
 
   const [rangeValue, setRangeValue] = React.useState(100);
-  const [filteredRestaurants, setFilteredRestaurants] = React.useState<Array<IRestaurantFrontEnd>>(handleFilterRequest({name: ''}));
+  const [filteredRestaurants, setFilteredRestaurants] = React.useState<Array<IRestaurantFrontEnd>>(handleFilterRequest({ name: '' }));
   const [allergens, setAllergens] = React.useState([
     { name: "milk", value: false },
     { name: "peanut", value: false },
@@ -105,18 +105,18 @@ const MapPage = () => {
   }
   return (
     <>
-      <Header/>
+      <Header />
       <div className={styles.RectOnImg}>
         <span className={styles.TitleSearch}>What are you looking for ?</span>
         <InputSearch />
-      </div>     
+      </div>
       <div className={styles.DivContent}>
         <div className={styles.DivMapBtn}>
           <BackButton />
-          <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange}/>
+          <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange} />
         </div>
         <MapView data={filteredRestaurants} />
-      </div>  
+      </div>
     </>
   );
 };
