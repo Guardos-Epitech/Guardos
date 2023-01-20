@@ -38,8 +38,8 @@ const stylesMarker = {
     }),
   }),
 };
+let popover: Popover;
 
-let popover: any;
 function disposePopover() {
   if (popover) {
     popover.dispose();
@@ -132,7 +132,8 @@ const MapView = (props: MapProps) => {
         popover = new Popover(element, {
           placement: 'top',
           html: true,
-          content: feature.get('description') + '<br/>' + feature.get('address'),
+          content: feature.get('address'),
+          title: feature.get('description'),
         });
         popover.show();
       });
@@ -146,7 +147,7 @@ const MapView = (props: MapProps) => {
   }, [element, popup])
 
   return (
-    <div ref={mapElement} className={styles.map} id="map"><div id="popup" /></div>
+    <div ref={mapElement} className={styles.map} id="map"><div id="popup" className="ol-popup" /></div>
   )
 };
 
