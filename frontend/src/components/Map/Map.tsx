@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { NavigateTo } from "@src/utils/NavigateTo";
+// import Popover from "@mui/material/Popover";
 
 const Berlin = [13.409523443447888, 52.52111129522459];
 const Epitech = [13.328820, 52.508540];// long,lat
@@ -42,6 +43,7 @@ const stylesMarker = {
     }),
   }),
 };
+
 let popover: Popover;
 
 function disposePopover() {
@@ -87,7 +89,10 @@ const MapView = (props: MapProps) => {
   const [map, setMap] = useState(null);
   const element = document.getElementById('popup');
   const [clickedFeature, setClickedFeature] = useState(null);
+  // const [popup, setPopup] = useState(null);
+  // const [popover, setPopover] = useState(null);
 
+  //create all markers with all infos
   const testMarkerL = useMemo(() => {
     let markerList: Feature[] = [];
     for (const elem of props.data) {
@@ -95,6 +100,7 @@ const MapView = (props: MapProps) => {
         type: 'icon',
         geometry: new Point([elem.location.longitude, elem.location.latitude]),
         description: elem.name,
+        telephone: elem.phoneNumber,
         address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
         index: elem.id,
         objectR: elem,
@@ -105,6 +111,7 @@ const MapView = (props: MapProps) => {
     return markerList;
   }, [props.data]);
 
+  //create marker icons 
   const vectorLayer = useMemo(() => new VL({
     source: new VectorSource({
       features: testMarkerL,
@@ -114,6 +121,7 @@ const MapView = (props: MapProps) => {
     },
   }), [testMarkerL]);
 
+  //create new map 
   useEffect(() => {
     if (!mapElement.current) {
       return;
@@ -128,6 +136,7 @@ const MapView = (props: MapProps) => {
 
   }, []);
 
+  // set all markers
   useEffect(() => {
     if (map) {
       map.getLayers().forEach((layer: any) => {
@@ -139,18 +148,76 @@ const MapView = (props: MapProps) => {
     }
   }, [vectorLayer, map]);
 
+  // useEffect(() => {
+  //   if (!map) {
+  //     return;
+  //   }
+  //   const popup = new Overlay({
+  //     element: document.getElementById('popup'),
+  //     positioning: 'bottom-center',
+  //     stopEvent: false,
+  //     offset: [0, -10],
+  //   });
+  //   map.addOverlay(popup);
+  //   setPopup(popup);
+  // }, [map]);
+
+  // useEffect(() => {
+  //   if (!popup) {
+  //     return;
+  //   }
+  //   map.on('click', (evt: any) => {
+  //     const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature: Feature) {
+  //       return feature;
+  //     });
+  //     if (feature) {
+  //       popup.setPosition(evt.coordinate);
+  //       const template = `
+  //         <div class="popover" role="tooltip">
+  //           <div class="arrow"></div>
+  //           <h3 class="popover-header"></h3>
+  //           <div class="popover-body"></div>
+  //         </div>
+  //       `;
+  //       console.log("feature data: " + feature.get('description') + " " + feature.get('address') + " " + feature.get('telephone'));
+  //       const popover = new Popover(popup.getElement().querySelector('.popover-content'), {
+  //         title: feature.get('description'),
+  //         content: "tel.: " + feature.get('telephone') + "<br/><p>address: </p>" + feature.get('address'),
+  //         placement: 'top',
+  //         template: template,
+  //         html: true,
+  //       });
+  //       setPopover(popover);
+  //       setClickedFeature(feature.get('objectR'));
+  //     }
+  //   });
+  // }, [popup, popover]);
+
+  // useEffect(() => {
+  //   if (map) {
+  //     map.on('pointermove', function (e: any) {
+  //       const pixel = map.getEventPixel(e.originalEvent);
+  //       const hit = map.hasFeatureAtPixel(pixel);
+  //       map.getTarget().style.cursor = hit ? 'pointer' : '';
+  //     });
+  //   }
+  // }, [map]);
+
+  // create popup
   const popup = useMemo(() => new Overlay({
     element: element,
     positioning: 'bottom-center',
     stopEvent: false,
   }), [element]);
 
+  // //add popup to map
   useEffect(() => {
     if (map) {
       map.addOverlay(popup);
     };
   }, [popup]);
 
+  //if click on marker open popup
   useEffect(() => {
     if (map) {
       map.on('click', function (evt: any) {
@@ -163,11 +230,13 @@ const MapView = (props: MapProps) => {
           return;
         }
         popup.setPosition(evt.coordinate);
-        popover = new Popover(element, {
-          placement: 'top',
+        popover = new Popover(popup.getElement().querySelector('.popover-content'), {
+          animation: false,
+          content: "tel.: " + feature.get('telephone') + "<br/><p>address: </p>" + feature.get('address'),
           html: true,
-          content: feature.get('address'),
+          placement: 'top',
           title: feature.get('description'),
+          // template: template,
         });
         popover.show();
         setClickedFeature(feature.get('objectR'));
@@ -179,7 +248,7 @@ const MapView = (props: MapProps) => {
       });
       map.on('movestart', disposePopover);
     }
-  }, [element, popup]);
+  }, [popup, map]);
 
   function renderDynamicMenu() {
     return (
@@ -187,24 +256,40 @@ const MapView = (props: MapProps) => {
     );
   }
 
+  /*
+  + "<br/> <a className='btn btn-primary'>Restaurant page</a>"
+  <ThemeProvider theme={PageBtn()}><Button variant='contained' sx={{ width: '12.13rem' }} onClick={() => NavigateTo('/menu', navigate, renderDynamicMenu())}>Restaurant page</Button></ThemeProvider>
+
+   <button id="btn-pop" 
+   type="button" 
+   class="btn btn-lg btn-danger" 
+   data-bs-toggle="popover" 
+   title="Popover title" 
+   data-bs-content=
+   "<p>Here is a button</p><a class='btn btn-primary'>Click me!</button>"
+    data-bs-html="true">
+   Click to toggle popover
+   </button>
+
+  */
+
   return (
-    <div ref={mapElement} className={styles.map} id="map">
-      <div id="popup" className="ol-popup">
-        <div id="popup-content">
-          <div className={styles.BtnPage}>
-            <ThemeProvider theme={PageBtn()}>
-              <Button
-                variant="contained"
-                sx={{ width: "12.13rem" }}
-                onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu())}
-              >
-                Restaurant page
-              </Button>
-            </ThemeProvider>
-          </div>
-        </div>
+    <>
+      <div ref={mapElement} className={styles.map} id="map" />
+      <div id="popup" className={styles.popup}>
+        <div className="popover-content"></div>
+        {/* <ThemeProvider theme={PageBtn()}>
+          <Button
+            variant="contained"
+            sx={{ width: "12.13rem" }}
+            onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu())}
+          >
+            Restaurant page
+          </Button>
+        </ThemeProvider> */}
       </div>
-    </div>
+      {/* </div> */}
+    </>
   )
 };
 

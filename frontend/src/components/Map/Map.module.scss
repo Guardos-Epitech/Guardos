@@ -10,7 +10,7 @@
   width: 75%;
 }
 
-.ol-popup {
+.popup {
   position: absolute;
   background-color: white;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
@@ -20,4 +20,26 @@
   bottom: 12px;
   left: -50px;
   min-width: 280px;
+}
+
+.popup:after,
+.popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+.popover-content {
+  color: black;
 }
