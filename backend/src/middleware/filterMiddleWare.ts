@@ -1,13 +1,15 @@
 import Filter from '../controllers/restaurantController';
-import { ICommunication } from '../models/communicationInterfaces';
-import { IFilterObj } from '../models/filterInterfaces';
+import {ICommunication} from '../models/communicationInterfaces';
+import {IFilterObj} from '../models/filterInterfaces';
 
-export const handleFilterRequest = async function(filterReq: ICommunication) {
+export const handleFilterRequest = async function (filterReq: ICommunication) {
   let check = 0;
   const filter = new Filter();
   const result = filter.returnDefaultQuery();
-  const tmpFilterObj : IFilterObj = {savedFilter: filterReq,
-    savedRestaurants: []};
+  const tmpFilterObj: IFilterObj = {
+    savedFilter: filterReq,
+    savedRestaurants: []
+  };
 
   tmpFilterObj.savedFilter = filterReq;
   if (filterReq.name !== undefined) {
@@ -42,19 +44,19 @@ export const handleFilterRequest = async function(filterReq: ICommunication) {
       .push(await filter.filterForRestaurantWithLocation(filterReq.location));
     check++;
   }
-  // compare all hitrates in tmpFilterObj and return IRestaurantFrontEnd[] with average hitRate
+  // compare all hitRates in tmpFilterObj and return IRestaurantFrontEnd[] with average hitRate
   if (check >= 1) {
     for (let i = 0; i < (await result).length; i++) {
-      let hitrate = 0;
+      let hitRate = 0;
       for (const restaurants of tmpFilterObj.savedRestaurants) {
         for (const restaurant of restaurants) {
           if (restaurant.id === (await result)[i].id) {
-            hitrate += restaurant.hitRate;
+            hitRate += restaurant.hitRate;
           }
         }
       }
-      hitrate /= tmpFilterObj.savedRestaurants.length;
-      (await result)[i].hitRate = hitrate;
+      hitRate /= tmpFilterObj.savedRestaurants.length;
+      (await result)[i].hitRate = hitRate;
     }
     (await result).sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
   }

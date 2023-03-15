@@ -8,4 +8,3 @@ export interface ICommunication {
   range?: number;
   categories?: string[];
 }
-
