@@ -48,7 +48,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-line-clamp: 3;
+  /* number of lines to show */
   line-clamp: 3;
   -webkit-box-orient: vertical;
 }
@@ -60,11 +61,6 @@
   font-size: 1.1rem;
   margin-bottom: 0.4rem;
   margin-top: 0.4rem;
-}
-
-.ActionMenu {
-  margin-right: 0;
-  margin-left: auto;
 }
 
 .AddressText {

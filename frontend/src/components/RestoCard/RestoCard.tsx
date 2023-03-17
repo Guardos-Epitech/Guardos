@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import PlaceIcon from "@mui/icons-material/Place";
 import Button from "@mui/material/Button";
-import {Grid, Paper} from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import styles from "./RestoCard.module.scss";
 
 import { IRestaurantFrontEnd } from "@src/filter/filter";
 import Rating from "@src/components/RestoCard/Rating/Rating";
 import placeholderImg from "@src/assets/placeholder.png";
-import {NavigateTo} from "@src/utils/NavigateTo";
+import { NavigateTo } from "@src/utils/NavigateTo";
 
 const PageBtn = () => {
   return createTheme({
@@ -44,13 +44,13 @@ interface IRestoCardProps {
   key: number,
 }
 
-const RestoCard = (props : IRestoCardProps) => {
+const RestoCard = (props: IRestoCardProps) => {
   const navigate = useNavigate();
-  const [extended, setExtended ] = useState(false);
+  const [extended, setExtended] = useState(false);
   const { name, rating, description, categories } = props.resto;
   const { streetName, streetNumber, postalCode, city, country } = props.resto.location;
   const address = `${streetName} ${streetNumber}, ${postalCode} ${city}, ${country}`;
-  const imageSrc = props.resto.pictures[0] && props.resto.pictures[0].length != 0 ? props.resto.pictures[0]  : placeholderImg;
+  const imageSrc = props.resto.pictures[0] && props.resto.pictures[0].length != 0 ? props.resto.pictures[0] : placeholderImg;
 
   const handleClick = () => {
     setExtended((prevState) => !prevState);
@@ -61,11 +61,11 @@ const RestoCard = (props : IRestoCardProps) => {
       <Grid container>
         <Grid item xs={3} className={styles.GridItemImage}>
           {imageSrc && (
-              <img
-                  src={imageSrc}
-                  alt={name}
-                  className={styles.ImageDimensions}
-              />
+            <img
+              src={imageSrc}
+              alt={name}
+              className={styles.ImageDimensions}
+            />
           )}
         </Grid>
 
@@ -79,24 +79,24 @@ const RestoCard = (props : IRestoCardProps) => {
             <span className={styles.AddressText}>{address}</span>
           </div>
           <p
-              className={
-                extended
-                    ? styles.JustificationPrintExtended
-                    : styles.JustificationPrint
-              }
+            className={
+              extended
+                ? styles.JustificationPrintExtended
+                : styles.JustificationPrint
+            }
           >
             {description}
           </p>
           <div className={styles.BtnPage}>
             <ThemeProvider theme={PageBtn()}>
               <Button
-                  className={styles.RestoBtn}
-                  variant="contained"
-                  onClick={() => NavigateTo("/menu", navigate, {
-                    menu: categories,
-                    restoName: name,
-                    address: address,
-                  })}
+                className={styles.RestoBtn}
+                variant="contained"
+                onClick={() => NavigateTo("/menu", navigate, {
+                  menu: categories,
+                  restoName: name,
+                  address: address,
+                })}
               >
                 Menu
               </Button>

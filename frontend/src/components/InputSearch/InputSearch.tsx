@@ -42,7 +42,7 @@ const PageBtn = () => {
   });
 };
 
-const InputSearch = (props : any) => {
+const InputSearch = (props: any) => {
   const [name, setName] = React.useState("");
   const [location, setLocation] = React.useState("");
 
@@ -73,7 +73,7 @@ const InputSearch = (props : any) => {
           onChange={onChangeName}
         />
       </ThemeProvider>
-      <Autocomplete data={autoCompleteData} onChange={onChangeLocation}/>
+      <Autocomplete data={autoCompleteData} onChange={onChangeLocation} />
       <ThemeProvider theme={PageBtn()}>
         <Button variant="contained" endIcon={<SearchIcon />} onClick={() => sendButtonData(name, location)} >Search</Button>
       </ThemeProvider>

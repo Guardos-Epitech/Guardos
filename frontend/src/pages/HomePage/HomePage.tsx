@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styles from "./HomePage.module.scss";
 import Header from "@src/components/Header/Header";
 import InputSearch from "@src/components/InputSearch/InputSearch";
 import RestoCard from "@src/components/RestoCard/RestoCard";
 import MapButton from "@src/components/MapButton/MapButton";
 import Filter from "@src/components/Filter/Filter";
-import { IRestaurantFrontEnd, IFilterObject} from "@src/filter/filter";
+import { IRestaurantFrontEnd, IFilterObject } from "@src/filter/filter";
 import { getFilteredRestos } from "@src/services/filterCalls";
 
 const HomePage = () => {
@@ -111,12 +111,12 @@ const HomePage = () => {
       <Header />
       <div className={styles.RectOnImg}>
         <span className={styles.TitleSearch}>What are you looking for ?</span>
-        <InputSearch onChange={handleFilterChange}/>
+        <InputSearch onChange={handleFilterChange} />
       </div>
       <div className={styles.DivContent}>
         <div className={styles.DivMapBtn}>
           <MapButton />
-          <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange}/>
+          <Filter onChange={handleFilterChange} onRangeChange={handleFilterChange} />
         </div>
         <div>
           <h1 className={styles.TitleCard}>Berlin - +12548 Restaurants</h1>
