@@ -42,7 +42,7 @@ const GlobalStyle = () => {
           },
         },
       },
-    },  
+    },
   });
 };
 
@@ -60,9 +60,9 @@ const marks = [
 type color = "primary" | "secondary" | "default" | "error" | "info" | "success" | "warning"
 
 interface allergen {
-  name : string;
-  value : boolean;
-  colorButton : color;
+  name: string;
+  value: boolean;
+  colorButton: color;
 }
 
 interface FilterProps {
@@ -70,7 +70,7 @@ interface FilterProps {
   onRangeChange: Function
 }
 
-const Filter = (props : FilterProps) => {
+const Filter = (props: FilterProps) => {
   const [states, setStates] = React.useState([
     { name: "oneStar", value: true },
     { name: "twoStar", value: true },
@@ -88,7 +88,7 @@ const Filter = (props : FilterProps) => {
     { name: "milk", value: false, colorButton: "primary" },
     { name: "peanut", value: false, colorButton: "primary" },
     { name: "shellfish", value: false, colorButton: "primary" },
-    { name: "eggs", value: false, colorButton: "primary"  }
+    { name: "eggs", value: false, colorButton: "primary" }
   ]);
 
   const handleClick = (name: string) => {
@@ -119,7 +119,7 @@ const Filter = (props : FilterProps) => {
     props.onChange(inter, allergensCopy);
   };
 
-  function onChangeStates(toChange : string) {
+  function onChangeStates(toChange: string) {
     const statesCopy = [...states];
     const categoriesSelected = [];
     let min = 0;
@@ -156,7 +156,7 @@ const Filter = (props : FilterProps) => {
     props.onChange(inter, states);
   }
 
-  function onChangeRange(event : any) {
+  function onChangeRange(event: any) {
     const inter: IFilterObject = {
       range: event.target.value
     }
@@ -189,21 +189,21 @@ const Filter = (props : FilterProps) => {
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"3 stars"}</span>}               
+                label={<span className={styles.TitleCheck}>{"3 stars"}</span>}
                 onChange={() => onChangeStates("threeStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"2 stars"}</span>}               
+                label={<span className={styles.TitleCheck}>{"2 stars"}</span>}
                 onChange={() => onChangeStates("twoStar")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"1 star"}</span>}               
+                label={<span className={styles.TitleCheck}>{"1 star"}</span>}
                 onChange={() => onChangeStates("oneStar")}
               />
             </ThemeProvider>
@@ -216,7 +216,7 @@ const Filter = (props : FilterProps) => {
           <div className={styles.DivSlider}>
             <ThemeProvider theme={GlobalStyle()}>
               <Box sx={{ width: "20rem" }}>
-                <Slider defaultValue={100} color="primary" marks={marks} valueLabelDisplay="on" onChange={(event) => onChangeRange(event)}/>
+                <Slider defaultValue={100} color="primary" marks={marks} valueLabelDisplay="on" onChange={(event) => onChangeRange(event)} />
               </Box>
             </ThemeProvider>
           </div>
@@ -227,35 +227,35 @@ const Filter = (props : FilterProps) => {
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Burger"}</span>}             
+                label={<span className={styles.TitleCheck}>{"Burger"}</span>}
                 onChange={() => onChangeStates("Burger")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Sushi"}</span>}              
+                label={<span className={styles.TitleCheck}>{"Sushi"}</span>}
                 onChange={() => onChangeStates("Sushi")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Pizza"}</span>}             
+                label={<span className={styles.TitleCheck}>{"Pizza"}</span>}
                 onChange={() => onChangeStates("Pizza")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Salad"}</span>}             
+                label={<span className={styles.TitleCheck}>{"Salad"}</span>}
                 onChange={() => onChangeStates("Salad")}
               />
             </ThemeProvider>
             <ThemeProvider theme={GlobalStyle()}>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                label={<span className={styles.TitleCheck}>{"Pasta"}</span>}            
+                label={<span className={styles.TitleCheck}>{"Pasta"}</span>}
                 onChange={() => onChangeStates("Pasta")}
               />
             </ThemeProvider>
@@ -269,9 +269,9 @@ const Filter = (props : FilterProps) => {
             <Stack direction="row" spacing={1}>
               {allergens.map((allergen) => {
                 return (
-                <ThemeProvider theme={GlobalStyle()}>
-                  <Chip label={allergen.name} color={allergen.colorButton} variant="outlined" onClick={() => handleClick(allergen.name)} />
-                </ThemeProvider>
+                  <ThemeProvider theme={GlobalStyle()}>
+                    <Chip label={allergen.name} color={allergen.colorButton} variant="outlined" onClick={() => handleClick(allergen.name)} />
+                  </ThemeProvider>
                 );
               })}
             </Stack>
