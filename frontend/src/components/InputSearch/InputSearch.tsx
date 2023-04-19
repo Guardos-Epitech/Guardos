@@ -75,7 +75,12 @@ const InputSearch = (props: any) => {
       </ThemeProvider>
       <Autocomplete data={autoCompleteData} onChange={onChangeLocation} />
       <ThemeProvider theme={PageBtn()}>
-        <Button variant="contained" endIcon={<SearchIcon />} onClick={() => sendButtonData(name, location)} >Search</Button>
+        <Button
+          variant="contained"
+          endIcon={<SearchIcon />}
+          onClick={() => sendButtonData(name, location)} >
+            Search
+        </Button>
       </ThemeProvider>
     </div>
   );

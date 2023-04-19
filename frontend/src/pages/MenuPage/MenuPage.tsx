@@ -43,21 +43,22 @@ const MenuPage = () => {
         {menu.map((category: ICategories, index: number) => {
           return (
             <>
-              {category.dishes.length > 0 && <Category key={category.name + index} title={category.name}>
-                {category.dishes.map((dish: IDishFE, index: number) => {
-                  return (
-                    <Dish
-                      key={dish.name + index}
-                      dishName={dish.name}
-                      dishAllergens={dish.allergens.split(',')}
-                      dishDescription={dish.description}
-                      options={dish.category.extraGroup}
-                      imageSrc={dish.pictures[0]}
-                      price={dish.price}
-                    />
-                  )
-                })}
-              </Category>}
+              {category.dishes.length > 0 &&
+                <Category key={category.name + index} title={category.name}>
+                  {category.dishes.map((dish: IDishFE, index: number) => {
+                    return (
+                      <Dish
+                        key={dish.name + index}
+                        dishName={dish.name}
+                        dishAllergens={dish.allergens.split(',')}
+                        dishDescription={dish.description}
+                        options={dish.category.extraGroup}
+                        imageSrc={dish.pictures[0]}
+                        price={dish.price}
+                      />
+                    )
+                  })}
+                </Category>}
             </>
           )
         })}
