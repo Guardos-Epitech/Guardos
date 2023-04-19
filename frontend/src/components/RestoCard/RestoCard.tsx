@@ -47,7 +47,7 @@ interface IRestoCardProps {
 const RestoCard = (props: IRestoCardProps) => {
   const navigate = useNavigate();
   const [extended, setExtended] = useState(false);
-  const { name, rating, description, categories } = props.resto;
+  const { name, rating, description, categories, ratingCount } = props.resto;
   const { streetName, streetNumber, postalCode, city, country } = props.resto.location;
   const address = `${streetName} ${streetNumber}, ${postalCode} ${city}, ${country}`;
   const imageSrc = props.resto.pictures[0] && props.resto.pictures[0].length != 0 ? props.resto.pictures[0] : placeholderImg;
@@ -72,7 +72,7 @@ const RestoCard = (props: IRestoCardProps) => {
         <Grid item xs={9} className={styles.GridItem}>
           <div className={styles.FlexParent}>
             <h3 className={styles.DishTitle}>{name}</h3>
-            <Rating restoRating={rating} restoRatingsCount={78} />{/*TODO: get ratings count*/}
+            <Rating restoRating={rating} restoRatingsCount={ratingCount} />
           </div>
           <div className={styles.FlexParent}>
             <PlaceIcon />

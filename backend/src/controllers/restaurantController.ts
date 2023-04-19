@@ -1,9 +1,9 @@
-import { IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd }
-  from '../models/restaurantInterfaces';
-import { IDishBE, IDishFE } from '../models/dishInterfaces';
 import { ICategories } from '../models/categoryInterfaces';
+import { IDishBE, IDishFE } from '../models/dishInterfaces';
 import { ILocation } from '../models/locationInterfaces';
 import { IMealType } from '../models/mealTypeInterfaces';
+import { IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd }
+  from '../models/restaurantInterfaces';
 import { readAndGetAllRestaurants } from './connectDataBase';
 
 export default class Filter {
@@ -15,7 +15,7 @@ export default class Filter {
 
   // Create BE object from JSON
   private async getAllRestaurants() {
-    const result : IRestaurantBackEnd[] = [];
+    const result: IRestaurantBackEnd[] = [];
     const data = await readAndGetAllRestaurants();
     for (const elem of data) {
       const obj = this.createBackEndObj({
@@ -44,21 +44,7 @@ export default class Filter {
     return result;
   }
 
-  private createBackEndObj(restaurant: {
-    id: number;
-    name: string;
-    description: string;
-    rating: number;
-    ratingCount: number;
-    website: string;
-    openingHours: [IOpeningHours];
-    pictures: [string];
-    phoneNumber: string;
-    mealType: [IMealType];
-    dishes: [IDishBE];
-    location: ILocation;
-    products: [IProducts];
-    extras: [IDishBE] }) {
+  private createBackEndObj(restaurant: IRestaurantBackEnd) {
 
     const restaurantBE: IRestaurantBackEnd = {
       name: restaurant.name,
@@ -81,6 +67,7 @@ export default class Filter {
     restaurantBE.extras.pop();
     restaurantBE.products.pop();
     restaurantBE.openingHours.pop();
+
     let dishId = 0;
     for (const dish of restaurant.dishes) {
       const dishObj: IDishBE = {
@@ -130,13 +117,13 @@ export default class Filter {
 
   // Create RestaurantObj for Frontend
   createRestaurantObjFe(restaurant: IRestaurantBackEnd, hitRate: number) {
-    if (isNaN(hitRate))
-      hitRate = 0;
+    if (isNaN(hitRate)) hitRate = 0;
     const obj: IRestaurantFrontEnd = {
       name: restaurant.name,
       website: restaurant.website,
       description: restaurant.description,
       rating: restaurant.rating,
+      ratingCount: restaurant.ratingCount,
       pictures: restaurant.pictures,
       openingHours: [{} as IOpeningHours],
       products: [{} as IProducts],
@@ -149,6 +136,7 @@ export default class Filter {
     obj.categories.pop();
     obj.products.pop();
     obj.openingHours.pop();
+
     for (const product of restaurant.products) {
       obj.products.push(product);
     }
@@ -173,7 +161,8 @@ export default class Filter {
             allergens: dish.allergens,
             category: {
               foodGroup: dish.category.foodGroup,
-              extraGroup: dish.category.extraGroup},
+              extraGroup: dish.category.extraGroup
+            },
           };
           categories.dishes.push(dishObj);
         }
@@ -202,7 +191,7 @@ export default class Filter {
         (1 - (count / restaurant.dishes.length)) * 100);
 
       // Check if dishes contains allergens (in categories) to get hitRate
-      for (const category of obj.categories){
+      for (const category of obj.categories) {
         for (const dish of category.dishes) {
           count = this.countHitRateAllergens(dish, allergens, count);
         }
@@ -237,7 +226,7 @@ export default class Filter {
   }
 
   async filterForRestaurantWithNameOrGroup(lookingFor: string[]) {
-    const results =  [{} as IRestaurantFrontEnd];
+    const results = [{} as IRestaurantFrontEnd];
     results.pop();
     for (const restaurant of await this.restaurants) {
       let inserted = false;
@@ -290,8 +279,9 @@ export default class Filter {
       // If not inserted directly by name, create RestaurantObj with hitRate
       if (!inserted) {
         results.push(this.createRestaurantObjFe(
-          restaurant as IRestaurantBackEnd, Math.max(hitRateName,
-            hitRateGroup)));
+          restaurant as IRestaurantBackEnd,
+          Math.max(hitRateName, hitRateGroup)
+        ));
       }
     }
     // Sort results by hitRate
@@ -323,7 +313,7 @@ export default class Filter {
   }
 
   async filterForRestaurantWithCategory(lookingFor: string[]) {
-    const results =  [{} as IRestaurantFrontEnd];
+    const results = [{} as IRestaurantFrontEnd];
     results.pop();
     for (const restaurant of await this.restaurants) {
       let inserted = false;
@@ -395,29 +385,29 @@ export default class Filter {
   //   return results;
   // }
 
-  async filterForRestaurantWithAllergen(lookingFor: Array<string>) {
+  async filterForRestaurantWithAllergen(lookingFor: string[]) {
     const results = [{} as IRestaurantFrontEnd];
     results.pop();
     for (const restaurant of await this.restaurants) {
-      let hitrate = 0;
+      let hitRate = 0;
       for (const dish of restaurant.dishes) {
-        for (const allerg of lookingFor) {
+        for (const aller of lookingFor) {
           if (dish.allergens.toLowerCase()
-            .includes(allerg.toLowerCase())) {
-            hitrate = 100;
+            .includes(aller.toLowerCase())) {
+            hitRate = 100;
             break;
           }
         }
-        if (hitrate === 100) {
+        if (hitRate === 100) {
           break;
         }
       }
-      if (hitrate === 100) {
+      if (hitRate === 100) {
         results.push(this.createRestaurantObjFe(
-          restaurant as IRestaurantBackEnd, hitrate));
+          restaurant as IRestaurantBackEnd, hitRate));
       } else {
         results.push(this.createRestaurantObjFe(
-          restaurant as IRestaurantBackEnd, hitrate));
+          restaurant as IRestaurantBackEnd, hitRate));
       }
     }
     results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);

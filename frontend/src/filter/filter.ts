@@ -72,6 +72,7 @@ export interface IRestaurantFrontEnd {
   location: ILocation;
   pictures: [string];
   rating: number;
+  ratingCount: number;
   range: number
   description: string;
   hitRate: number;
