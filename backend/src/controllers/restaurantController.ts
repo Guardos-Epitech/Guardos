@@ -1,10 +1,10 @@
-import {ICategories} from '../models/categoryInterfaces';
-import {IDishBE, IDishFE} from '../models/dishInterfaces';
-import {ILocation} from '../models/locationInterfaces';
-import {IMealType} from '../models/mealTypeInterfaces';
-import {IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd}
+import { ICategories } from '../models/categoryInterfaces';
+import { IDishBE, IDishFE } from '../models/dishInterfaces';
+import { ILocation } from '../models/locationInterfaces';
+import { IMealType } from '../models/mealTypeInterfaces';
+import { IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd }
   from '../models/restaurantInterfaces';
-import {readAndGetAllRestaurants} from './connectDataBase';
+import { readAndGetAllRestaurants } from './connectDataBase';
 
 export default class Filter {
   restaurants: Promise<IRestaurantBackEnd[]>;
@@ -123,6 +123,7 @@ export default class Filter {
       website: restaurant.website,
       description: restaurant.description,
       rating: restaurant.rating,
+      ratingCount: restaurant.ratingCount,
       pictures: restaurant.pictures,
       openingHours: [{} as IOpeningHours],
       products: [{} as IProducts],

@@ -1,8 +1,8 @@
 import bodyParser from 'body-parser';
 import * as express from 'express';
-import {Response, Request} from 'express';
+import { Response, Request } from 'express';
 
-import {handleFilterRequest} from '../middleware/filterMiddleWare';
+import { handleFilterRequest } from '../middleware/filterMiddleWare';
 
 const router = express.Router();
 
