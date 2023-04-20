@@ -8,7 +8,6 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { IFilterObject } from "@src/filter/filter";
 import styles from "./Filter.module.scss";
-import { colors } from "@mui/material";
 
 const GlobalStyle = () => {
   return createTheme({
@@ -216,7 +215,13 @@ const Filter = (props: FilterProps) => {
           <div className={styles.DivSlider}>
             <ThemeProvider theme={GlobalStyle()}>
               <Box sx={{ width: "20rem" }}>
-                <Slider defaultValue={100} color="primary" marks={marks} valueLabelDisplay="on" onChange={(event) => onChangeRange(event)} />
+                <Slider 
+                  defaultValue={100}
+                  color="primary"
+                  marks={marks}
+                  valueLabelDisplay="on"
+                  onChange={(event) => onChangeRange(event)}
+                />
               </Box>
             </ThemeProvider>
           </div>
@@ -270,7 +275,12 @@ const Filter = (props: FilterProps) => {
               {allergens.map((allergen) => {
                 return (
                   <ThemeProvider theme={GlobalStyle()}>
-                    <Chip label={allergen.name} color={allergen.colorButton} variant="outlined" onClick={() => handleClick(allergen.name)} />
+                    <Chip
+                      label={allergen.name}
+                      color={allergen.colorButton}
+                      variant="outlined"
+                      onClick={() => handleClick(allergen.name)} 
+                    />
                   </ThemeProvider>
                 );
               })}

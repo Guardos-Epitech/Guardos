@@ -27,17 +27,17 @@ const Rating = ({ restoRating, restoRatingsCount }: IRatingProps) => {
 
   return (
     <ThemeProvider theme={RatingColor}>
-      { [...Array(fullRating)].map((elem, index) =>
+      {[...Array(fullRating)].map((elem, index) =>
         <ThemeProvider key={index} theme={RatingColor}>
           <StarIcon className={styles.StarPosition} color="primary" />
         </ThemeProvider>
       )}
-      { restoRating - fullRating > 0 &&
+      {restoRating - fullRating > 0 &&
         <ThemeProvider theme={RatingColor}>
           <StarHalfIcon className={styles.StarPosition} color={"primary"} />
         </ThemeProvider>
       }
-      { [...Array(Math.floor(5 - restoRating))].map((elem, index) =>
+      {[...Array(Math.floor(5 - restoRating))].map((elem, index) =>
         <ThemeProvider key={index} theme={RatingColor}>
           <StarOutlineIcon className={styles.StarPosition} color={"primary"} />
         </ThemeProvider>
