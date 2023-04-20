@@ -6,31 +6,31 @@ import styles from "./AutoComplete.module.scss";
 import inputSyles from "@src/components/InputSearch/InputSearch.module.scss"
 
 const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#6d071a",
-      },
+  palette: {
+    primary: {
+      main: "#6d071a",
     },
-  });
+  },
+});
 
 interface AutoCompleteProps {
-    data: Array<string>,
-    onChange: Function
+  data: Array<string>,
+  onChange: Function
 }
 
-const AutoComplete = (props : AutoCompleteProps) => {
-    
+const AutoComplete = (props: AutoCompleteProps) => {
+
   const [suggestions, setSuggestions] = useState([]);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
   const [value, setValue] = useState("");
 
-  const handleChange = (e :  any) => {
+  const handleChange = (e: any) => {
     const query = e.target.value
     setValue(query);
     if (query.length > 1) {
       const filterSuggestions = props.data.filter(
-        (suggestion : any) =>
+        (suggestion: any) =>
           suggestion.indexOf(query) > -1
       );
       props.onChange(query);
@@ -41,14 +41,14 @@ const AutoComplete = (props : AutoCompleteProps) => {
     }
   };
 
-  const handleClick = (e : any) => {
+  const handleClick = (e: any) => {
     setSuggestions([]);
     setValue(e.target.innerText);
     props.onChange(e.target.innerText);
     setSuggestionsActive(false);
   };
 
-  const handleKeyDown = (e : any) => {
+  const handleKeyDown = (e: any) => {
     // UP ARROW
     if (e.keyCode === 38) {
       if (suggestionIndex === 0) {
@@ -90,17 +90,17 @@ const AutoComplete = (props : AutoCompleteProps) => {
 
   return (
     <ThemeProvider theme={theme}>
-        <div>
-          <TextField
-            label="Location"
-            variant="filled"
-            className={inputSyles.InputSearch}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            value={value}
-          />
-          {suggestionsActive && <Suggestions />}
-        </div>
+      <div>
+        <TextField
+          label="Location"
+          variant="filled"
+          className={inputSyles.InputSearch}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          value={value}
+        />
+        {suggestionsActive && <Suggestions />}
+      </div>
     </ThemeProvider>
   );
 };

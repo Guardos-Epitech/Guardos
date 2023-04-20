@@ -8,4 +8,3 @@ export interface ICommunication {
   categories?: string[];
   allergenList?: string[];
 }
-

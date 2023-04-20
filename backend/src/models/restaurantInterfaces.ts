@@ -1,8 +1,9 @@
-import { ILocation } from './locationInterfaces';
-import { IDishBE } from './dishInterfaces';
-import { IMealType } from './mealTypeInterfaces';
-import { ICategories } from './categoryInterfaces';
 import mongoose from 'mongoose';
+
+import { ICategories } from './categoryInterfaces';
+import { IDishBE } from './dishInterfaces';
+import { ILocation } from './locationInterfaces';
+import { IMealType } from './mealTypeInterfaces';
 
 export interface IProducts {
   name: string;
@@ -30,6 +31,7 @@ export interface IRestaurantFrontEnd {
   pictures: [string];
   hitRate: number;
   rating: number;
+  ratingCount: number;
   products: [IProducts];
 }
 
