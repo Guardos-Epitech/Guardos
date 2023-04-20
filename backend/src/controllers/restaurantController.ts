@@ -15,7 +15,7 @@ export default class Filter {
 
   // Create BE object from JSON
   private async getAllRestaurants() {
-    const result : IRestaurantBackEnd[] = [];
+    const result: IRestaurantBackEnd[] = [];
     const data = await readAndGetAllRestaurants();
     for (const elem of data) {
       const obj = this.createBackEndObj({
@@ -58,7 +58,8 @@ export default class Filter {
     dishes: [IDishBE];
     location: ILocation;
     products: [IProducts];
-    extras: [IDishBE] }) {
+    extras: [IDishBE]
+  }) {
 
     const restaurantBE: IRestaurantBackEnd = {
       name: restaurant.name,
@@ -173,7 +174,8 @@ export default class Filter {
             allergens: dish.allergens,
             category: {
               foodGroup: dish.category.foodGroup,
-              extraGroup: dish.category.extraGroup},
+              extraGroup: dish.category.extraGroup
+            },
           };
           categories.dishes.push(dishObj);
         }
@@ -202,7 +204,7 @@ export default class Filter {
         (1 - (count / restaurant.dishes.length)) * 100);
 
       // Check if dishes contains allergens (in categories) to get hitRate
-      for (const category of obj.categories){
+      for (const category of obj.categories) {
         for (const dish of category.dishes) {
           count = this.countHitRateAllergens(dish, allergens, count);
         }
@@ -221,7 +223,7 @@ export default class Filter {
     dish: IDishFE, allergens: string[], count: number) {
 
     let hitControl = 0;
-    for (const allergen of dish.allergens.split(',')) {
+    for (const allergen of dish.allergens) {
       for (const lookingFor of allergens) {
         if (allergen.toLowerCase()
           .includes(lookingFor.toLowerCase())) {
@@ -237,7 +239,7 @@ export default class Filter {
   }
 
   async filterForRestaurantWithNameOrGroup(lookingFor: string[]) {
-    const results =  [{} as IRestaurantFrontEnd];
+    const results = [{} as IRestaurantFrontEnd];
     results.pop();
     for (const restaurant of await this.restaurants) {
       let inserted = false;
@@ -323,7 +325,7 @@ export default class Filter {
   }
 
   async filterForRestaurantWithCategory(lookingFor: string[]) {
-    const results =  [{} as IRestaurantFrontEnd];
+    const results = [{} as IRestaurantFrontEnd];
     results.pop();
     for (const restaurant of await this.restaurants) {
       let inserted = false;
@@ -363,8 +365,10 @@ export default class Filter {
     results.pop();
     for (const restaurant of await this.restaurants) {
       let inserted = false;
-      if (restaurant.location.city.toLowerCase()
-        .includes(lookingFor.toLowerCase())) {
+      if (restaurant.location?.city && typeof lookingFor === 'string' &&
+        typeof restaurant.location.city === 'string' &&
+        restaurant.location.city.toLowerCase()
+          .includes(lookingFor.toLowerCase())) {
         inserted = true;
         results.push(
           this.createRestaurantObjFe(restaurant as IRestaurantBackEnd, 100));
@@ -402,8 +406,8 @@ export default class Filter {
       let hitrate = 0;
       for (const dish of restaurant.dishes) {
         for (const allerg of lookingFor) {
-          if (dish.allergens.toLowerCase()
-            .includes(allerg.toLowerCase())) {
+          if (dish.allergens.some(s => s.toLowerCase() ==
+            allerg.toLowerCase())) {
             hitrate = 100;
             break;
           }

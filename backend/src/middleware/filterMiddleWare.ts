@@ -14,26 +14,47 @@ export const handleFilterRequest = async function (filterReq: ICommunication) {
 
     tmpFilterObj.savedFilter = filterReq;
     if (filterReq.name !== undefined) {
-      tmpFilterObj.savedRestaurants
-        .push(await filter
-          .filterForRestaurantWithNameOrGroup([filterReq.name]));
-      check++;
+      try {
+        tmpFilterObj.savedRestaurants
+          .push(await filter
+            .filterForRestaurantWithNameOrGroup([filterReq.name]));
+        check++;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Error occurred while filtering restaurants by name.');
+      }
     }
     if (filterReq.allergenList !== undefined) {
-      tmpFilterObj.savedRestaurants
-        .push(await filter
-          .filterForRestaurantsWithAllergens(filterReq.allergenList));
-      check++;
+      try {
+        tmpFilterObj.savedRestaurants
+          .push(await filter
+            .filterForRestaurantsWithAllergens(filterReq.allergenList));
+        check++;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Error while filtering restaurants by allergene.');
+      }
     }
     if (filterReq.categories !== undefined) {
-      tmpFilterObj.savedRestaurants
-        .push(await filter.filterForRestaurantWithCategory(filterReq.categories));
-      check++;
+      try {
+        tmpFilterObj.savedRestaurants
+          .push(await filter
+            .filterForRestaurantWithCategory(filterReq.categories));
+        check++;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Error while filtering restaurants by category.');
+      }
     }
     if (filterReq.rating !== undefined) {
-      tmpFilterObj.savedRestaurants
-        .push(await filter.filterForRestaurantWithRating(filterReq.rating));
-      check++;
+      try {
+        tmpFilterObj.savedRestaurants
+          .push(await filter.filterForRestaurantWithRating(filterReq.rating));
+        check++;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Error while filtering restaurants by rating.');
+      }
     }
     // if (obj.range !== undefined) {
     //   tmpFilterObj.savedRestaurants.push(await filter.filterForRestaurantWithRange(obj.range));
@@ -41,29 +62,40 @@ export const handleFilterRequest = async function (filterReq: ICommunication) {
     // }
 
     if (filterReq.location !== undefined) {
-      tmpFilterObj.savedRestaurants
-        .push(await filter.filterForRestaurantWithLocation(filterReq.location));
-      check++;
+      try {
+        tmpFilterObj.savedRestaurants
+          .push(await filter
+            .filterForRestaurantWithLocation(filterReq.location));
+        check++;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Error while filtering restaurants by location.');
+      }
     }
     // compare all hitrates in tmpFilterObj and return IRestaurantFrontEnd[] with average hitRate
-    if (check >= 1) {
-      for (let i = 0; i < (await result).length; i++) {
-        let hitrate = 0;
-        for (const restaurants of tmpFilterObj.savedRestaurants) {
-          for (const restaurant of restaurants) {
-            if (restaurant.id === (await result)[i].id) {
-              hitrate += restaurant.hitRate;
+    try {
+      if (check >= 1) {
+        for (let i = 0; i < (await result).length; i++) {
+          let hitrate = 0;
+          for (const restaurants of tmpFilterObj.savedRestaurants) {
+            for (const restaurant of restaurants) {
+              if (restaurant.id === (await result)[i].id) {
+                hitrate += restaurant.hitRate;
+              }
             }
           }
+          hitrate /= tmpFilterObj.savedRestaurants.length;
+          (await result)[i].hitRate = hitrate;
         }
-        hitrate /= tmpFilterObj.savedRestaurants.length;
-        (await result)[i].hitRate = hitrate;
+        (await result).sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
       }
-      (await result).sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error occurred while processing filter results.');
     }
     return result;
   } catch (error) {
     console.error(error);
-    throw new Error('Error occurred while filtering restaurants.');
+    throw new Error('Error occurred while filtering restaurants');
   }
 };

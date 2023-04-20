@@ -72,7 +72,7 @@ export const restaurantSchema = new mongoose.Schema({
     products: [String],
     pictures: [String],
     price: Number,
-    allergens: String,
+    allergens: [String],
     category: {
       menuGroup: String,
       foodGroup: String,
