@@ -198,11 +198,12 @@ export default class Filter {
         category.hitRate = (1 - (count / category.dishes.length)) * 100;
       }
       results.push(obj);
+
+      // Sort results by hitRate
+      results.sort((a, b) =>
+        (a.hitRate < b.hitRate) ? 1 : -1);
+      return results;
     }
-    // Sort results by hitRate
-    results.sort((a, b) =>
-      (a.hitRate < b.hitRate) ? 1 : -1);
-    return results;
   }
 
   // Count how often an allergen is in a dish
@@ -210,7 +211,7 @@ export default class Filter {
     dish: IDishFE, allergens: string[], count: number) {
 
     let hitControl = 0;
-    for (const allergen of dish.allergens.split(',')) {
+    for (const allergen of dish.allergens) {
       for (const lookingFor of allergens) {
         if (allergen.toLowerCase()
           .includes(lookingFor.toLowerCase())) {
@@ -353,8 +354,10 @@ export default class Filter {
     results.pop();
     for (const restaurant of await this.restaurants) {
       let inserted = false;
-      if (restaurant.location.city.toLowerCase()
-        .includes(lookingFor.toLowerCase())) {
+      if (restaurant.location?.city && typeof lookingFor === 'string' &&
+        typeof restaurant.location.city === 'string' &&
+        restaurant.location.city.toLowerCase()
+          .includes(lookingFor.toLowerCase())) {
         inserted = true;
         results.push(
           this.createRestaurantObjFe(restaurant as IRestaurantBackEnd, 100));
@@ -391,9 +394,9 @@ export default class Filter {
     for (const restaurant of await this.restaurants) {
       let hitRate = 0;
       for (const dish of restaurant.dishes) {
-        for (const aller of lookingFor) {
-          if (dish.allergens.toLowerCase()
-            .includes(aller.toLowerCase())) {
+        for (const allerg of lookingFor) {
+          if (dish.allergens.some(s => s.toLowerCase() ===
+            allerg.toLowerCase())) {
             hitRate = 100;
             break;
           }

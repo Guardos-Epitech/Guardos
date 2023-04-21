@@ -1,6 +1,6 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import {connectDataBase, SUCCEED} from './controllers/connectDataBase';
+import { connectDataBase, SUCCEED } from './controllers/connectDataBase';
 import createError from 'http-errors';
 import express from 'express';
 import filter from './routes/filter';
@@ -13,10 +13,10 @@ async function main() {
 
   app.use(logger('dev'));
   app.use(express.json());
-  app.use(express.urlencoded({extended: false}));
+  app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
-  app.use(cors({origin: String('http://localhost:8080/')}));
+  app.use(cors({ origin: String('http://localhost:8080') }));
 
   if (await connectDataBase() === SUCCEED) {
     app.listen(port, () => {
@@ -27,7 +27,7 @@ async function main() {
   app.use('/api', filter);
 
   // catch 404 and forward to error handler
-  app.use(function (req: any, res: any, next: any) { /* eslint-disable-line */
+  app.use(function (next: any) { /* eslint-disable-line */
     next(createError(404));
   });
 
