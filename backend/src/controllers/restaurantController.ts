@@ -16,7 +16,6 @@ export default class Filter {
   // Create BE object from JSON
   private async getAllRestaurants() {
     const result: IRestaurantBackEnd[] = [];
-    const result: IRestaurantBackEnd[] = [];
     const data = await readAndGetAllRestaurants();
     for (const elem of data) {
       const obj = this.createBackEndObj({
@@ -164,37 +163,34 @@ export default class Filter {
               foodGroup: dish.category.foodGroup,
               extraGroup: dish.category.extraGroup
             },
-            extraGroup: dish.category.extraGroup
-          },
-        };
-        categories.dishes.push(dishObj);
+          };
+          categories.dishes.push(dishObj);
+        }
       }
+      obj.categories.push(categories);
     }
-    obj.categories.push(categories);
-  }
     return obj;
   }
 
   // Filter for Allergens
   public async filterForRestaurantsWithAllergens(allergens: string[]) {
-  const results = [{} as IRestaurantFrontEnd];
-  results.pop();
+    const results = [{} as IRestaurantFrontEnd];
+    results.pop();
 
-  for (const restaurant of await this.restaurants) {
+    for (const restaurant of await this.restaurants) {
 
-    let count = 0;
+      let count = 0;
 
-    // Check if restaurant has any dishes with allergens to get hitRate
-    for (const dish of restaurant.dishes) {
-      count = this.countHitRateAllergens(dish, allergens, count);
-    }
+      // Check if restaurant has any dishes with allergens to get hitRate
+      for (const dish of restaurant.dishes) {
+        count = this.countHitRateAllergens(dish, allergens, count);
+      }
 
-    // Create RestaurantObj for Frontend with hitRate
-    const obj = this.createRestaurantObjFe(restaurant as IRestaurantBackEnd,
-      (1 - (count / restaurant.dishes.length)) * 100);
+      // Create RestaurantObj for Frontend with hitRate
+      const obj = this.createRestaurantObjFe(restaurant as IRestaurantBackEnd,
+        (1 - (count / restaurant.dishes.length)) * 100);
 
-    // Check if dishes contains allergens (in categories) to get hitRate
-    for (const category of obj.categories) {
+      // Check if dishes contains allergens (in categories) to get hitRate
       for (const category of obj.categories) {
         for (const dish of category.dishes) {
           count = this.countHitRateAllergens(dish, allergens, count);
@@ -202,11 +198,12 @@ export default class Filter {
         category.hitRate = (1 - (count / category.dishes.length)) * 100;
       }
       results.push(obj);
+
+      // Sort results by hitRate
+      results.sort((a, b) =>
+        (a.hitRate < b.hitRate) ? 1 : -1);
+      return results;
     }
-    // Sort results by hitRate
-    results.sort((a, b) =>
-      (a.hitRate < b.hitRate) ? 1 : -1);
-    return results;
   }
 
   // Count how often an allergen is in a dish
@@ -230,7 +227,6 @@ export default class Filter {
   }
 
   async filterForRestaurantWithNameOrGroup(lookingFor: string[]) {
-    const results = [{} as IRestaurantFrontEnd];
     const results = [{} as IRestaurantFrontEnd];
     results.pop();
     for (const restaurant of await this.restaurants) {
@@ -319,7 +315,6 @@ export default class Filter {
 
   async filterForRestaurantWithCategory(lookingFor: string[]) {
     const results = [{} as IRestaurantFrontEnd];
-    const results = [{} as IRestaurantFrontEnd];
     results.pop();
     for (const restaurant of await this.restaurants) {
       let inserted = false;
@@ -400,9 +395,9 @@ export default class Filter {
       let hitRate = 0;
       for (const dish of restaurant.dishes) {
         for (const allerg of lookingFor) {
-          if (dish.allergens.some(s => s.toLowerCase() ==
+          if (dish.allergens.some(s => s.toLowerCase() ===
             allerg.toLowerCase())) {
-            hitrate = 100;
+            hitRate = 100;
             break;
           }
         }

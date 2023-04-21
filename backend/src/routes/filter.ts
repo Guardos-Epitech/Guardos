@@ -8,14 +8,14 @@ const router = express.Router();
 
 router.use(bodyParser.json());
 
-router.get('/', function (req: Request, res: Response) {
+router.get('/', function (res: Response) {
   res.status(200)
     .send('Hello World!');
   return;
 });
 
 /* GET home page. */
-router.get('/filter', function (req: Request, res: Response) {
+router.get('/filter', function (res: Response) {
   res.status(200)
     .send('Hello filter!');
 });
