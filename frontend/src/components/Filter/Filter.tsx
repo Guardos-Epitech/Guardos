@@ -8,8 +8,6 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { IFilterObject } from "@src/filter/filter";
 import styles from "./Filter.module.scss";
-import { IFilterObject } from "@src/filter/filter";
-import styles from "./Filter.module.scss";
 
 const GlobalStyle = () => {
   return createTheme({

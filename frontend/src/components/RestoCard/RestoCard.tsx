@@ -10,7 +10,6 @@ import { IRestaurantFrontEnd } from "@src/filter/filter";
 import Rating from "@src/components/RestoCard/Rating/Rating";
 import placeholderImg from "@src/assets/placeholder.png";
 import { NavigateTo } from "@src/utils/NavigateTo";
-import { IRestaurantFrontEnd } from "@src/filter/filter";
 
 const PageBtn = () => {
   return createTheme({

@@ -1,7 +1,7 @@
 import * as process from 'process';
 import * as dotenv from 'dotenv';
 
-import {IRestaurantBackEnd, restaurantSchema}
+import { IRestaurantBackEnd, restaurantSchema }
   from '../models/restaurantInterfaces';
 
 const mongoose = require('mongoose');  /* eslint-disable-line */

@@ -1,4 +1,4 @@
-import {ICategoryBE, ICategoryFE} from './categoryInterfaces';
+import { ICategoryBE, ICategoryFE } from './categoryInterfaces';
 
 export interface IDishBE {
   name: string;

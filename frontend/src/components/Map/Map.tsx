@@ -85,19 +85,21 @@ const MapView = (props: MapProps) => {
   //create all markers with all infos
   const testMarkerL = useMemo(() => {
     let markerList: Feature[] = [];
-    for (const elem of props.data) {
-      const obj = new Feature({
-        type: 'icon',
-        geometry: new Point([elem.location.longitude, elem.location.latitude]),
-        description: elem.name,
-        telephone: elem.phoneNumber,
-        address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
-        index: elem.id,
-        objectR: elem,
-        name: 'Marker',
-      });
-      markerList.push(obj);
-    };
+    if (props.data) {
+      for (const elem of props.data) {
+        const obj = new Feature({
+          type: 'icon',
+          geometry: new Point([parseFloat(elem.location.longitude), parseFloat(elem.location.latitude)]),
+          description: elem.name,
+          telephone: elem.phoneNumber,
+          address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
+          index: elem.id,
+          objectR: elem,
+          name: 'Marker',
+        });
+        markerList.push(obj);
+      };
+    }
     return markerList;
   }, [props.data]);
 
@@ -185,7 +187,7 @@ const MapView = (props: MapProps) => {
     <>
       <div ref={mapElement} className={styles.map} id="map" />
       <div id="popup" className={styles.popup}>
-      <a href="#" id="popup-closer" className="ol-popup-closer"></a>
+        <a href="#" id="popup-closer" className="ol-popup-closer"></a>
         <div className="popover-content" id="popup-content"></div>
         <ThemeProvider theme={PageBtn()}>
           <Button

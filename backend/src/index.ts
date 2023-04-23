@@ -1,11 +1,11 @@
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import { connectDataBase, SUCCEED } from './controllers/connectDataBase';
 import createError from 'http-errors';
+import cors from 'cors';
 import express from 'express';
-import filter from './routes/filter';
+import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import path = require('path');
+import filter from './routes/filter';
+import { connectDataBase, SUCCEED } from './controllers/connectDataBase';
 
 async function main() {
   const app = express();

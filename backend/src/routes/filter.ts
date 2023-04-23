@@ -1,9 +1,9 @@
-import bodyParser from 'body-parser';
 import * as express from 'express';
 import { Response, Request } from 'express';
+import bodyParser from 'body-parser';
 
-import { handleFilterRequest } from '../middleware/filterMiddleWare';
 import { geocoding } from '../middleware/mapMiddleware';
+import { handleFilterRequest } from '../middleware/filterMiddleWare';
 
 const router = express.Router();
 
@@ -33,13 +33,7 @@ router.post('/filter', async function (req: Request, res: Response) {
 });
 
 router.post('/map', function (req: Request, res: Response) {
-  const answer = geocoding(req);
-  answer.then(function (result) {
-    return res.send(result);
-  });
-});
-
-router.post('/map', function (req: Request, res: Response) {
+  console.log(req.body);
   const answer = geocoding(req);
   answer.then(function (result) {
     return res.send(result);

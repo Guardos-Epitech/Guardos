@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "@src/components/InputSearch/InputSearch.module.scss";
-import styles from "@src/components/InputSearch/InputSearch.module.scss";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";

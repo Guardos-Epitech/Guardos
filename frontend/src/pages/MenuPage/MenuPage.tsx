@@ -1,12 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import styles from "@src/pages/MenuPage/MenuPage.module.scss";
 import Dish from "@src/components/menu/Dish/Dish";
 import Category from "@src/components/menu/Category/Category";
 import Layout from "@src/components/Layout/Layout";
 import Header from "@src/components/Header/Header";
-import burgerImg from "@src/assets/dishImages/burger.jpg";
 import PlaceIcon from "@mui/icons-material/Place";
 import { List, ListItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

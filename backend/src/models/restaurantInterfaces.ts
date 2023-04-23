@@ -87,6 +87,8 @@ export const restaurantSchema = new mongoose.Schema({
     postalCode: String,
     country: String,
     city: String,
+    latitude: String,
+    longitude: String,
   },
   mealType: [{
     _id: Number,
