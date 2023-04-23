@@ -1,0 +1,761 @@
+{
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "mcdonalds",
+      "phoneNumber": "0123091",
+      "website": "www.mcdonalds.com",
+      "openingHours": [
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 0
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 1
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 2
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 3
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 4
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 5
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 6
+        }
+      ],
+      "rating": 3.8,
+      "ratingCount": 100,
+      "pictures": [
+        "abc.jpg",
+        "def.jpg"
+      ],
+      "description": "McDonald's Corporation is an American multinational fast food chain, founded in 1940 as a restaurant operated by Richard and Maurice McDonald, in San Bernardino, California, United States.",
+      "mealType": [
+        {
+          "id": 0,
+          "name": "maindish",
+          "sortId": 1
+        },
+        {
+          "id": 1,
+          "name": "dessert",
+          "sortId": 2
+        },
+        {
+          "id": 2,
+          "name": "drink",
+          "sortId": 3
+        }
+      ],
+      "dishes": [
+        {
+          "id": 0,
+          "products": [
+            "milk",
+            "eggs",
+            "flour"
+          ],
+          "name": "McSunday Stone",
+          "allergens": "milk",
+          "description": "bla bla",
+          "price": 13,
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "category": {
+            "extraGroup": "cheese,olives",
+            "menuGroup": "dessert",
+            "foodGroup": "ice"
+          }
+        },
+        {
+          "id": 1,
+          "products": [
+            "milk"
+          ],
+          "name": "Big Mac",
+          "allergens": "milk,eggs",
+          "description": "the real mc",
+          "price": 21,
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "category": {
+            "extraGroup": "cheese, olives",
+            "menuGroup": "maindish",
+            "foodGroup": "burger"
+          }
+        }
+      ],
+      "location": {
+        "streetName": "beckerstreet",
+        "streetNumber": "6A",
+        "postalCode": "12570",
+        "country": "germany",
+        "city": "munich"
+      },
+      "extras": [
+        {
+          "id": 0,
+          "name": "cheese",
+          "products": [
+            "milk"
+          ],
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "allergens": "milk",
+          "description": "bla bla",
+          "price": 1,
+          "category": {
+            "extraGroup": "",
+            "menuGroup": "",
+            "foodGroup": ""
+          }
+        }
+      ],
+      "products": [
+        {
+          "name": "milk",
+          "allergens": "milk",
+          "ingredients": [
+            "milk",
+            "sugar"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "burger king",
+      "phoneNumber": "01232191",
+      "website": "www.mcdonalds.com",
+      "ratingCount": 100,
+      "pictures": [
+        "abc.jpg",
+        "def.jpg"
+      ],
+      "openingHours": [
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 0
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 1
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 2
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 3
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 4
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 5
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 6
+        }
+      ],
+      "rating": 3.8,
+      "description": "Burger King is an American-based multinational chain of hamburger fast food restaurants. Headquartered in Miami-Dade County, Florida, the company was founded in 1953 as Insta-Burger King, a Jacksonville, Florida–based restaurant chain.",
+      "mealType": [
+        {
+          "id": 0,
+          "name": "maindish",
+          "sortId": 2
+        },
+        {
+          "id": 1,
+          "name": "dessert",
+          "sortId": 1
+        },
+        {
+          "id": 2,
+          "name": "drink",
+          "sortId": 3
+        }
+      ],
+      "dishes": [
+        {
+          "id": 0,
+          "name": "Big Sunday ice",
+          "allergens": "milk",
+          "products": [
+            "milk",
+            "eggs"
+          ],
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "description": "bla bla",
+          "price": 12,
+          "category": {
+            "extraGroup": "cheese, olives",
+            "menuGroup": "dessert",
+            "foodGroup": "ice"
+          }
+        },
+        {
+          "id": 1,
+          "name": "Big Big Mac",
+          "products": [
+            "flour"
+          ],
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "allergens": "milk,shellfish",
+          "description": "the real big mc",
+          "price": 5,
+          "category": {
+            "extraGroup": "cheese, olives",
+            "menuGroup": "maindish",
+            "foodGroup": "burger"
+          }
+        }
+      ],
+      "location": {
+        "streetName": "Notbeckerstreet",
+        "streetNumber": "10",
+        "postalCode": "12123",
+        "country": "germany",
+        "city": "berlin"
+      },
+      "extras": [
+        {
+          "id": 0,
+          "name": "cheese",
+          "products": [
+            "milk"
+          ],
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "allergens": "milk",
+          "description": "bla bla",
+          "price": 1,
+          "category": {
+            "extraGroup": "",
+            "menuGroup": "",
+            "foodGroup": ""
+          }
+        }
+      ],
+      "products": [
+        {
+          "name": "Butter",
+          "allergens": "lactose",
+          "ingredients": [
+            "milk",
+            "water"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "burgerme",
+      "phoneNumber": "0123091123",
+      "website": "www.mcdonalds.com",
+      "rating": 4.7,
+      "ratingCount": 100,
+      "openingHours": [
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 0
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 1
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 2
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 3
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 4
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 5
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 6
+        }
+      ],
+      "pictures": [
+        "abc.jpg",
+        "def.jpg"
+      ],
+      "description": "You want freshly prepared burgers, delivered to your home in just 25 minutes? Then burgerme is the right place for you! How about a real classic like our Cheese Burger, with juicy beef, melting cheese, spicy onions, pickles, fresh tomatoes and crisp lettuce, served with the right sauces in a brioche bun? Or would you prefer something fancy, like our Big Angus Teriyaki, the New Yorker or our Hot Crunchy Chicken? Of course, we also have plenty of vegetarian and vegan burgers on offer - and delicious finger food, crisp salads and sweet desserts make the offer perfect!",
+      "mealType": [
+        {
+          "id": 0,
+          "name": "maindish",
+          "sortId": 3
+        },
+        {
+          "id": 1,
+          "name": "dessert",
+          "sortId": 1
+        },
+        {
+          "id": 2,
+          "name": "appetizer",
+          "sortId": 2
+        }
+      ],
+      "dishes": [
+        {
+          "id": 0,
+          "name": "BurgerMega Sunday Ice",
+          "allergens": "milk",
+          "description": "bla bla",
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "products": [
+            "milk"
+          ],
+          "price": 12,
+          "category": {
+            "extraGroup": "cheese, morzerella",
+            "menuGroup": "dessert",
+            "foodGroup": "ice"
+          }
+        },
+        {
+          "id": 1,
+          "name": "Monster Salad",
+          "allergens": "peanut",
+          "products": [
+            "nuts"
+          ],
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "description": "bla bla",
+          "price": 10,
+          "category": {
+            "extraGroup": "cheese, morzerella",
+            "menuGroup": "appetizer",
+            "foodGroup": "salade"
+          }
+        }
+      ],
+      "products": [
+        {
+          "name": "milk",
+          "allergens": "milk",
+          "ingredients": [
+            "milk",
+            "sugar"
+          ]
+        },
+        {
+          "name": "nuts",
+          "allergens": "nuts",
+          "ingredients": [
+            "nuts",
+            "sugar"
+          ]
+        }
+      ],
+      "location": {
+        "streetName": "beckeraaastreet",
+        "streetNumber": "96A",
+        "postalCode": "12590",
+        "country": "germany",
+        "city": "berlin"
+      },
+      "extras": [
+        {
+          "id": 0,
+          "name": "cheese",
+          "allergens": "milk",
+          "description": "bla bla",
+          "products": [
+            "milk"
+          ],
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "price": 1,
+          "category": {
+            "extraGroup": "",
+            "menuGroup": "",
+            "foodGroup": ""
+          }
+        },
+        {
+          "id": 1,
+          "name": "morzerella",
+          "allergens": "milk",
+          "products": [
+            "milk"
+          ],
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "description": "bla bla",
+          "price": 2,
+          "category": {
+            "extraGroup": "",
+            "menuGroup": "",
+            "foodGroup": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "SaleEPepe",
+      "phoneNumber": "0242091313",
+      "website": "www.mcdonalds.com",
+      "rating": 4.7,
+      "ratingCount": 100,
+      "pictures": [
+        "abc.jpg",
+        "def.jpg"
+      ],
+      "openingHours": [
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 0
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 1
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 2
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 3
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 4
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 5
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 6
+        }
+      ],
+      "description": "30 years of gastronomic experience and traditional Italian cuisine. Function room for up to 100 people upstairs with its own bar!",
+      "mealType": [
+        {
+          "id": 0,
+          "name": "maindish",
+          "sortId": 3
+        },
+        {
+          "id": 1,
+          "name": "dessert",
+          "sortId": 1
+        },
+        {
+          "id": 2,
+          "name": "appetizer",
+          "sortId": 2
+        }
+      ],
+      "dishes": [
+        {
+          "id": 0,
+          "name": "Margherita",
+          "allergens": "milk,peanut",
+          "description": "bla bla",
+          "products": [
+            "milk"
+          ],
+          "price": 12,
+          "category": {
+            "extraGroup": "cheese, morzerella",
+            "menuGroup": "maindish",
+            "foodGroup": "pizza"
+          }
+        },
+        {
+          "id": 1,
+          "name": "Spaghetti Bolognese",
+          "allergens": "milk,soybean",
+          "description": "bla bla",
+          "products": [
+            "milk"
+          ],
+          "price": 10,
+          "category": {
+            "extraGroup": "cheese, morzerella",
+            "menuGroup": "maindish",
+            "foodGroup": "pasta"
+          }
+        }
+      ],
+      "products": [
+        {
+          "name": "milk",
+          "allergens": "milk",
+          "ingredients": [
+            "milk",
+            "sugar"
+          ]
+        }
+      ],
+      "location": {
+        "streetName": "Nürnberger Str.",
+        "streetNumber": "28",
+        "postalCode": "10789",
+        "country": "germany",
+        "city": "berlin"
+      },
+      "extras": [
+        {
+          "id": 0,
+          "name": "cheese",
+          "allergens": "milk",
+          "description": "bla bla",
+          "price": 1,
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "category": {
+            "extraGroup": "",
+            "menuGroup": "",
+            "foodGroup": ""
+          }
+        },
+        {
+          "id": 1,
+          "name": "morzerella",
+          "allergens": "lactose",
+          "description": "bla bla",
+          "products": [
+            "milk"
+          ],
+          "price": 2,
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "category": {
+            "extraGroup": "",
+            "menuGroup": "",
+            "foodGroup": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Restaurant at the stone square",
+      "website": "www.mcdonalds.com",
+      "phoneNumber": "013144244",
+      "rating": 4.7,
+      "ratingCount": 100,
+      "openingHours": [
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 0
+        },
+        {
+          "open": "08:00",
+          "close": "22:00",
+          "day": 1
+        }
+      ],
+      "pictures": [
+        "abc.jpg",
+        "def.jpg"
+      ],
+      "description": "There's more than good company and pleasant conversations at the dinner table. With a variety of flavors in combination with seasonal-regional products we are offering a sharing menu, that lives off small dishes rich in finesse. Choose exactly what you like.",
+      "mealType": [
+        {
+          "id": 0,
+          "name": "maindish",
+          "sortId": 3
+        },
+        {
+          "id": 1,
+          "name": "dessert",
+          "sortId": 1
+        },
+        {
+          "id": 2,
+          "name": "appetizer",
+          "sortId": 2
+        }
+      ],
+      "dishes": [
+        {
+          "id": 0,
+          "name": "Potato Waffles",
+          "allergens": "gluten,soybeans",
+          "description": "bla bla",
+          "products": [
+            "milk"
+          ],
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "price": 12,
+          "category": {
+            "extraGroup": "cheese,morzerella",
+            "menuGroup": "appetizer",
+            "foodGroup": "salade"
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pumpkin Taco",
+          "allergens": "",
+          "description": "bla bla",
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "products": [
+            "milk"
+          ],
+          "price": 10,
+          "category": {
+            "extraGroup": "cheese,morzerella",
+            "menuGroup": "maindish",
+            "foodGroup": "salade"
+          }
+        }
+      ],
+      "location": {
+        "streetName": "Steinpl.",
+        "streetNumber": "4",
+        "postalCode": "10623",
+        "country": "germany",
+        "city": "berlin"
+      },
+      "products": [
+        {
+          "name": "milk",
+          "allergens": "milk",
+          "ingredients": [
+            "milk",
+            "sugar"
+          ]
+        }
+      ],
+      "extras": [
+        {
+          "id": 0,
+          "name": "cheese",
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "allergens": "lactose",
+          "description": "bla bla",
+          "products": [
+            "milk"
+          ],
+          "price": 1,
+          "category": {
+            "extraGroup": "",
+            "menuGroup": "",
+            "foodGroup": ""
+          }
+        },
+        {
+          "id": 1,
+          "name": "morzerella",
+          "allergens": "lactose",
+          "description": "bla bla",
+          "pictures": [
+            "abc.jpg",
+            "def.jpg"
+          ],
+          "products": [
+            "milk"
+          ],
+          "price": 2,
+          "category": {
+            "extraGroup": "",
+            "menuGroup": "",
+            "foodGroup": ""
+          }
+        }
+      ]
+    }
+  ]
+}

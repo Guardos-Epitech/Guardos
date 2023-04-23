@@ -1,27 +1,39 @@
-import dummyDataRestaurants from '../assets/restaurants.json';
-import { IRestaurantBackEnd, IRestaurantFrontEnd }
-  from '../models/restaurantInterfaces';
-import { IDishBE, IDishFE } from '../models/dishInterfaces';
 import { ICategories } from '../models/categoryInterfaces';
+import { IDishBE, IDishFE } from '../models/dishInterfaces';
 import { ILocation } from '../models/locationInterfaces';
 import { IMealType } from '../models/mealTypeInterfaces';
+import { IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd }
+  from '../models/restaurantInterfaces';
+import { readAndGetAllRestaurants } from './connectDataBase';
 
 export default class Filter {
-  restaurants;
+  restaurants: Promise<IRestaurantBackEnd[]>;
 
   constructor() {
-    this.restaurants = this.getAllRestaurantsOfJSON();
+    this.restaurants = this.getAllRestaurants();
   }
 
   // Create BE object from JSON
-  private getAllRestaurantsOfJSON() {
-    const result : IRestaurantBackEnd[] = [];
-    result.pop();
-    for (const elem of dummyDataRestaurants.restaurants) {
-      const obj = this.createBackEndObj({id: elem.id, name: elem.name,
-        phoneNumber: elem.phoneNumber, mealType: elem.mealType as any,  /* eslint-disable-line */
-        dishes: elem.dishes as any, location: elem.location,  /* eslint-disable-line */
-        extras: elem.extras as any});  /* eslint-disable-line */
+  private async getAllRestaurants() {
+    const result: IRestaurantBackEnd[] = [];
+    const data = await readAndGetAllRestaurants();
+    for (const elem of data) {
+      const obj = this.createBackEndObj({
+        id: elem.id,
+        name: elem.name,
+        description: elem.description,
+        rating: elem.rating,
+        ratingCount: elem.ratingCount,
+        openingHours: elem.openingHours,
+        pictures: elem.pictures,
+        products: elem.products,
+        website: elem.website,
+        phoneNumber: elem.phoneNumber,
+        mealType: elem.mealType,
+        dishes: elem.dishes,
+        location: elem.location,
+        extras: elem.extras
+      });
       result.push(obj);
     }
     //Sort mealType for frontend by sortId
@@ -32,52 +44,71 @@ export default class Filter {
     return result;
   }
 
-  private createBackEndObj(restaurant: {
-    id: number;
-    name: string;
-    phoneNumber: string;
-    mealType: [IMealType];
-    dishes: [IDishBE];
-    location: ILocation;
-    extras: [IDishBE] }) {
+  private createBackEndObj(restaurant: IRestaurantBackEnd) {
 
-    const obj: IRestaurantBackEnd = {
+    const restaurantBE: IRestaurantBackEnd = {
       name: restaurant.name,
+      description: restaurant.description,
       id: restaurant.id,
+      website: restaurant.website,
+      rating: restaurant.rating,
+      ratingCount: restaurant.ratingCount,
       phoneNumber: restaurant.phoneNumber,
+      pictures: restaurant.pictures,
+      openingHours: [{} as IOpeningHours],
+      products: [{} as IProducts],
       dishes: [{} as IDishBE],
       location: {} as ILocation,
       mealType: [{} as IMealType],
-      extras: [{} as IDishBE]
+      extras: [{} as IDishBE],
     };
-    obj.dishes.pop();
-    obj.mealType.pop();
-    obj.extras.pop();
+    restaurantBE.dishes.pop();
+    restaurantBE.mealType.pop();
+    restaurantBE.extras.pop();
+    restaurantBE.products.pop();
+    restaurantBE.openingHours.pop();
+
+    let dishId = 0;
     for (const dish of restaurant.dishes) {
       const dishObj: IDishBE = {
+        id: dishId,
         name: dish.name,
         description: dish.description,
+        products: dish.products,
+        pictures: dish.pictures,
         price: dish.price,
         allergens: dish.allergens,
         category: dish.category
       };
-      obj.dishes.push(dishObj);
+      dishId++;
+      restaurantBE.dishes.push(dishObj);
+    }
+    for (const openingHoursElement of restaurant.openingHours) {
+      restaurantBE.openingHours.push(openingHoursElement);
     }
     for (const mealTypeElement of restaurant.mealType) {
-      obj.mealType.push(mealTypeElement);
+      restaurantBE.mealType.push(mealTypeElement);
     }
+    for (const product of restaurant.products) {
+      restaurantBE.products.push(product);
+    }
+    restaurantBE.location = restaurant.location;
+    let extraId = 0;
     for (const extra of restaurant.extras) {
       const extraObj: IDishBE = {
+        id: extraId,
         name: extra.name,
         description: extra.description,
+        products: extra.products,
         price: extra.price,
+        pictures: extra.pictures,
         allergens: extra.allergens,
         category: extra.category
       };
-
-      obj.extras.push(extraObj);
+      extraId++;
+      restaurantBE.extras.push(extraObj);
     }
-    return obj;
+    return restaurantBE;
   }
 
   getRestaurants() {
@@ -86,10 +117,16 @@ export default class Filter {
 
   // Create RestaurantObj for Frontend
   createRestaurantObjFe(restaurant: IRestaurantBackEnd, hitRate: number) {
-    if (isNaN(hitRate))
-      hitRate = 0;
+    if (isNaN(hitRate)) hitRate = 0;
     const obj: IRestaurantFrontEnd = {
       name: restaurant.name,
+      website: restaurant.website,
+      description: restaurant.description,
+      rating: restaurant.rating,
+      ratingCount: restaurant.ratingCount,
+      pictures: restaurant.pictures,
+      openingHours: [{} as IOpeningHours],
+      products: [{} as IProducts],
       id: restaurant.id,
       phoneNumber: restaurant.phoneNumber,
       categories: [{} as ICategories],
@@ -97,6 +134,15 @@ export default class Filter {
       hitRate: hitRate
     };
     obj.categories.pop();
+    obj.products.pop();
+    obj.openingHours.pop();
+
+    for (const product of restaurant.products) {
+      obj.products.push(product);
+    }
+    for (const openingHoursElement of restaurant.openingHours) {
+      obj.openingHours.push(openingHoursElement);
+    }
 
     for (const x of restaurant.mealType) {
       const categories: ICategories = {
@@ -111,10 +157,12 @@ export default class Filter {
             name: dish.name,
             description: dish.description,
             price: dish.price,
+            pictures: dish.pictures,
             allergens: dish.allergens,
             category: {
               foodGroup: dish.category.foodGroup,
-              extraGroup: dish.category.extraGroup},
+              extraGroup: dish.category.extraGroup
+            },
           };
           categories.dishes.push(dishObj);
         }
@@ -125,11 +173,12 @@ export default class Filter {
   }
 
   // Filter for Allergens
-  public filterForRestaurantsWithAllergens(allergens: string[]) {
+  public async filterForRestaurantsWithAllergens(allergens: string[]) {
     const results = [{} as IRestaurantFrontEnd];
     results.pop();
 
-    for (const restaurant of this.restaurants) {
+    for (const restaurant of await this.restaurants) {
+
       let count = 0;
 
       // Check if restaurant has any dishes with allergens to get hitRate
@@ -142,18 +191,19 @@ export default class Filter {
         (1 - (count / restaurant.dishes.length)) * 100);
 
       // Check if dishes contains allergens (in categories) to get hitRate
-      for (const category of obj.categories){
+      for (const category of obj.categories) {
         for (const dish of category.dishes) {
           count = this.countHitRateAllergens(dish, allergens, count);
         }
         category.hitRate = (1 - (count / category.dishes.length)) * 100;
       }
       results.push(obj);
+
+      // Sort results by hitRate
+      results.sort((a, b) =>
+        (a.hitRate < b.hitRate) ? 1 : -1);
+      return results;
     }
-    // Sort results by hitRate
-    results.sort((a, b) =>
-      (a.hitRate < b.hitRate) ? 1 : -1);
-    return results;
   }
 
   // Count how often an allergen is in a dish
@@ -161,7 +211,7 @@ export default class Filter {
     dish: IDishFE, allergens: string[], count: number) {
 
     let hitControl = 0;
-    for (const allergen of dish.allergens.split(',')) {
+    for (const allergen of dish.allergens) {
       for (const lookingFor of allergens) {
         if (allergen.toLowerCase()
           .includes(lookingFor.toLowerCase())) {
@@ -176,16 +226,22 @@ export default class Filter {
     return count;
   }
 
-  filterForRestaurantWithNameOrGroup(lookingFor: string[]) {
-    const results =  [{} as IRestaurantFrontEnd];
+  async filterForRestaurantWithNameOrGroup(lookingFor: string[]) {
+    const results = [{} as IRestaurantFrontEnd];
     results.pop();
-    for (const restaurant of this.restaurants) {
+    for (const restaurant of await this.restaurants) {
       let inserted = false;
       let countName = 0;
       let countGroup = 0;
       let hitRateName = 0;
       let hitRateGroup = 0;
       let max = 0;
+      if (lookingFor[0] === '') {
+        results.push(this.createRestaurantObjFe(
+          restaurant as IRestaurantBackEnd, 100));
+        continue;
+      }
+
       for (const searchedWord of lookingFor) {
         // Check if name of restaurant contains searched word --> return RestaurantObj with 100% hitRate
         // stop if finding name directly
@@ -193,7 +249,6 @@ export default class Filter {
           .includes(searchedWord.toLowerCase())) {
           results.push(this.createRestaurantObjFe(
             restaurant as IRestaurantBackEnd, 100));
-
           inserted = true;
           break;
         }
@@ -225,14 +280,150 @@ export default class Filter {
       // If not inserted directly by name, create RestaurantObj with hitRate
       if (!inserted) {
         results.push(this.createRestaurantObjFe(
-          restaurant as IRestaurantBackEnd, Math.max(hitRateName,
-            hitRateGroup)));
+          restaurant as IRestaurantBackEnd,
+          Math.max(hitRateName, hitRateGroup)
+        ));
       }
     }
-
     // Sort results by hitRate
-    results.sort((a, b) =>
-      (a.hitRate < b.hitRate) ? 1 : -1);
+    results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+    return results;
+  }
+
+  async filterForRestaurantWithRating(lookingFor: number[]) {
+    const results = [{} as IRestaurantFrontEnd];
+    results.pop();
+
+    for (const restaurant of await this.restaurants) {
+      let inserted = false;
+      // Check if rating of restaurant is between the two numbers --> return RestaurantObj with 100% hitRate
+      if (restaurant.rating >= lookingFor[0] &&
+        restaurant.rating <= lookingFor[1]) {
+        inserted = true;
+        results.push(this.createRestaurantObjFe(
+          restaurant as IRestaurantBackEnd, 100));
+      }
+      // If not inserted directly by rating, create RestaurantObj with hitRate == 0
+      if (!inserted) {
+        results.push(this.createRestaurantObjFe(
+          restaurant as IRestaurantBackEnd, 0));
+      }
+    }
+    results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+    return results;
+  }
+
+  async filterForRestaurantWithCategory(lookingFor: string[]) {
+    const results = [{} as IRestaurantFrontEnd];
+    results.pop();
+    for (const restaurant of await this.restaurants) {
+      let inserted = false;
+      let count = 0;
+      const hitRate = 0;
+      let max = 0;
+      for (const searchedWord of lookingFor) {
+        // Check if category of restaurant contains searched word --> return RestaurantObj with 100% hitRate
+        // stop if finding category directly
+        let hitRate = 0;
+        for (const category of restaurant.dishes) {
+          if (category.category.foodGroup.toLowerCase()
+            .includes(searchedWord.toLowerCase())) {
+            count++;
+            max = restaurant.dishes.length;
+            hitRate = (count / max) * 100;
+            results.push(this.createRestaurantObjFe(
+              restaurant as IRestaurantBackEnd, hitRate));
+            inserted = true;
+            break;
+          }
+        }
+      }
+      // If not inserted directly by category, create RestaurantObj with hitRate
+      if (!inserted) {
+        results.push(
+          this.createRestaurantObjFe(
+            restaurant as IRestaurantBackEnd, hitRate));
+      }
+    }
+    results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+    return results;
+  }
+
+  async filterForRestaurantWithLocation(lookingFor: string) {
+    const results = [{} as IRestaurantFrontEnd];
+    results.pop();
+    for (const restaurant of await this.restaurants) {
+      let inserted = false;
+      if (restaurant.location?.city && typeof lookingFor === 'string' &&
+        typeof restaurant.location.city === 'string' &&
+        restaurant.location.city.toLowerCase()
+          .includes(lookingFor.toLowerCase())) {
+        inserted = true;
+        results.push(
+          this.createRestaurantObjFe(restaurant as IRestaurantBackEnd, 100));
+      }
+      if (!inserted) {
+        results.push(
+          this.createRestaurantObjFe(restaurant as IRestaurantBackEnd, 0));
+      }
+    }
+    results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+    return results;
+  }
+
+  // async filterForRestaurantWithRange(lookingFor: number) {
+  //   let results = [{} as IRestaurantFrontEnd];
+  //   results.pop();
+  //   for (let restaurant of await this.restaurants) {
+  //     let inserted = false;
+  //     if (restaurant.range <= lookingFor) {
+  //       inserted = true;
+  //       results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 100));
+  //     }
+  //     if (!inserted) {
+  //       results.push(this.createRestaurantObj(restaurant as IRestaurantBackEnd, 0));
+  //     }
+  //   }
+  //   results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+  //   return results;
+  // }
+
+  async filterForRestaurantWithAllergen(lookingFor: string[]) {
+    const results = [{} as IRestaurantFrontEnd];
+    results.pop();
+    for (const restaurant of await this.restaurants) {
+      let hitRate = 0;
+      for (const dish of restaurant.dishes) {
+        for (const allerg of lookingFor) {
+          if (dish.allergens.some(s => s.toLowerCase() ===
+            allerg.toLowerCase())) {
+            hitRate = 100;
+            break;
+          }
+        }
+        if (hitRate === 100) {
+          break;
+        }
+      }
+      if (hitRate === 100) {
+        results.push(this.createRestaurantObjFe(
+          restaurant as IRestaurantBackEnd, hitRate));
+      } else {
+        results.push(this.createRestaurantObjFe(
+          restaurant as IRestaurantBackEnd, hitRate));
+      }
+    }
+    results.sort((a, b) => (a.hitRate < b.hitRate) ? 1 : -1);
+    return results;
+  }
+
+  async returnDefaultQuery() {
+    const results = [{} as IRestaurantFrontEnd];
+    results.pop();
+    for (const restaurant of await this.restaurants) {
+      results.push(this.createRestaurantObjFe(
+        restaurant as IRestaurantBackEnd, 100));
+    }
     return results;
   }
 }

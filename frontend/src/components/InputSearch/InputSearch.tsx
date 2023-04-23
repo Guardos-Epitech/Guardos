@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "@src/components/InputSearch/InputSearch.module.scss";
+import styles from "@src/components/InputSearch/InputSearch.module.scss";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
@@ -28,7 +29,7 @@ const PageBtn = () => {
     },
     palette: {
       primary: {
-        main: "#AC2A37",
+        main: "#6d071a",
         contrastText: "#ffffff",
       },
       secondary: {
@@ -42,7 +43,7 @@ const PageBtn = () => {
   });
 };
 
-const InputSearch = (props : any) => {
+const InputSearch = (props: any) => {
   const [name, setName] = React.useState("");
   const [location, setLocation] = React.useState("");
 
@@ -68,14 +69,19 @@ const InputSearch = (props : any) => {
       <ThemeProvider theme={theme}>
         <TextField
           label="Name"
-          variant="outlined"
+          variant="filled"
           className={styles.InputSearch}
           onChange={onChangeName}
         />
       </ThemeProvider>
-      <Autocomplete data={autoCompleteData} onChange={onChangeLocation}/>
+      <Autocomplete data={autoCompleteData} onChange={onChangeLocation} />
       <ThemeProvider theme={PageBtn()}>
-        <Button variant="contained" endIcon={<SearchIcon />} onClick={() => sendButtonData(name, location)} >Search</Button>
+        <Button
+          variant="contained"
+          endIcon={<SearchIcon />}
+          onClick={() => sendButtonData(name, location)} >
+          Search
+        </Button>
       </ThemeProvider>
     </div>
   );

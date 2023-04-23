@@ -4,6 +4,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+const DeadCodePlugin = require('webpack-deadcode-plugin');
 const { joinPaths } = require("@remix-run/router");
 
 const isProduction = process.env.NODE_ENV == "production";
@@ -14,22 +15,31 @@ const config = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
   devServer: {
     open: true,
     host: "0.0.0.0",
-    port: 8080
+    port: 8080,
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       favicon: "./public/favicon.ico",
+      
     }),
-
     new MiniCssExtractPlugin(),
-
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+    new DeadCodePlugin({
+      patterns: [
+        'src/**/*.(js|jsx|css)',
+      ],
+      exclude: [
+        '**/*.(stories|spec).(js|jsx)',
+      ],
+    })
   ],
   module: {
     rules: [

@@ -6,6 +6,7 @@
   background-color: #ffffff;
   filter: drop-shadow(0rem 0.25rem 0.313rem rgba(0, 0, 0, 0.25));
   margin-top: 3rem;
+  border-radius: 0.625rem;
 }
 
 .TitleFilter {
@@ -24,11 +25,20 @@
   font-size: 1.06rem;
   font-weight: 600;
   color: #000000;
-  // margin-bottom: 3rem;
 }
 
 .DivRating {
+  padding-top: 1rem;
   display: grid;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(3, auto);
+}
+
+.DivCategories {
+  padding-top: 1rem;
+  display: grid;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(3, auto);
 }
 
 .TitleCheck {
@@ -49,18 +59,12 @@
 .DivFilter {
   padding-top: 2rem;
   margin-left: 2rem;
+  height: 100%;
 }
 
 .DivRange {
   margin-top: 2rem;
-}
-
-.TitleRangeValue {
-  color: #000000;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.94rem;
-  font-weight: 400;
-  margin-left: 4rem;
+  margin-bottom: 2rem;
 }
 
 .DivSlider {
