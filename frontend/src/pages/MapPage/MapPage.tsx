@@ -6,7 +6,7 @@ import BackButton from '@src/components/HomeButton/HomeButton';
 import Filter from "@src/components/Filter/Filter";
 import MapView from '@src/components/Map/Map';
 import { IRestaurantFrontEnd, IFilterObject } from "@src/filter/filter";
-import { getFilteredRestos } from "@src/services/filterCalls";
+import { getSelectedFilteredRestos } from "@src/services/filterCalls";
 
 const MapPage = () => {
   // needs to be changed for the database && be sorted out as an own component
@@ -38,78 +38,54 @@ const MapPage = () => {
 
   const updateRestoData = () => {
     const inter: IFilterObject = { name: "" }
-    getFilteredRestos(inter).then((res) => {
+    getSelectedFilteredRestos(inter).then((res) => {
       setFilteredRestaurants(res);
     });
   }
 
   async function handleFilterChange(obj: IFilterObject, check?: any) {
-    let location = inputFields[1];
-    let nameSearch = inputFields[0];
-    let rangeSearch = rangeValue;
-    let buttons = filterButtons;
-    let allergen = allergens;
-
-    if (obj.location || obj.name) {
-      location = obj.location;
-      nameSearch = obj.name;
-      setInputFields([obj.name, obj.location]);
+    // Construct the filter based on the provided object
+    const filter: any = {};
+    if (obj.allergenList && obj.allergenList.length > 0) {
+      filter.allergenList = obj.allergenList;
+    }
+    if (obj.location) {
+      filter.location = obj.location;
+    }
+    if (obj.name) {
+      filter.name = obj.name;
+    }
+    if (obj.rating && obj.rating.length === 2) {
+      filter.rating = {
+        $gte: obj.rating[0],
+        $lte: obj.rating[1]
+      };
     }
     if (obj.range) {
-      rangeSearch = obj.range;
-      setRangeValue(obj.range);
+      filter.range = obj.range;
     }
-    if (obj.rating) {
-      setFilterButtons(check);
-      buttons = check;
+    if (obj.categories && obj.categories.length > 0) {
+      filter.categories = {
+        $in: obj.categories
+      };
     }
-    if (obj.allergenList) {
-      setAllergens(check);
-      allergen = check;
-    }
-
-    let min = 0;
-    let max = 0;
-    let categoriesSelected = [];
-    let allergenListChanged = [];
-
-    for (let i = 0; i < 5; i++) {
-      if (buttons[i].value == true) {
-        if (min == 0 && max == 0) {
-          min = i + 1;
-          max = i + 1;
-        } else if (max < i + 1) {
-          max = i + 1;
-        }
-      }
-    }
-    for (let i = 5; i < buttons.length; i++) {
-      if (buttons[i].value == true) {
-        categoriesSelected.push(filterButtons[i].name);
-      }
-    }
-    for (let i = 0; i < allergen.length; i++) {
-      if (allergen[i].value) {
-        allergenListChanged.push(allergen[i].name);
-      }
+    if (obj.dishes) {
+      filter.dishes = obj.dishes;
     }
 
-    const inter: IFilterObject = {
-      range: rangeSearch,
-      rating: [min, max],
-      name: nameSearch,
-      location: location,
-      categories: categoriesSelected,
-      allergenList: allergenListChanged
-    }
-    setFilteredRestaurants(await getFilteredRestos(inter));
+    // Call the backend API to get the filtered restaurants
+    const inter = await getSelectedFilteredRestos(filter);
+
+    // Set the filtered restaurants
+    setFilteredRestaurants(inter);
   }
+
   return (
     <>
       <Header />
       <div className={styles.RectOnImg}>
         <span className={styles.TitleSearch}>What are you looking for ?</span>
-        <InputSearch />
+        <InputSearch onChange={handleFilterChange} />
       </div>
       <div className={styles.DivContent}>
         <div className={styles.DivMapBtn}>

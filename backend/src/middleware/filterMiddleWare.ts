@@ -1,6 +1,10 @@
 import Filter from '../controllers/restaurantController';
 import { ICommunication } from '../models/communicationInterfaces';
 import { IFilterObj } from '../models/filterInterfaces';
+import { readAndGetAllRestaurants } from '../controllers/connectDataBase';
+import { IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd }
+  from '../models/restaurantInterfaces';
+import { ICategories } from '../models/categoryInterfaces';
 
 export const handleFilterRequest = async function (filterReq: ICommunication) {
   let check = 0;
@@ -94,3 +98,81 @@ export const handleFilterRequest = async function (filterReq: ICommunication) {
   }
   return result;
 };
+
+export const handleSelectedFilterRequest = async function (filters: ICommunication) {
+  let restaurants = await readAndGetAllRestaurants();
+  let filteredRestaurants: IRestaurantBackEnd[] = [];
+  const result: IRestaurantFrontEnd[] = [];
+  for (const elem of restaurants) {
+    const obj: IRestaurantBackEnd = {
+      id: elem.id,
+      name: elem.name,
+      description: elem.description,
+      rating: elem.rating,
+      ratingCount: elem.ratingCount,
+      openingHours: elem.openingHours,
+      pictures: elem.pictures,
+      products: elem.products,
+      website: elem.website,
+      phoneNumber: elem.phoneNumber,
+      mealType: elem.mealType,
+      dishes: elem.dishes,
+      location: elem.location,
+      extras: elem.extras
+    };
+    filteredRestaurants.push(obj);
+  }
+
+  if (filters.name) {
+    filteredRestaurants = filteredRestaurants.filter((restaurant) =>
+      restaurant.name.toLowerCase().includes(filters.name.toLowerCase())
+    );
+  }
+
+  // Filter by rating
+  if (filters.rating) {
+    if (filters.rating.length === 1) {
+      filteredRestaurants = filteredRestaurants.filter((restaurant) => restaurant.rating === filters.rating[0]);
+    } else if (filters.rating.length === 2) {
+      filteredRestaurants = filteredRestaurants.filter(
+        (restaurant) => restaurant.rating >= filters.rating[0] && restaurant.rating <= filters.rating[1]
+      );
+    }
+  }
+
+  // Filter by categories
+  if (filters.categories && filters.categories.length > 0) {
+    filteredRestaurants = filteredRestaurants.filter((restaurant) =>
+      restaurant.dishes.some((dish) => filters.categories?.includes(dish.category.foodGroup))
+    );
+  }
+
+  // Filter by allergenList
+  if (filters.allergenList && filters.allergenList.length > 0) {
+    filteredRestaurants = filteredRestaurants.filter(
+      (restaurant) =>
+        !restaurant.dishes.some((dish) => filters.allergenList?.some((allergen) => dish.allergens?.includes(allergen)))
+    );
+  }
+
+  for (const restaurant of filteredRestaurants) {
+    const obj: IRestaurantFrontEnd = {
+      name: restaurant.name,
+      website: restaurant.website,
+      description: restaurant.description,
+      rating: restaurant.rating,
+      ratingCount: restaurant.ratingCount,
+      pictures: restaurant.pictures,
+      openingHours: [{} as IOpeningHours],
+      products: [{} as IProducts],
+      id: restaurant.id,
+      phoneNumber: restaurant.phoneNumber,
+      categories: [{} as ICategories],
+      location: restaurant.location,
+      hitRate: 100
+    };
+    console.log(obj.name);
+    result.push(obj);
+  }
+  return result;
+}
