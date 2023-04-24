@@ -113,6 +113,8 @@ const MapView = (props: MapProps) => {
     },
   }), [testMarkerL]);
 
+  vectorLayer.set('name', 'markerLayer');
+
   //create new map 
   useEffect(() => {
     if (!mapElement.current) {
@@ -132,7 +134,8 @@ const MapView = (props: MapProps) => {
   useEffect(() => {
     if (map) {
       map.getLayers().forEach((layer: any) => {
-        if (layer && layer.get('name') === 'Marker') {
+        console.log(layer);
+        if (layer && layer.get('name') === 'markerLayer') {
           map.removeLayer(layer);
         }
       });

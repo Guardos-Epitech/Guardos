@@ -99,8 +99,8 @@ export const handleFilterRequest = async function (filterReq: ICommunication) {
   return result;
 };
 
-export const handleSelectedFilterRequest = async function (filters: ICommunication) {
-  let restaurants = await readAndGetAllRestaurants();
+export const getSelectedFilterReq = async function (filters: ICommunication) {
+  const restaurants = await readAndGetAllRestaurants();
   let filteredRestaurants: IRestaurantBackEnd[] = [];
   const result: IRestaurantFrontEnd[] = [];
   for (const elem of restaurants) {
@@ -125,17 +125,21 @@ export const handleSelectedFilterRequest = async function (filters: ICommunicati
 
   if (filters.name) {
     filteredRestaurants = filteredRestaurants.filter((restaurant) =>
-      restaurant.name.toLowerCase().includes(filters.name.toLowerCase())
+      restaurant.name.toLowerCase()
+        .includes(filters.name.toLowerCase())
     );
   }
 
   // Filter by rating
   if (filters.rating) {
     if (filters.rating.length === 1) {
-      filteredRestaurants = filteredRestaurants.filter((restaurant) => restaurant.rating === filters.rating[0]);
+      filteredRestaurants = filteredRestaurants.filter((restaurant) =>
+        restaurant.rating === filters.rating[0]);
     } else if (filters.rating.length === 2) {
       filteredRestaurants = filteredRestaurants.filter(
-        (restaurant) => restaurant.rating >= filters.rating[0] && restaurant.rating <= filters.rating[1]
+        (restaurant) =>
+          restaurant.rating >= filters.rating[0] &&
+          restaurant.rating <= filters.rating[1]
       );
     }
   }
@@ -143,7 +147,8 @@ export const handleSelectedFilterRequest = async function (filters: ICommunicati
   // Filter by categories
   if (filters.categories && filters.categories.length > 0) {
     filteredRestaurants = filteredRestaurants.filter((restaurant) =>
-      restaurant.dishes.some((dish) => filters.categories?.includes(dish.category.foodGroup))
+      restaurant.dishes.some((dish) =>
+        filters.categories?.includes(dish.category.foodGroup))
     );
   }
 
@@ -151,7 +156,9 @@ export const handleSelectedFilterRequest = async function (filters: ICommunicati
   if (filters.allergenList && filters.allergenList.length > 0) {
     filteredRestaurants = filteredRestaurants.filter(
       (restaurant) =>
-        !restaurant.dishes.some((dish) => filters.allergenList?.some((allergen) => dish.allergens?.includes(allergen)))
+        !restaurant.dishes.some((dish) =>
+          filters.allergenList?.some((allergen) =>
+            dish.allergens?.includes(allergen)))
     );
   }
 
@@ -175,4 +182,4 @@ export const handleSelectedFilterRequest = async function (filters: ICommunicati
     result.push(obj);
   }
   return result;
-}
+};

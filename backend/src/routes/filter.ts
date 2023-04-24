@@ -3,7 +3,8 @@ import { Response, Request } from 'express';
 import bodyParser from 'body-parser';
 
 import { geocoding } from '../middleware/mapMiddleware';
-import { handleFilterRequest, handleSelectedFilterRequest } from '../middleware/filterMiddleWare';
+import { handleFilterRequest, getSelectedFilterReq }
+  from '../middleware/filterMiddleWare';
 
 const router = express.Router();
 
@@ -34,7 +35,7 @@ router.post('/filter', async function (req: Request, res: Response) {
 
 router.post('/filteredlist', async function (req: Request, res: Response) {
   try {
-    const answer = await handleSelectedFilterRequest(req.body);
+    const answer = await getSelectedFilterReq(req.body);
     return res.send(answer);
   } catch (error) {
     console.log(error);
