@@ -2,9 +2,8 @@ import Filter from '../controllers/restaurantController';
 import { ICommunication } from '../models/communicationInterfaces';
 import { IFilterObj } from '../models/filterInterfaces';
 import { readAndGetAllRestaurants } from '../controllers/connectDataBase';
-import { IOpeningHours, IProducts, IRestaurantBackEnd, IRestaurantFrontEnd }
+import { IRestaurantBackEnd, IRestaurantFrontEnd }
   from '../models/restaurantInterfaces';
-import { ICategories } from '../models/categoryInterfaces';
 
 export const handleFilterRequest = async function (filterReq: ICommunication) {
   let check = 0;
@@ -100,6 +99,7 @@ export const handleFilterRequest = async function (filterReq: ICommunication) {
 };
 
 export const getSelectedFilterReq = async function (filters: ICommunication) {
+  const filter = new Filter();
   const restaurants = await readAndGetAllRestaurants();
   let filteredRestaurants: IRestaurantBackEnd[] = [];
   const result: IRestaurantFrontEnd[] = [];
@@ -127,6 +127,13 @@ export const getSelectedFilterReq = async function (filters: ICommunication) {
     filteredRestaurants = filteredRestaurants.filter((restaurant) =>
       restaurant.name.toLowerCase()
         .includes(filters.name.toLowerCase())
+    );
+  }
+
+  if (filters.location) {
+    filteredRestaurants = filteredRestaurants.filter((restaurant) =>
+      restaurant.location.city.toLowerCase()
+        .includes(filters.location.toLowerCase())
     );
   }
 
@@ -163,23 +170,13 @@ export const getSelectedFilterReq = async function (filters: ICommunication) {
   }
 
   for (const restaurant of filteredRestaurants) {
-    const obj: IRestaurantFrontEnd = {
-      name: restaurant.name,
-      website: restaurant.website,
-      description: restaurant.description,
-      rating: restaurant.rating,
-      ratingCount: restaurant.ratingCount,
-      pictures: restaurant.pictures,
-      openingHours: [{} as IOpeningHours],
-      products: [{} as IProducts],
-      id: restaurant.id,
-      phoneNumber: restaurant.phoneNumber,
-      categories: [{} as ICategories],
-      location: restaurant.location,
-      hitRate: 100
-    };
-    console.log(obj.name);
-    result.push(obj);
+    try {
+      let resto = await filter.createRestaurantObjFe(restaurant, 100);
+      result.push(resto);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error occurred while processing filter results.');
+    }
   }
   return result;
 };

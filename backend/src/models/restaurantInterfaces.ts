@@ -20,36 +20,36 @@ export interface IOpeningHours {
 }
 
 export interface IRestaurantFrontEnd {
-  name: string;
   id: number;
-  phoneNumber: string;
-  website: string;
+  name: string;
   description: string;
-  categories: [ICategories];
-  location: ILocation;
-  openingHours: [IOpeningHours];
-  pictures: [string];
-  hitRate: number;
   rating: number;
   ratingCount: number;
+  openingHours: [IOpeningHours];
+  pictures: [string];
   products: [IProducts];
+  website: string;
+  phoneNumber: string;
+  categories: [ICategories];
+  location: ILocation;
+  hitRate: number;
 }
 
 export interface IRestaurantBackEnd {
   id: number;
   name: string;
-  phoneNumber: string;
-  website: string;
+  description: string;
   rating: number;
   ratingCount: number;
   openingHours: [IOpeningHours];
   pictures: [string];
-  description: string;
+  products: [IProducts];
+  website: string;
+  phoneNumber: string;
+  mealType: [IMealType];
   dishes: [IDishBE];
   location: ILocation;
-  mealType: [IMealType];
   extras: [IDishBE];
-  products: [IProducts];
 }
 
 //Database structure for restaurants

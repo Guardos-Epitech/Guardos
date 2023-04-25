@@ -75,7 +75,6 @@ const MapPage = () => {
 
     // Call the backend API to get the filtered restaurants
     const inter = await getSelectedFilteredRestos(filter);
-
     // Set the filtered restaurants
     setFilteredRestaurants(inter);
   }

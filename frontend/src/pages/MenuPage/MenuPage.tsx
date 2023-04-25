@@ -50,7 +50,7 @@ const MenuPage = () => {
                       <Dish
                         key={dish.name + index}
                         dishName={dish.name}
-                        dishAllergens={dish.allergens.split(',')}
+                        dishAllergens={dish.allergens}
                         dishDescription={dish.description}
                         options={dish.category.extraGroup}
                         imageSrc={dish.pictures[0]}

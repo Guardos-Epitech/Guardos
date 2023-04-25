@@ -17,7 +17,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { NavigateTo } from "@src/utils/NavigateTo";
-// import Popover from "@mui/material/Popover";
 
 const Berlin = [13.409523443447888, 52.52111129522459];
 const Epitech = [13.328820, 52.508540];// long,lat
@@ -79,8 +78,7 @@ const MapView = (props: MapProps) => {
   const [map, setMap] = useState(null);
   const element = document.getElementById('popup');
   const popupContent = document.getElementById('popup-content');
-  const closer = document.getElementById('popup-closer');
-  const [clickedFeature, setClickedFeature] = useState(null);
+  const [clickedFeature, setClickedFeature] = useState<IRestaurantFrontEnd | null>(null);
 
   //create all markers with all infos
   const testMarkerL = useMemo(() => {
@@ -134,7 +132,6 @@ const MapView = (props: MapProps) => {
   useEffect(() => {
     if (map) {
       map.getLayers().forEach((layer: any) => {
-        console.log(layer);
         if (layer && layer.get('name') === 'markerLayer') {
           map.removeLayer(layer);
         }
@@ -148,9 +145,13 @@ const MapView = (props: MapProps) => {
     element: element,
     positioning: 'bottom-center',
     stopEvent: false,
+    autoPan: true,
+    autoPanAnimation: {
+      duration: 250
+    }
   }), [element]);
 
-  // //add popup to map
+  //add popup to map
   useEffect(() => {
     if (map) {
       map.addOverlay(popup);
@@ -161,16 +162,27 @@ const MapView = (props: MapProps) => {
   useEffect(() => {
     if (map) {
       map.on('click', function (evt: any) {
-        console.log("click");
         const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature: Feature) {
           return feature;
         });
         if (!feature) {
+          popup.setPosition(undefined);
           return;
         }
-        popupContent.innerHTML = feature.get('description') + "<br/><p>tel.: " + feature.get('telephone') + "</p><br/><p>address: " + feature.get('address') + "</p>";
+        const restaurant = feature.get('objectR') as IRestaurantFrontEnd;
+        const description = feature.get('description');
+        const telephone = feature.get('telephone');
+        const address = feature.get('address');
+        const content = `
+        <div>
+          <div>${description}</div>
+          <div>tel.: ${telephone}</div>
+          <div>address: ${address}</div>
+        </div>
+      `;
+        popupContent.innerHTML = content;
         popup.setPosition(evt.coordinate);
-        setClickedFeature(feature.get('objectR'));
+        setClickedFeature(restaurant);
       });
       map.on('pointermove', function (e: any) {
         const pixel = map.getEventPixel(e.originalEvent);
@@ -178,13 +190,7 @@ const MapView = (props: MapProps) => {
         map.getTarget().style.cursor = hit ? 'pointer' : '';
       });
     }
-  }, [popup, map]);
-
-  function renderDynamicMenu() {
-    return (
-      clickedFeature
-    );
-  }
+  }, [popup, map, setClickedFeature, clickedFeature]);
 
   return (
     <>
@@ -196,13 +202,16 @@ const MapView = (props: MapProps) => {
           <Button
             variant="contained"
             sx={{ width: "12.13rem" }}
-            onClick={() => NavigateTo("/menu", navigate, renderDynamicMenu())}
+            onClick={() => NavigateTo("/menu", navigate, {
+              menu: clickedFeature.categories,
+              restoName: clickedFeature.name,
+              address: `${clickedFeature.location.streetName} ${clickedFeature.location.streetNumber}, ${clickedFeature.location.postalCode} ${clickedFeature.location.city}, ${clickedFeature.location.country}`,
+            })}
           >
             Restaurant page
           </Button>
         </ThemeProvider>
       </div>
-      {/* </div> */}
     </>
   )
 };
