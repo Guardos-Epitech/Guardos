@@ -171,7 +171,7 @@ export const getSelectedFilterReq = async function (filters: ICommunication) {
 
   for (const restaurant of filteredRestaurants) {
     try {
-      let resto = await filter.createRestaurantObjFe(restaurant, 100);
+      const resto = await filter.createRestaurantObjFe(restaurant, 100);
       result.push(resto);
     } catch (error) {
       console.error(error);
