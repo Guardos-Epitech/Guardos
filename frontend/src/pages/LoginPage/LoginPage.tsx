@@ -72,7 +72,7 @@ const Login = () => {
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <TextField
-              label="Username"
+              label="Username or Email"
               name="username"
               value={user.username}
               onChange={handleChange}
