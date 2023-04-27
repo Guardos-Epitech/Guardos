@@ -7,24 +7,23 @@ import logo from "@src/assets/logo.png";
 
 const Header = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [routeLoggedIn, setRouteLoggedIn] = useState("/login");
+  const [routeLoggedIn, setRouteLoggedIn] = useState('/login');
   const navigate = useNavigate();
   
   function logoutUser() {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
     setLoggedIn(false);
     NavigateTo('/', navigate, {})
   }
 
   useEffect(() => {
-    const userData = localStorage.getItem("user");
+    const userData = localStorage.getItem('user');
 
-    console.log(userData);
     if (userData !== null) {
       setLoggedIn(true);
     } else {
       setLoggedIn(false);
-      localStorage.removeItem("user");
+      localStorage.removeItem('user');
     }
   }, []);
 
@@ -42,7 +41,7 @@ const Header = () => {
         )}
       </span>
       <span className={styles.NavTitle}>My Account</span>
-      <img className={styles.LogoImg} src={logo} alt="Logo" />
+      <img className={styles.LogoImg} src={logo} alt="Logo" onClick={() => NavigateTo('/', navigate, {})} />
       <span className={styles.NavTitle}>About Us ?</span>
       <span className={styles.NavTitle}>Contact Us</span>
     </div>

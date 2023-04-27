@@ -43,9 +43,9 @@ const Login = () => {
           },
       });
       console.log(response.data);
-      if (response.data === "Invalid Access") {
+      if (response.data === 'Invalid Access') {
         setErrorForm(true);
-        localStorage.removeItem("user");
+        localStorage.removeItem('user');
       } else {
         localStorage.setItem('user', JSON.stringify(response.data));
         setErrorForm(false);
@@ -93,6 +93,9 @@ const Login = () => {
             <Button type="submit" variant="contained" color="primary" size='large'>
               Login
             </Button>
+            <p className={styles.registerInfo}>
+              Don't you have an account yet? Register yourself <a className={styles.registerLink} onClick={() => NavigateTo('/register', navigate, {})}>here</a>.
+            </p>
           </form>
         </div>
       </Layout>

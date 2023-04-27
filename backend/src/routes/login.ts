@@ -18,8 +18,6 @@ router.post('/', async function (req: Request, res: Response) {
       return res.send('Invalid Access');
     }
   } catch (error) {
-    console.log(error);
-    console.log('yep');
     return res.status(500)
       .send('An error occurred while processing your request');
   }
