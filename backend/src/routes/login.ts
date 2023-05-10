@@ -1,11 +1,8 @@
-import bodyParser from 'body-parser';
 import * as express from 'express';
 import { Response, Request } from 'express';
 import { loginUser } from '../controllers/userController';
 
 const router = express.Router();
-
-router.use(bodyParser.json());
 
 router.post('/', async function (req: Request, res: Response) {
   try {
@@ -15,7 +12,7 @@ router.post('/', async function (req: Request, res: Response) {
     if (answer) {
       return res.send(data);
     } else {
-      return res.send('Invalid Access');
+      return res.status(403).send('Invalid Access');
     }
   } catch (error) {
     return res.status(500)

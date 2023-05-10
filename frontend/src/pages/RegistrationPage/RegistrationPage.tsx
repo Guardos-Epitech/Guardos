@@ -45,18 +45,33 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // handle registration logic here
-    console.log(user);
     try {
       let dataStorage = JSON.stringify({
         username: user.username,
         password: user.password,
         email: user.email
       });
+
       if (!isValidPassword(user.password)) {
         setErrorPassword(true);
       } else {
         setErrorPassword(false);
       }
+      if (!user.email) {
+        setErrorEmail(true);
+      } else {
+        setErrorEmail(false);
+      }
+      if (!user.username) {
+        setErrorUsername(true);
+      } else {
+        setErrorUsername(false);
+      }
+
+      if (errorEmail || errorPassword || errorUsername) {
+        return;
+      }
+
       const response = await axios({
           method: 'POST',
           url: baseUrl,
@@ -65,6 +80,7 @@ const Register = () => {
               'Content-Type': 'application/json',
           },
       });
+
       if (response.data[0]) {
         setErrorEmail(true);
       } else {
@@ -75,6 +91,7 @@ const Register = () => {
       } else {
         setErrorUsername(false);
       }
+
       if (!response.data.includes(true)) {
         NavigateTo("/login", navigate, {});
       }
@@ -104,7 +121,7 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               error={errorUsername}
-              helperText={errorUsername ? 'The desired Username exists already' : ''}
+              helperText={errorUsername ? 'The desired Username exists already or is invalid' : ''}
             />
             <TextField
               label="Email"
@@ -114,7 +131,7 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               error={errorEmail}
-              helperText={errorEmail ? 'An account already exists for the specified emial' : ''}
+              helperText={errorEmail ? 'An account already exists for the specified email or is invalid' : ''}
             />
             <TextField
               label="Password"

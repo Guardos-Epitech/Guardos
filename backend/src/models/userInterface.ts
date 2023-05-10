@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-//Database structure for restaurants
+//Database structure for users
 export const userSchema = new mongoose.Schema({
   username: String,
   email: String,

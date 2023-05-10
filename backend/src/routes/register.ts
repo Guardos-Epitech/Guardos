@@ -1,11 +1,8 @@
-import bodyParser from 'body-parser';
 import * as express from 'express';
 import { Response, Request } from 'express';
 import { addUser } from '../controllers/userController';
 
 const router = express.Router();
-
-router.use(bodyParser.json());
 
 router.post('/', async function (req: Request, res: Response) {
   try {

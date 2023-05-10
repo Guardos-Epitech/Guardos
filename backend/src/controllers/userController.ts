@@ -12,13 +12,15 @@ export async function addUser(username: string,
     email: email,
     password: password
   });
-  const existingUsername = await UserSchema.findOne({ username: username }).exec();
-  const existingEmail = await UserSchema.findOne({ email: email }).exec();
+  const existingUsername = await UserSchema.findOne({ username: username })
+    .exec();
+  const existingEmail = await UserSchema.findOne({ email: email })
+    .exec();
 
-  if (!!existingEmail) {
+  if (existingEmail) {
     errorArray[0] = true;
   }
-  if (!!existingUsername) {
+  if (existingUsername) {
     errorArray[1] = true;
   }
   if (errorArray.includes(true)) {
@@ -30,10 +32,8 @@ export async function addUser(username: string,
 
 export async function loginUser(username: string, 
   password: string) {
-  console.log('Loggin as an User');
   const UserSchema = mongoose.model('User', userSchema, 'User');
   const userData = await UserSchema.find();
-  console.log(password);
   for (const elem of userData) {
     if ((elem.username === username || 
       elem.email === username) && elem.password === password) {
