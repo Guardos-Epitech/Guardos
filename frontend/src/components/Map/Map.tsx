@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState, useMemo } from "react";
+import ReactDOMServer from 'react-dom/server';
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -78,19 +79,22 @@ const MapView = (props: MapProps) => {
   const [map, setMap] = useState(null);
   const element = document.getElementById('popup');
   const popupContent = document.getElementById('popup-content');
-  const [clickedFeature, setClickedFeature] = useState<IRestaurantFrontEnd | null>(null);
+  const [clickedFeature, setClickedFeature] =
+    useState<IRestaurantFrontEnd | null>(null);
 
-  //create all markers with all infos
   const testMarkerL = useMemo(() => {
     let markerList: Feature[] = [];
     if (props.data) {
       for (const elem of props.data) {
         const obj = new Feature({
           type: 'icon',
-          geometry: new Point([parseFloat(elem.location.longitude), parseFloat(elem.location.latitude)]),
+          geometry: new Point([parseFloat(elem.location.longitude),
+          parseFloat(elem.location.latitude)]),
           description: elem.name,
           telephone: elem.phoneNumber,
-          address: elem.location.streetName + ' ' + elem.location.streetNumber + ' ' + elem.location.postalCode,
+          address:
+            elem.location.streetName + ' ' + elem.location.streetNumber +
+            ', ' + elem.location.postalCode + ' ' + elem.location.city,
           index: elem.id,
           objectR: elem,
           name: 'Marker',
@@ -101,7 +105,6 @@ const MapView = (props: MapProps) => {
     return markerList;
   }, [props.data]);
 
-  //create marker icons 
   const vectorLayer = useMemo(() => new VL({
     source: new VectorSource({
       features: testMarkerL,
@@ -113,7 +116,6 @@ const MapView = (props: MapProps) => {
 
   vectorLayer.set('name', 'markerLayer');
 
-  //create new map 
   useEffect(() => {
     if (!mapElement.current) {
       return;
@@ -128,7 +130,6 @@ const MapView = (props: MapProps) => {
 
   }, []);
 
-  // set all markers
   useEffect(() => {
     if (map) {
       map.getLayers().forEach((layer: any) => {
@@ -140,7 +141,6 @@ const MapView = (props: MapProps) => {
     }
   }, [vectorLayer, map]);
 
-  // create popup
   const popup = useMemo(() => new Overlay({
     element: element,
     positioning: 'bottom-center',
@@ -151,35 +151,38 @@ const MapView = (props: MapProps) => {
     }
   }), [element]);
 
-  //add popup to map
   useEffect(() => {
     if (map) {
       map.addOverlay(popup);
     };
   }, [popup]);
 
-  //if click on marker open popup
   useEffect(() => {
     if (map) {
       map.on('click', function (evt: any) {
-        const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature: Feature) {
-          return feature;
-        });
+        const feature = map.forEachFeatureAtPixel(evt.pixel,
+          function (feature: Feature) {
+            return feature;
+          });
         if (!feature) {
           popup.setPosition(undefined);
           return;
         }
         const restaurant = feature.get('objectR') as IRestaurantFrontEnd;
+        const picture = restaurant.pictures[0];
+        const rating = restaurant.rating;
         const description = feature.get('description');
         const telephone = feature.get('telephone');
         const address = feature.get('address');
-        const content = `
-        <div>
-          <div>${description}</div>
-          <div>tel.: ${telephone}</div>
-          <div>address: ${address}</div>
-        </div>
-      `;
+        const content = ReactDOMServer.renderToString(
+          <div>
+            <img src={picture} alt="Logo" style={{ width: '471px', height: '176px' }} />
+            <h2>{description}</h2>
+            <p>Rating: {rating}</p>
+            <p>Tel.: {telephone}</p>
+            <p>Address: {address}</p>
+          </div>
+        );
         popupContent.innerHTML = content;
         popup.setPosition(evt.coordinate);
         setClickedFeature(restaurant);
@@ -205,7 +208,11 @@ const MapView = (props: MapProps) => {
             onClick={() => NavigateTo("/menu", navigate, {
               menu: clickedFeature.categories,
               restoName: clickedFeature.name,
-              address: `${clickedFeature.location.streetName} ${clickedFeature.location.streetNumber}, ${clickedFeature.location.postalCode} ${clickedFeature.location.city}, ${clickedFeature.location.country}`,
+              address: `${clickedFeature.location.streetName} 
+              ${clickedFeature.location.streetNumber}, 
+              ${clickedFeature.location.postalCode} 
+              ${clickedFeature.location.city}, 
+              ${clickedFeature.location.country}`,
             })}
           >
             Restaurant page
