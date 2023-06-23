@@ -12,7 +12,8 @@ router.post('/', async function (req: Request, res: Response) {
     if (answer) {
       return res.send(data);
     } else {
-      return res.status(403).send('Invalid Access');
+      return res.status(403)
+        .send('Invalid Access');
     }
   } catch (error) {
     return res.status(500)

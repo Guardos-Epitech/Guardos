@@ -42,7 +42,6 @@ const Login = () => {
               'Content-Type': 'application/json',
           },
       });
-      console.log(response.data);
       if (response.data === 'Invalid Access') {
         setErrorForm(true);
         localStorage.removeItem('user');
