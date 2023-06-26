@@ -4,6 +4,9 @@ import { connectDataBase, SUCCEED } from './controllers/connectDataBase';
 import createError from 'http-errors';
 import express from 'express';
 import filter from './routes/filter';
+import register from './routes/register';
+import login from './routes/login';
+import user from './routes/user';
 import logger from 'morgan';
 import path = require('path');
 
@@ -25,6 +28,9 @@ async function main() {
   }
 
   app.use('/api', filter);
+  app.use('/api/register', register);
+  app.use('/api/login', login);
+  app.use('/api/user', user);
 
   // catch 404 and forward to error handler
   app.use(function (next: any) { /* eslint-disable-line */

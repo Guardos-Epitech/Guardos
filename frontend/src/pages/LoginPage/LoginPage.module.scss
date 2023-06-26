@@ -1,0 +1,14 @@
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.registerInfo {
+  font-size: 1.5rem;
+}
+
+.registerLink {
+  cursor: pointer;
+  color: #6d071a;
+  text-decoration: underline;
+}
